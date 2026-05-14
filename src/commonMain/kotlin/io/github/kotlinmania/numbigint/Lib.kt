@@ -1,4 +1,4 @@
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.numbigint
 
 /*
@@ -101,6 +101,13 @@ class TryFromBigIntError<T> internal constructor(
     private companion object {
         const val DESCRIPTION = "out of range conversion regarding big integer attempted"
     }
+}
+
+class TryFromBigIntException internal constructor(
+    val error: TryFromBigIntError<*>,
+) : IllegalArgumentException(error.message) {
+    override val message: String
+        get() = error.message
 }
 
 internal typealias BigDigit = UInt
