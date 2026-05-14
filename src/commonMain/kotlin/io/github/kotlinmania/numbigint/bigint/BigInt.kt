@@ -800,31 +800,115 @@ fun zeroBigInt(): BigInt = BigInt.zero()
 fun oneBigInt(): BigInt = BigInt.one()
 
 operator fun BigInt.div(other: BigInt): BigInt {
-    val (q, _) = divRem(other)
-    return q
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
 }
 
 operator fun BigInt.divAssign(other: BigInt) {
-    val next = this / other
-    cloneFrom(next)
+    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
 }
 
 operator fun BigInt.div(other: UInt): BigInt {
-    return this / BigInt.from(other)
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.divAssign(other: UInt) {
+    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+}
+
+operator fun UInt.div(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.div(other: ULong): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.divAssign(other: ULong) {
+    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+}
+
+operator fun ULong.div(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.div(other: Int): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.divAssign(other: Int) {
+    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+}
+
+operator fun Int.div(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.div(other: Long): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
+}
+
+operator fun BigInt.divAssign(other: Long) {
+    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+}
+
+operator fun Long.div(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.div(this, other)
 }
 
 operator fun BigInt.rem(other: BigInt): BigInt {
-    val (_, r) = divRem(other)
-    return r
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
 }
 
 operator fun BigInt.remAssign(other: BigInt) {
-    val next = this % other
-    cloneFrom(next)
+    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
 }
 
 operator fun BigInt.rem(other: UInt): BigInt {
-    return this % BigInt.from(other)
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.remAssign(other: UInt) {
+    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+}
+
+operator fun UInt.rem(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.rem(other: ULong): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.remAssign(other: ULong) {
+    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+}
+
+operator fun ULong.rem(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.rem(other: Int): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.remAssign(other: Int) {
+    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+}
+
+operator fun Int.rem(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.rem(other: Long): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
+}
+
+operator fun BigInt.remAssign(other: Long) {
+    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+}
+
+operator fun Long.rem(other: BigInt): BigInt {
+    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
 }
 
 fun BigInt.toBigInt(): BigInt? {
