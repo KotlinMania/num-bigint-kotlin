@@ -5,6 +5,8 @@ import io.github.kotlinmania.numbigint.bigint.plus
 import io.github.kotlinmania.numbigint.bigint.plusAssign
 import io.github.kotlinmania.numbigint.bigint.minus
 import io.github.kotlinmania.numbigint.bigint.minusAssign
+import io.github.kotlinmania.numbigint.bigint.times
+import io.github.kotlinmania.numbigint.bigint.timesAssign
 
 /**
  * A `Sign` is a `BigInt`'s composing element.
@@ -796,32 +798,6 @@ class BigInt internal constructor(
 fun zeroBigInt(): BigInt = BigInt.zero()
 
 fun oneBigInt(): BigInt = BigInt.one()
-
-operator fun BigInt.times(other: BigInt): BigInt {
-    val sign = sign() * other.sign()
-    return if (sign == Sign.NoSign) {
-        BigInt.ZERO
-    } else {
-        BigInt.fromBiguint(sign, data * other.data)
-    }
-}
-
-operator fun BigInt.timesAssign(other: BigInt) {
-    val next = this * other
-    cloneFrom(next)
-}
-
-operator fun BigInt.times(other: UInt): BigInt {
-    return this * BigInt.from(other)
-}
-
-operator fun BigInt.timesAssign(other: UInt) {
-    timesAssign(BigInt.from(other))
-}
-
-operator fun UInt.times(other: BigInt): BigInt {
-    return BigInt.from(this) * other
-}
 
 operator fun BigInt.div(other: BigInt): BigInt {
     val (q, _) = divRem(other)
