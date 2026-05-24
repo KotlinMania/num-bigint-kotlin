@@ -23,6 +23,7 @@ tmp/
 port_status_report.md
 high_priority_ports.md
 ast_distance_*.txt
+/ast_distance
 .cache/
 *.lock
 kotlin-js-store/*
@@ -30,8 +31,7 @@ kotlin-js-store/*
 !kotlin-js-store/yarn.lock
 !kotlin-js-store/wasm/
 !kotlin-js-store/wasm/yarn.lock
-tools/ast_distance/ast_distance
-tools/ast_distance/build/
+tools/ast_distance/
 
 # JVM heap dumps
 *.hprof

@@ -33,6 +33,7 @@ version = "0.1.0"
 val androidCommandLineToolsRevision = "14742923"
 val projectCompileSdk = "34"
 val projectAndroidBuildTools = "36.0.0"
+val projectGradleTmpDir = layout.projectDirectory.dir(".gradle/tmp").asFile
 val isWindowsHost = System.getProperty("os.name").lowercase().contains("windows")
 val androidSdkOsName =
     when {
@@ -50,6 +51,16 @@ val androidSdkManager = projectAndroidSdkDir.resolve(
     },
 )
 val androidSdkInstallMarker = projectAndroidSdkDir.resolve(".install-complete")
+val requiredAndroidSdkPackageDirs = listOf(
+    projectAndroidSdkDir.resolve("platform-tools"),
+    projectAndroidSdkDir.resolve("platforms/android-$projectCompileSdk"),
+    projectAndroidSdkDir.resolve("build-tools/$projectAndroidBuildTools"),
+)
+
+fun isProjectAndroidSdkInstalled(): Boolean =
+    androidSdkInstallMarker.exists() &&
+        androidSdkManager.exists() &&
+        requiredAndroidSdkPackageDirs.all { it.exists() }
 
 fun writeAndroidLocalProperties() {
     val sdkDirPropertyValue = projectAndroidSdkDir.absolutePath.replace("\\", "/")
@@ -114,10 +125,13 @@ fun downloadAndroidCommandLineTools() {
 }
 
 fun installProjectAndroidSdk(execOperations: ExecOperations) {
-    if (androidSdkInstallMarker.exists() && androidSdkManager.exists()) {
+    if (isProjectAndroidSdkInstalled()) {
         writeAndroidLocalProperties()
         println("setup-android-sdk: SDK already installed at $projectAndroidSdkDir")
         return
+    }
+    if (androidSdkInstallMarker.exists()) {
+        println("setup-android-sdk: install marker is stale; repairing missing SDK packages")
     }
 
     if (!androidSdkManager.exists()) {
@@ -433,6 +447,7 @@ val codeqlCompileJvm = tasks.register<JavaExec>("codeqlCompileJvm") {
 
     classpath(codeqlKotlinc)
     mainClass.set("org.jetbrains.kotlin.cli.jvm.K2JVMCompiler")
+    systemProperty("java.io.tmpdir", projectGradleTmpDir.absolutePath)
 
     val outDir = layout.buildDirectory.dir("classes/kotlin/codeql-jvm")
     val aarExtractDir = layout.buildDirectory.dir("codeql/android-aar")
@@ -448,6 +463,7 @@ val codeqlCompileJvm = tasks.register<JavaExec>("codeqlCompileJvm") {
     outputs.dir(sentinelDir)
 
     doFirst {
+        projectGradleTmpDir.mkdirs()
         outDir.get().asFile.mkdirs()
         val extractedJars = mutableListOf<File>()
         for (aar in codeqlAndroidAar.resolve()) {

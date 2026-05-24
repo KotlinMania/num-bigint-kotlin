@@ -4,14 +4,14 @@ This file is the quick-reference operating contract for num-bigint-kotlin. The l
 project story lives in `CLAUDE.md`, `README.md`, and any repo-local notes. Read
 those before editing. This guide captures the workspace-wide porting discipline
 that must not drift: Kotlin stays Kotlin, source comments stay Kotlin-facing,
-and required port inventory is done with `ast_distance` when the repo ships it.
+and required port inventory is done with `ast_distance` when repo-local docs require it.
 
 ## What this repo is
 
 num-bigint-kotlin is a Kotlin Multiplatform port of the upstream Rust crate or module
-[`num-bigint`](https://crates.io/crates/num-bigint). Upstream Rust is the behavioral oracle while the
-repo is still in parity mode. Never edit `tmp/` or any fetched upstream source
-to make the port easier.
+[`num-bigint`](https://crates.io/crates/num-bigint). Upstream Rust is the behavioral oracle while
+repo-local docs still require upstream-backed porting. Never edit `tmp/` or any
+fetched upstream source to make the port easier.
 
 No JVM-only dependencies, no `java.*` / `javax.*`, no shortcuts through
 established JVM libraries, and no replacing a Cargo dependency with an unrelated
@@ -21,26 +21,25 @@ Kotlin library when a `*-kotlin` sibling port exists or should exist.
 
 Check the repo before choosing a workflow.
 
-- **If `tools/ast_distance/` exists:** the repo is still in parity/porting
-  mode. Drift measurement is required, not optional. Use the repo's
-  `tools/ast_distance` binary/script to identify missing files, missing
-  functions, provenance/header drift, and cheat-detection failures before
-  choosing work and again at file or phase boundaries. Do not chase similarity
-  scores in the middle of translating a half-read file, and never Rustify
-  Kotlin to appease the tool.
-- **If `tools/ast_distance/` does not exist:** the repo has matured past the
-  structural-port phase and is optimizing for idiomatic Kotlin. Work like a
-  Kotlin maintainer: preserve behavior and public API intent, improve Kotlin
-  shape when appropriate, and use the repo's tests/docs as the gate. Do not
-  reintroduce Rust-shaped code or comments.
+- **If repo-local docs require upstream-backed porting:** drift measurement is
+  required, not optional. Use the repo's root `./ast_distance` binary to
+  identify missing files, missing functions, provenance/header drift, and
+  cheat-detection failures before choosing work and again at file or phase
+  boundaries. `.ast_distance_config.json` supplies paths for the tool; it is
+  not an authorization flag for a separate workflow mode. Do not chase
+  similarity scores in the middle of translating a half-read file, and never
+  Rustify Kotlin to appease the tool.
+- **If repo-local docs say the repo is mature Kotlin:** preserve behavior and
+  public API intent, improve Kotlin shape when appropriate, and use the repo's
+  tests/docs as the gate. Do not reintroduce Rust-shaped code or comments.
 
-## Required workflow in parity mode
+## Required upstream-port workflow
 
 1. Read `CLAUDE.md`, `README.md`, this file, and any repo-local status files.
 2. Confirm the upstream Rust source is present under the `tmp/` path named by
    `CLAUDE.md` or `.ast_distance_config.json`. Fetch it using the repo's helper
    if needed. Never edit it.
-3. If `tools/ast_distance/` exists, run the repo's `ast_distance --deep`
+3. When upstream-porting is required, run the repo's `./ast_distance --deep`
    workflow before picking work. Use it as the required inventory for unported
    files/functions and provenance drift.
 4. Pick bottom-up work: dependencies before consumers, leaves before roots.
@@ -54,7 +53,7 @@ Check the repo before choosing a workflow.
 10. After a file lands, run the relevant compile/test gate and, when available,
     `ast_distance` again.
 
-## Required workflow in mature Kotlin mode
+## Required mature-Kotlin workflow
 
 1. Read the repo-local docs and tests first.
 2. Make idiomatic Kotlin changes that preserve behavior and public API intent.
@@ -91,8 +90,8 @@ Comments are content. They are part of the port, not decoration.
 
 ## Provenance headers
 
-In parity mode, every Kotlin file translated from a Rust source file starts with
-the repo's `port-lint` source header before the package line:
+In upstream-porting work, every Kotlin file translated from a Rust source file
+starts with the repo's `port-lint` source header before the package line:
 
 ```kotlin
 // port-lint: source <path-relative-to-upstream-root>
@@ -335,11 +334,11 @@ Use the repo's documented Gradle tasks. Common gates include:
 ./gradlew wasmJsNodeTest
 ```
 
-In parity repos with `tools/ast_distance/`, also run the repo's deep scan, for
+When upstream-porting is required, also run the repo's deep scan, for
 example:
 
 ```bash
-./tools/ast_distance/ast_distance --deep <upstream-root> rust <kotlin-source-root> kotlin
+./ast_distance --deep <upstream-root> rust <kotlin-source-root> kotlin
 ```
 
 The exact paths come from `.ast_distance_config.json`, `CLAUDE.md`, or existing
