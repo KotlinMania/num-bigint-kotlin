@@ -1,6 +1,6 @@
 name: Publish to Maven Central
 
-on:
+'on':
   release:
     types: [released]
   workflow_dispatch:

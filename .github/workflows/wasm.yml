@@ -1,6 +1,6 @@
 name: Build (WASM)
 
-on:
+'on':
   workflow_call:
 
 permissions:
