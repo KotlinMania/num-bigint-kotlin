@@ -1,6 +1,6 @@
 name: Build (Swift)
 
-on:
+'on':
   workflow_call:
 
 permissions:

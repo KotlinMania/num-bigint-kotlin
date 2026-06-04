@@ -1,6 +1,6 @@
 name: CodeQL (JavaScript/TypeScript)
 
-on:
+'on':
   workflow_call:
 
 permissions:

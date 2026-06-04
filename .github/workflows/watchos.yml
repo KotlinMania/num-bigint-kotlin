@@ -1,6 +1,6 @@
 name: Build (watchOS)
 
-on:
+'on':
   workflow_call:
 
 permissions:

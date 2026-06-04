@@ -1,6 +1,6 @@
 name: Build (tvOS)
 
-on:
+'on':
   workflow_call:
 
 permissions:

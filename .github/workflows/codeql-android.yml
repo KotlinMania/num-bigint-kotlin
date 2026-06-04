@@ -6,7 +6,7 @@ name: CodeQL (Android)
 # target so CodeQL's Java/Kotlin Android framework queries see an Android-shaped
 # build without making Windows, Linux, or synthetic JVM scans pay for SDK setup.
 
-on:
+'on':
   workflow_call:
 
 permissions:
