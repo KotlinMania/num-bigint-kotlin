@@ -1,5 +1,9 @@
 // port-lint: source lib.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint
+
+import kotlin.native.HiddenFromObjC
 
 /*
  * Copyright 2013-2014 The Rust Project Developers.
@@ -46,6 +50,7 @@ internal typealias IsizePromotion = Long
 /**
  * The error type returned when a big integer cannot be parsed from text.
  */
+@HiddenFromObjC
 class ParseBigIntError private constructor(
     private val kind: BigIntErrorKind,
 ) : IllegalArgumentException(kind.description) {
@@ -77,6 +82,7 @@ private enum class BigIntErrorKind(
  * The error type returned when a checked conversion involving a big integer
  * fails.
  */
+@HiddenFromObjC
 class TryFromBigIntError<T> internal constructor(
     private val original: T,
 ) {
@@ -103,6 +109,7 @@ class TryFromBigIntError<T> internal constructor(
     }
 }
 
+@HiddenFromObjC
 class TryFromBigIntException internal constructor(
     val error: TryFromBigIntError<*>,
 ) : IllegalArgumentException(error.message) {

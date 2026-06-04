@@ -1,4 +1,6 @@
 // port-lint: source bigint.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint
 
 import io.github.kotlinmania.numbigint.bigint.plus
@@ -7,6 +9,7 @@ import io.github.kotlinmania.numbigint.bigint.minus
 import io.github.kotlinmania.numbigint.bigint.minusAssign
 import io.github.kotlinmania.numbigint.bigint.times
 import io.github.kotlinmania.numbigint.bigint.timesAssign
+import kotlin.native.HiddenFromObjC
 
 /**
  * A `Sign` is a `BigInt`'s composing element.
@@ -628,6 +631,7 @@ class BigInt internal constructor(
         normalize()
     }
 
+    @HiddenFromObjC
     companion object {
         /**
          * A constant `BigInt` with value 0, useful for static initialization.

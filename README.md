@@ -29,7 +29,7 @@ This port targets behavioral parity with the upstream Rust crate while presentin
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:num-bigint-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:num-bigint-kotlin:0.1.1")
 }
 ```
 

@@ -1,6 +1,9 @@
 // port-lint: source biguint.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint
 
+import kotlin.native.HiddenFromObjC
 import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.pow
@@ -587,6 +590,7 @@ class BigUint internal constructor(
         }
     }
 
+    @HiddenFromObjC
     companion object {
         /**
          * A constant `BigUint` with value 0, useful for static initialization.
@@ -708,10 +712,12 @@ fun zero(): BigUint = BigUint.zero()
 
 fun one(): BigUint = BigUint.one()
 
+@HiddenFromObjC
 fun biguintFromVec(digits: MutableList<BigDigit>): BigUint {
     return BigUint(digits).normalized()
 }
 
+@HiddenFromObjC
 fun cmpSlice(a: List<BigDigit>, b: List<BigDigit>): Int {
     check(a.lastOrNull() != 0u)
     check(b.lastOrNull() != 0u)
@@ -728,6 +734,7 @@ fun cmpSlice(a: List<BigDigit>, b: List<BigDigit>): Int {
     return 0
 }
 
+@HiddenFromObjC
 fun fixpoint(x0: BigUint, maxBits: ULong, f: (BigUint) -> BigUint): BigUint {
     var x = x0
     var xn = f(x)

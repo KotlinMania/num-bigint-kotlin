@@ -1,4 +1,6 @@
 // port-lint: source bigint/convert.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint.bigint
 
 import io.github.kotlinmania.numbigint.BigInt
@@ -10,7 +12,9 @@ import io.github.kotlinmania.numbigint.TryFromBigIntException
 import io.github.kotlinmania.numbigint.toDoubleOrNull
 import io.github.kotlinmania.numbigint.toLongOrNull
 import io.github.kotlinmania.numbigint.toULongOrNull
+import kotlin.native.HiddenFromObjC
 
+@HiddenFromObjC
 fun fromStr(s: String): Result<BigInt> {
     return fromStrRadix(s, 10u)
 }
@@ -18,6 +22,7 @@ fun fromStr(s: String): Result<BigInt> {
 /**
  * Creates and initializes a `BigInt`.
  */
+@HiddenFromObjC
 fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> {
     var s = s0
     val sign = if (s.startsWith("-")) {
@@ -65,11 +70,13 @@ fun toF64(value: BigInt): Double? {
     return if (value.sign() == Sign.Minus) -n else n
 }
 
+@HiddenFromObjC
 fun tryFromBigintToULong(value: BigInt): Result<ULong> {
     return toU64(value)?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
 }
 
+@HiddenFromObjC
 fun tryFromBigintToLong(value: BigInt): Result<Long> {
     return toI64(value)?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
@@ -107,6 +114,7 @@ fun toBiguint(value: BigInt): BigUint? {
     return value.toBigUint()
 }
 
+@HiddenFromObjC
 fun tryFromBigintToBiguint(value: BigInt): Result<BigUint> {
     return value.toBigUint()?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(value)))
@@ -170,6 +178,7 @@ fun twosComplement(digits: MutableList<UByte>) {
     }
 }
 
+@HiddenFromObjC
 fun parseBigint(s: String, radix: UInt): Result<BigInt> {
     if (s.isEmpty()) {
         return Result.failure(ParseBigIntError.empty())
