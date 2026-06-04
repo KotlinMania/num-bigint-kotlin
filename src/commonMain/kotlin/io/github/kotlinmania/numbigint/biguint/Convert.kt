@@ -1,6 +1,9 @@
 // port-lint: source biguint/convert.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint
 
+import kotlin.native.HiddenFromObjC
 import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -282,6 +285,7 @@ fun BigUint.toDoubleOrNull(): Double? {
     }
 }
 
+@HiddenFromObjC
 fun BigUint.tryToUInt(): Result<UInt> {
     return toUIntOrNull()?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))

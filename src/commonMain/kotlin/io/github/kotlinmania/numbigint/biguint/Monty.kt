@@ -1,5 +1,9 @@
 // port-lint: source biguint/monty.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint
+
+import kotlin.native.HiddenFromObjC
 
 private class MontyReducer(
     val n0inv: BigDigit,
@@ -12,6 +16,7 @@ private class MontyReducer(
     }
 }
 
+@HiddenFromObjC
 fun invModAlt(b: BigDigit): BigDigit {
     require(b and 1u != 0u)
 
@@ -28,6 +33,7 @@ fun invModAlt(b: BigDigit): BigDigit {
     return 0u - k0
 }
 
+@HiddenFromObjC
 fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int): BigUint {
     require(x.data.size == n && y.data.size == n && m.data.size == n) {
         "${x.toDebugString()} ${y.toDebugString()} ${m.toDebugString()} $n"
@@ -63,6 +69,7 @@ fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int): BigUint
     return z
 }
 
+@HiddenFromObjC
 fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit): BigDigit {
     var c: BigDigit = 0u
     val len = minOf(z.size, x.size)
@@ -79,6 +86,7 @@ fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit): BigDigi
 /**
  * The resulting carry c is either 0 or 1.
  */
+@HiddenFromObjC
 fun subVv(z: MutableList<BigDigit>, x: List<BigDigit>, y: List<BigDigit>): BigDigit {
     var c: BigDigit = 0u
     val len = minOf(z.size, x.size, y.size)
@@ -96,6 +104,7 @@ fun subVv(z: MutableList<BigDigit>, x: List<BigDigit>, y: List<BigDigit>): BigDi
 /**
  * z1 * 2^W + z0 = x + y + c, with c == 0 or 1
  */
+@HiddenFromObjC
 fun addWw(x: BigDigit, y: BigDigit, c: BigDigit): Pair<BigDigit, BigDigit> {
     val yc = y + c
     val z0 = x + yc
@@ -107,6 +116,7 @@ fun addWw(x: BigDigit, y: BigDigit, c: BigDigit): Pair<BigDigit, BigDigit> {
 /**
  * z1 * 2^W + z0 = x * y + c
  */
+@HiddenFromObjC
 fun mulAddWww(x: BigDigit, y: BigDigit, c: BigDigit): Pair<BigDigit, BigDigit> {
     val z = x.toULong() * y.toULong() + c.toULong()
     return Pair((z shr BIG_DIGIT_BITS).toUInt(), z.toUInt())

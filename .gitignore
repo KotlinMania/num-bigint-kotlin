@@ -25,6 +25,7 @@ high_priority_ports.md
 ast_distance_*.txt
 /ast_distance
 .cache/
+swift-test-harness/.build/
 *.lock
 kotlin-js-store/*
 !kotlin-js-store/package.json

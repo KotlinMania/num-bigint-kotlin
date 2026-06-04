@@ -1,5 +1,4 @@
 {
-  "parity_mode": false,
   "name": "num-bigint-kotlin",
   "source": {
     "path": "tmp/num-bigint/src",

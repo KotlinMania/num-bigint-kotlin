@@ -1,4 +1,6 @@
 // port-lint: source biguint/serde.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint.biguint
 
 import io.github.kotlinmania.numbigint.BigDigit
@@ -11,6 +13,7 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.native.HiddenFromObjC
 
 private const val MAX_PREALLOC_BYTES: Int = 1024 * 1024
 
@@ -20,6 +23,7 @@ fun cautious(hint: Int?): Int {
     return min(hint ?: 0, MAX_PREALLOC_BYTES / UInt.SIZE_BYTES)
 }
 
+@HiddenFromObjC
 object U32Visitor : KSerializer<BigUint> {
     override val descriptor: SerialDescriptor
         get() = dataSerializer.descriptor
@@ -39,10 +43,12 @@ object U32Visitor : KSerializer<BigUint> {
 
 private val dataSerializer = ListSerializer(UInt.serializer())
 
+@HiddenFromObjC
 fun serialize(value: BigUint, serializer: Encoder) {
     dataSerializer.serialize(serializer, value.data.toList())
 }
 
+@HiddenFromObjC
 fun deserialize(deserializer: Decoder): BigUint {
     val digits = dataSerializer.deserialize(deserializer)
     val data = ArrayList<BigDigit>(cautious(digits.size))

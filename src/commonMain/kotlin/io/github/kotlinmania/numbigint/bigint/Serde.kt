@@ -1,4 +1,6 @@
 // port-lint: source bigint/serde.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.numbigint.bigint
 
 import io.github.kotlinmania.numbigint.BigInt
@@ -12,7 +14,9 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.native.HiddenFromObjC
 
+@HiddenFromObjC
 object SignSerializer : KSerializer<Sign> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("io.github.kotlinmania.numbigint.Sign", PrimitiveKind.BYTE)
@@ -26,6 +30,7 @@ object SignSerializer : KSerializer<Sign> {
     }
 }
 
+@HiddenFromObjC
 fun serialize(value: Sign, serializer: Encoder) {
     val sign = when (value) {
         Sign.Minus -> -1
@@ -35,6 +40,7 @@ fun serialize(value: Sign, serializer: Encoder) {
     serializer.encodeByte(sign.toByte())
 }
 
+@HiddenFromObjC
 fun deserializeSign(deserializer: Decoder): Sign {
     return when (val sign = deserializer.decodeByte().toInt()) {
         -1 -> Sign.Minus
@@ -44,6 +50,7 @@ fun deserializeSign(deserializer: Decoder): Sign {
     }
 }
 
+@HiddenFromObjC
 object BigIntSerializer : KSerializer<BigInt> {
     override val descriptor: SerialDescriptor
         get() = dataSerializer.descriptor
@@ -59,10 +66,12 @@ object BigIntSerializer : KSerializer<BigInt> {
 
 private val dataSerializer = PairSerializer(SignSerializer, U32Visitor)
 
+@HiddenFromObjC
 fun serialize(value: BigInt, serializer: Encoder) {
     dataSerializer.serialize(serializer, Pair(value.sign(), value.data))
 }
 
+@HiddenFromObjC
 fun deserializeBigint(deserializer: Decoder): BigInt {
     val (sign, data) = dataSerializer.deserialize(deserializer)
     return BigInt.fromBiguint(sign, data)
