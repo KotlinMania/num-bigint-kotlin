@@ -7,7 +7,7 @@ name: CodeQL (Java/Kotlin)
 # That keeps the CodeQL Java agent on the K2JVMCompiler path that emits Kotlin
 # TRAP. Non-Android CodeQL must not install the Android SDK.
 
-'on':
+on:
   workflow_call:
 
 permissions:
