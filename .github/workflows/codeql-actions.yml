@@ -1,6 +1,6 @@
 name: CodeQL (Actions)
 
-'on':
+on:
   workflow_call:
 
 permissions:
