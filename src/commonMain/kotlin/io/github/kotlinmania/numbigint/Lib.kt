@@ -145,6 +145,5 @@ internal fun fromDoubleBigDigit(n: DoubleBigDigit): Pair<BigDigit, BigDigit> {
 /**
  * Join two [BigDigit]s into one [DoubleBigDigit].
  */
-internal fun toDoubleBigDigit(hi: BigDigit, lo: BigDigit): DoubleBigDigit {
-    return lo.toULong() or (hi.toULong() shl BIG_DIGIT_BITS)
-}
+internal fun toDoubleBigDigit(hi: BigDigit, lo: BigDigit): DoubleBigDigit =
+    lo.toULong() or (hi.toULong() shl BIG_DIGIT_BITS)
