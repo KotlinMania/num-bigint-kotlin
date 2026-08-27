@@ -6,22 +6,20 @@ package io.github.kotlinmania.numbigint.biguint
 import io.github.kotlinmania.numbigint.BigDigit
 import io.github.kotlinmania.numbigint.BigUint
 import io.github.kotlinmania.numbigint.biguintFromVec
-import kotlin.math.min
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.math.min
 import kotlin.native.HiddenFromObjC
 
 private const val MAX_PREALLOC_BYTES: Int = 1024 * 1024
 
 internal typealias Value = BigUint
 
-fun cautious(hint: Int?): Int {
-    return min(hint ?: 0, MAX_PREALLOC_BYTES / UInt.SIZE_BYTES)
-}
+fun cautious(hint: Int?): Int = min(hint ?: 0, MAX_PREALLOC_BYTES / UInt.SIZE_BYTES)
 
 @HiddenFromObjC
 object U32Visitor : KSerializer<BigUint> {
@@ -32,13 +30,9 @@ object U32Visitor : KSerializer<BigUint> {
         serialize(value, encoder)
     }
 
-    override fun deserialize(decoder: Decoder): BigUint {
-        return deserialize(decoder)
-    }
+    override fun deserialize(decoder: Decoder): BigUint = deserialize(decoder)
 
-    fun expecting(): String {
-        return "a sequence of unsigned 32-bit numbers"
-    }
+    fun expecting(): String = "a sequence of unsigned 32-bit numbers"
 }
 
 private val dataSerializer = ListSerializer(UInt.serializer())

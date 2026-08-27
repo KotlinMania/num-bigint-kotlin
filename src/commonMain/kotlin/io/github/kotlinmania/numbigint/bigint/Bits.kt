@@ -39,7 +39,8 @@ internal fun negateCarry(a: BigDigit, acc: Carry): BigDigit {
 
 private fun twosComplement(value: BigInt, width: Int): MutableList<BigDigit> {
     val digits = MutableList(width) { 0u }
-    for (i in value.data.data.indices.take(width)) {
+    for (i in value.data.data.indices
+        .take(width)) {
         digits[i] = value.data.data[i]
     }
     if (!value.isNegative()) {
@@ -89,10 +90,11 @@ private fun bitwise(a: BigInt, b: BigInt, op: (BigDigit, BigDigit) -> BigDigit):
 // +ff & - 1 = ...0 ff & ...f ff = ...0 ff = +ff
 // answer is positive, has length of `a`
 fun bitandPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.from(BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x and y }
+    val result =
+        bitwise(
+            BigInt.from(BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x and y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -101,10 +103,11 @@ fun bitandPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff & + 1 = ...f 01 & ...0 01 = ...0 01 = + 1
 // answer is positive, has length of `b`
 fun bitandNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.from(BigUint.fromSlice(b)),
-    ) { x, y -> x and y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.from(BigUint.fromSlice(b)),
+        ) { x, y -> x and y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -114,17 +117,16 @@ fun bitandNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff & -fe = ...f 01 & ...f 02 = ...f 00 = -100
 // answer is negative, has length of longest with a possible carry
 fun bitandNegNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x and y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x and y }
     a.clear()
     a.addAll(result.data.data)
 }
 
-fun bitand(self: BigInt, other: BigInt): BigInt {
-    return bitwise(self, other) { a, b -> a and b }
-}
+fun bitand(self: BigInt, other: BigInt): BigInt = bitwise(self, other) { a, b -> a and b }
 
 fun bitandAssign(self: BigInt, other: BigInt) {
     self.cloneFrom(bitand(self, other))
@@ -134,10 +136,11 @@ fun bitandAssign(self: BigInt, other: BigInt) {
 // +ff | - 1 = ...0 ff | ...f ff = ...f ff = - 1
 // answer is negative, has length of `b`
 fun bitorPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.from(BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x or y }
+    val result =
+        bitwise(
+            BigInt.from(BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x or y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -146,10 +149,11 @@ fun bitorPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff | + 1 = ...f 01 | ...0 01 = ...f 01 = -ff
 // answer is negative, has length of `a`
 fun bitorNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.from(BigUint.fromSlice(b)),
-    ) { x, y -> x or y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.from(BigUint.fromSlice(b)),
+        ) { x, y -> x or y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -158,17 +162,16 @@ fun bitorNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff | - 1 = ...f 01 | ...f ff = ...f ff = -1
 // answer is negative, has length of shortest
 fun bitorNegNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x or y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x or y }
     a.clear()
     a.addAll(result.data.data)
 }
 
-fun bitor(self: BigInt, other: BigInt): BigInt {
-    return bitwise(self, other) { a, b -> a or b }
-}
+fun bitor(self: BigInt, other: BigInt): BigInt = bitwise(self, other) { a, b -> a or b }
 
 fun bitorAssign(self: BigInt, other: BigInt) {
     self.cloneFrom(bitor(self, other))
@@ -178,10 +181,11 @@ fun bitorAssign(self: BigInt, other: BigInt) {
 // +ff ^ - 1 = ...0 ff ^ ...f ff = ...f 00 = -100
 // answer is negative, has length of longest with a possible carry
 fun bitxorPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.from(BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x xor y }
+    val result =
+        bitwise(
+            BigInt.from(BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x xor y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -190,10 +194,11 @@ fun bitxorPosNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff ^ + 1 = ...f 01 ^ ...0 01 = ...f 00 = -100
 // answer is negative, has length of longest with a possible carry
 fun bitxorNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.from(BigUint.fromSlice(b)),
-    ) { x, y -> x xor y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.from(BigUint.fromSlice(b)),
+        ) { x, y -> x xor y }
     a.clear()
     a.addAll(result.data.data)
 }
@@ -202,41 +207,34 @@ fun bitxorNegPos(a: MutableList<BigDigit>, b: List<BigDigit>) {
 // -ff & - 1 = ...f 01 ^ ...f ff = ...0 fe = +fe
 // answer is positive, has length of longest
 fun bitxorNegNeg(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val result = bitwise(
-        BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
-        BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
-    ) { x, y -> x xor y }
+    val result =
+        bitwise(
+            BigInt.fromBiguint(Sign.Minus, BigUint.new(a)),
+            BigInt.fromBiguint(Sign.Minus, BigUint.fromSlice(b)),
+        ) { x, y -> x xor y }
     a.clear()
     a.addAll(result.data.data)
 }
 
-fun bitxor(self: BigInt, other: BigInt): BigInt {
-    return bitwise(self, other) { a, b -> a xor b }
-}
+fun bitxor(self: BigInt, other: BigInt): BigInt = bitwise(self, other) { a, b -> a xor b }
 
 fun bitxorAssign(self: BigInt, other: BigInt) {
     self.cloneFrom(bitxor(self, other))
 }
 
-infix fun BigInt.bitAnd(other: BigInt): BigInt {
-    return bitand(this, other)
-}
+infix fun BigInt.bitAnd(other: BigInt): BigInt = bitand(this, other)
 
 fun BigInt.bitAndAssign(other: BigInt) {
     bitandAssign(this, other)
 }
 
-infix fun BigInt.bitOr(other: BigInt): BigInt {
-    return bitor(this, other)
-}
+infix fun BigInt.bitOr(other: BigInt): BigInt = bitor(this, other)
 
 fun BigInt.bitOrAssign(other: BigInt) {
     bitorAssign(this, other)
 }
 
-infix fun BigInt.bitXor(other: BigInt): BigInt {
-    return bitxor(this, other)
-}
+infix fun BigInt.bitXor(other: BigInt): BigInt = bitxor(this, other)
 
 fun BigInt.bitXorAssign(other: BigInt) {
     bitxorAssign(this, other)

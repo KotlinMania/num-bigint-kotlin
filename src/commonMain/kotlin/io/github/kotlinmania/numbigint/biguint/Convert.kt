@@ -3,27 +3,20 @@
 
 package io.github.kotlinmania.numbigint
 
-import kotlin.native.HiddenFromObjC
 import kotlin.math.floor
 import kotlin.math.pow
-import kotlin.math.sqrt
 import kotlin.math.truncate
+import kotlin.native.HiddenFromObjC
 
 /**
  * Find last set bit.
  * `fls(0) == 0`, `fls(UInt.MAX_VALUE) == 32`.
  */
-private fun fls(v: UInt): UInt {
-    return UInt.SIZE_BITS.toUInt() - v.countLeadingZeroBits().toUInt()
-}
+private fun fls(v: UInt): UInt = UInt.SIZE_BITS.toUInt() - v.countLeadingZeroBits().toUInt()
 
-private fun fls(v: ULong): UInt {
-    return ULong.SIZE_BITS.toUInt() - v.countLeadingZeroBits().toUInt()
-}
+private fun fls(v: ULong): UInt = ULong.SIZE_BITS.toUInt() - v.countLeadingZeroBits().toUInt()
 
-private fun ilog2(v: UInt): UInt {
-    return fls(v) - 1u
-}
+private fun ilog2(v: UInt): UInt = fls(v) - 1u
 
 // Convert from a power of two radix where bits evenly divides `BIG_DIGIT_BITS`.
 internal fun fromBitwiseDigitsLe(v: List<UByte>, bits: UInt): BigUint {
@@ -108,18 +101,19 @@ internal fun fromRadixBeDigits(buf: List<UByte>, radix: UInt): BigUint? {
         return null
     }
 
-    val res = if (radix.isPowerOfTwo()) {
-        // Powers of two can use bitwise masks and shifting instead of multiplication.
-        val bits = ilog2(radix)
-        val v = buf.asReversed()
-        if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
-            fromBitwiseDigitsLe(v, bits)
+    val res =
+        if (radix.isPowerOfTwo()) {
+            // Powers of two can use bitwise masks and shifting instead of multiplication.
+            val bits = ilog2(radix)
+            val v = buf.asReversed()
+            if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
+                fromBitwiseDigitsLe(v, bits)
+            } else {
+                fromInexactBitwiseDigitsLe(v, bits)
+            }
         } else {
-            fromInexactBitwiseDigitsLe(v, bits)
+            fromRadixDigitsBe(buf, radix)
         }
-    } else {
-        fromRadixDigitsBe(buf, radix)
-    }
 
     return res
 }
@@ -135,17 +129,18 @@ internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? {
         return null
     }
 
-    val res = if (radix.isPowerOfTwo()) {
-        // Powers of two can use bitwise masks and shifting instead of multiplication.
-        val bits = ilog2(radix)
-        if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
-            fromBitwiseDigitsLe(buf, bits)
+    val res =
+        if (radix.isPowerOfTwo()) {
+            // Powers of two can use bitwise masks and shifting instead of multiplication.
+            val bits = ilog2(radix)
+            if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
+                fromBitwiseDigitsLe(buf, bits)
+            } else {
+                fromInexactBitwiseDigitsLe(buf, bits)
+            }
         } else {
-            fromInexactBitwiseDigitsLe(buf, bits)
+            fromRadixDigitsBe(buf.asReversed(), radix)
         }
-    } else {
-        fromRadixDigitsBe(buf.asReversed(), radix)
-    }
 
     return res
 }
@@ -175,13 +170,14 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
     // First normalize all characters to plain digit values.
     val v = ArrayList<UByte>(s.length)
     for (ch in s) {
-        val d = when (ch) {
-            in '0'..'9' -> ch.code - '0'.code
-            in 'a'..'z' -> ch.code - 'a'.code + 10
-            in 'A'..'Z' -> ch.code - 'A'.code + 10
-            '_' -> continue
-            else -> UByte.MAX_VALUE.toInt()
-        }
+        val d =
+            when (ch) {
+                in '0'..'9' -> ch.code - '0'.code
+                in 'a'..'z' -> ch.code - 'a'.code + 10
+                in 'A'..'Z' -> ch.code - 'A'.code + 10
+                '_' -> continue
+                else -> UByte.MAX_VALUE.toInt()
+            }
         if (d.toUInt() < radix) {
             v.add(d.toUByte())
         } else {
@@ -189,23 +185,24 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
         }
     }
 
-    val res = if (radix.isPowerOfTwo()) {
-        // Powers of two can use bitwise masks and shifting instead of multiplication.
-        val bits = ilog2(radix)
-        v.reverse()
-        if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
-            fromBitwiseDigitsLe(v, bits)
+    val res =
+        if (radix.isPowerOfTwo()) {
+            // Powers of two can use bitwise masks and shifting instead of multiplication.
+            val bits = ilog2(radix)
+            v.reverse()
+            if (BIG_DIGIT_BITS.toUInt() % bits == 0u) {
+                fromBitwiseDigitsLe(v, bits)
+            } else {
+                fromInexactBitwiseDigitsLe(v, bits)
+            }
         } else {
-            fromInexactBitwiseDigitsLe(v, bits)
+            fromRadixDigitsBe(v, radix)
         }
-    } else {
-        fromRadixDigitsBe(v, radix)
-    }
     return Result.success(res)
 }
 
-private fun highBitsToU64(v: BigUint): ULong {
-    return when (v.data.size) {
+private fun highBitsToU64(v: BigUint): ULong =
+    when (v.data.size) {
         0 -> 0uL
         1 -> v.data[0].toULong()
         else -> {
@@ -242,19 +239,15 @@ private fun highBitsToU64(v: BigUint): ULong {
             ret
         }
     }
-}
 
-fun BigUint.toLongOrNull(): Long? {
-    return toULongOrNull()?.takeIf { it <= Long.MAX_VALUE.toULong() }?.toLong()
-}
+fun BigUint.toLongOrNull(): Long? = toULongOrNull()?.takeIf { it <= Long.MAX_VALUE.toULong() }?.toLong()
 
-fun BigUint.toUIntOrNull(): UInt? {
-    return when (data.size) {
+fun BigUint.toUIntOrNull(): UInt? =
+    when (data.size) {
         0 -> 0u
         1 -> data[0]
         else -> null
     }
-}
 
 fun BigUint.toULongOrNull(): ULong? {
     var ret = 0uL
@@ -286,10 +279,9 @@ fun BigUint.toDoubleOrNull(): Double? {
 }
 
 @HiddenFromObjC
-fun BigUint.tryToUInt(): Result<UInt> {
-    return toUIntOrNull()?.let { Result.success(it) }
+fun BigUint.tryToUInt(): Result<UInt> =
+    toUIntOrNull()?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
-}
 
 internal fun fromULongImpl(n0: ULong): BigUint {
     var n = n0
@@ -330,37 +322,21 @@ internal fun fromDoubleImpl(n0: Double): BigUint? {
     return ret.normalized()
 }
 
-fun BigUint.toBigUint(): BigUint? {
-    return clone()
-}
+fun BigUint.toBigUint(): BigUint? = clone()
 
-fun Int.toBigUint(): BigUint? {
-    return if (this >= 0) toUInt().toBigUint() else null
-}
+fun Int.toBigUint(): BigUint? = if (this >= 0) toUInt().toBigUint() else null
 
-fun UInt.toBigUint(): BigUint {
-    return BigUint.fromUInt(this)
-}
+fun UInt.toBigUint(): BigUint = BigUint.fromUInt(this)
 
-fun Long.toBigUint(): BigUint? {
-    return if (this >= 0) toULong().toBigUint() else null
-}
+fun Long.toBigUint(): BigUint? = if (this >= 0) toULong().toBigUint() else null
 
-fun ULong.toBigUint(): BigUint {
-    return BigUint.fromULong(this)
-}
+fun ULong.toBigUint(): BigUint = BigUint.fromULong(this)
 
-fun Float.toBigUint(): BigUint? {
-    return BigUint.fromDouble(toDouble())
-}
+fun Float.toBigUint(): BigUint? = BigUint.fromDouble(toDouble())
 
-fun Double.toBigUint(): BigUint? {
-    return BigUint.fromDouble(this)
-}
+fun Double.toBigUint(): BigUint? = BigUint.fromDouble(this)
 
-fun Boolean.toBigUint(): BigUint {
-    return if (this) BigUint.one() else BigUint.ZERO
-}
+fun Boolean.toBigUint(): BigUint = if (this) BigUint.one() else BigUint.ZERO
 
 // Extract bitwise digits that evenly divide `BigDigit`.
 internal fun toBitwiseDigitsLe(u: BigUint, bits: UInt): List<UByte> {
@@ -440,11 +416,12 @@ internal fun toRadixDigitsLe(u: BigUint, radix: UInt): List<UByte> {
     val res = ArrayList<UByte>(radixDigits)
 
     var digits = u.clone()
-    val (base, power) = if (FAST_DIV_WIDE) {
-        getRadixBase(radix)
-    } else {
-        getHalfRadixBase(radix)
-    }
+    val (base, power) =
+        if (FAST_DIV_WIDE) {
+            getRadixBase(radix)
+        } else {
+            getHalfRadixBase(radix)
+        }
     while (digits.data.size > 1) {
         val (q, rem0) = divRemDigit(digits, base)
         var rem = rem0
@@ -464,8 +441,8 @@ internal fun toRadixDigitsLe(u: BigUint, radix: UInt): List<UByte> {
     return res
 }
 
-internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> {
-    return if (u.isZero()) {
+internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> =
+    if (u.isZero()) {
         listOf(0.toUByte())
     } else if (radix.isPowerOfTwo()) {
         // Powers of two can use bitwise masks and shifting instead of division.
@@ -482,7 +459,6 @@ internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> {
     } else {
         toRadixDigitsLe(u, radix)
     }
-}
 
 internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
     require(radix in 2u..36u) { "The radix must be within 2...36" }
@@ -498,11 +474,12 @@ internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
     while (i < res.size) {
         val r = res[i]
         check(r.toUInt() < radix)
-        res[i] = if (r.toUInt() < 10u) {
-            (r.toInt() + '0'.code).toUByte()
-        } else {
-            (r.toInt() + 'a'.code - 10).toUByte()
-        }
+        res[i] =
+            if (r.toUInt() < 10u) {
+                (r.toInt() + '0'.code).toUByte()
+            } else {
+                (r.toInt() + 'a'.code - 10).toUByte()
+            }
         i += 1
     }
     return res
@@ -549,9 +526,7 @@ private fun generateRadixBase(radix: UInt, max: BigDigit): Pair<BigDigit, Int> {
     return Pair(base, power)
 }
 
-private fun UInt.isPowerOfTwo(): Boolean {
-    return this != 0u && (this and (this - 1u)) == 0u
-}
+private fun UInt.isPowerOfTwo(): Boolean = this != 0u && (this and (this - 1u)) == 0u
 
 private const val DOUBLE_MAX_EXPONENT_VALUE: Int = 1024
 
@@ -561,13 +536,9 @@ private fun divCeil(a: ULong, b: ULong): ULong {
     return if (m == 0uL) d else d + 1uL
 }
 
-fun ULong.sqrt(): ULong {
-    return nthRoot(2u)
-}
+fun ULong.sqrt(): ULong = nthRoot(2u)
 
-fun ULong.cbrt(): ULong {
-    return nthRoot(3u)
-}
+fun ULong.cbrt(): ULong = nthRoot(3u)
 
 fun ULong.nthRoot(n: UInt): ULong {
     require(n > 0u) { "root degree n must be at least 1" }

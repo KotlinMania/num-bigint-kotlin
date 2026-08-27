@@ -13,47 +13,38 @@ import io.github.kotlinmania.numbigint.unaryMinus
  *
  * Computes the effect of the exponent on the sign.
  */
-fun powsign(sign: Sign, other: UInt): Sign {
-    return if (other == 0u) {
+fun powsign(sign: Sign, other: UInt): Sign =
+    if (other == 0u) {
         Sign.Plus
     } else if (sign != Sign.Minus || other % 2u == 1u) {
         sign
     } else {
         -sign
     }
-}
 
-fun powsign(sign: Sign, other: ULong): Sign {
-    return if (other == 0uL) {
+fun powsign(sign: Sign, other: ULong): Sign =
+    if (other == 0uL) {
         Sign.Plus
     } else if (sign != Sign.Minus || other % 2uL == 1uL) {
         sign
     } else {
         -sign
     }
-}
 
-fun powsign(sign: Sign, other: BigUint): Sign {
-    return if (other.isZero()) {
+fun powsign(sign: Sign, other: BigUint): Sign =
+    if (other.isZero()) {
         Sign.Plus
     } else if (sign != Sign.Minus || other.isOdd()) {
         sign
     } else {
         -sign
     }
-}
 
-fun pow(self: BigInt, rhs: UInt): BigInt {
-    return BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
-}
+fun pow(self: BigInt, rhs: UInt): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
 
-fun pow(self: BigInt, rhs: ULong): BigInt {
-    return BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(BigUint.fromULong(rhs)))
-}
+fun pow(self: BigInt, rhs: ULong): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(BigUint.fromULong(rhs)))
 
-fun pow(self: BigInt, rhs: BigUint): BigInt {
-    return BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
-}
+fun pow(self: BigInt, rhs: BigUint): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
 
 fun modpow(x: BigInt, exponent: BigInt, modulus: BigInt): BigInt {
     require(!exponent.isNegative()) { "negative exponentiation is not supported!" }
@@ -67,11 +58,12 @@ fun modpow(x: BigInt, exponent: BigInt, modulus: BigInt): BigInt {
     // The sign of the result follows the modulus, like `modFloor`.
     val negativePower = x.isNegative() && exponent.isOdd()
     val negativeModulus = modulus.isNegative()
-    val (sign, mag) = when {
-        !negativePower && !negativeModulus -> Pair(Sign.Plus, result)
-        negativePower && !negativeModulus -> Pair(Sign.Plus, modulus.data - result)
-        !negativePower && negativeModulus -> Pair(Sign.Minus, modulus.data - result)
-        else -> Pair(Sign.Minus, result)
-    }
+    val (sign, mag) =
+        when {
+            !negativePower && !negativeModulus -> Pair(Sign.Plus, result)
+            negativePower && !negativeModulus -> Pair(Sign.Plus, modulus.data - result)
+            !negativePower && negativeModulus -> Pair(Sign.Minus, modulus.data - result)
+            else -> Pair(Sign.Minus, result)
+        }
     return BigInt.fromBiguint(sign, mag)
 }

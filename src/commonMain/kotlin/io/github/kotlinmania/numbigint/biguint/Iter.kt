@@ -22,9 +22,7 @@ class U32Digits internal constructor(
         return data[front++]
     }
 
-    override fun next(): UInt {
-        return nextOrNull() ?: throw NoSuchElementException()
-    }
+    override fun next(): UInt = nextOrNull() ?: throw NoSuchElementException()
 
     fun nth(n: Int): UInt? {
         require(n >= 0)
@@ -84,9 +82,7 @@ class U64Digits internal constructor(
         return u32ChunkToU64(data.subList(offset, minOf(offset + 2, data.size)))
     }
 
-    override fun next(): ULong {
-        return nextOrNull() ?: throw NoSuchElementException()
-    }
+    override fun next(): ULong = nextOrNull() ?: throw NoSuchElementException()
 
     fun lastOrNull(): ULong? {
         if (!hasNext()) {

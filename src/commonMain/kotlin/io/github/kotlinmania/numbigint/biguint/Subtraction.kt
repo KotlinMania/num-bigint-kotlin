@@ -129,10 +129,9 @@ operator fun ULong.minus(other: BigUint): BigUint {
     return result.normalized()
 }
 
-fun BigUint.checkedSub(v: BigUint): BigUint? {
-    return when {
+fun BigUint.checkedSub(v: BigUint): BigUint? =
+    when {
         this < v -> null
         this == v -> BigUint.ZERO
         else -> this - v
     }
-}

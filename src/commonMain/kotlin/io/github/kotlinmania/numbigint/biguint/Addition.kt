@@ -64,13 +64,14 @@ operator fun BigUint.plus(other: BigUint): BigUint {
 
 operator fun BigUint.plusAssign(other: BigUint) {
     val selfLen = data.size
-    val carry = if (selfLen < other.data.size) {
-        val loCarry = add2Carry(data, other.data, len = selfLen)
-        data.addAll(other.data.subList(selfLen, other.data.size))
-        add2Carry(data, listOf(loCarry), aOffset = selfLen)
-    } else {
-        add2Carry(data, other.data)
-    }
+    val carry =
+        if (selfLen < other.data.size) {
+            val loCarry = add2Carry(data, other.data, len = selfLen)
+            data.addAll(other.data.subList(selfLen, other.data.size))
+            add2Carry(data, listOf(loCarry), aOffset = selfLen)
+        } else {
+            add2Carry(data, other.data)
+        }
     if (carry != 0u) {
         data.add(carry)
     }
@@ -82,9 +83,7 @@ operator fun BigUint.plus(other: UInt): BigUint {
     return result
 }
 
-operator fun UInt.plus(other: BigUint): BigUint {
-    return other + this
-}
+operator fun UInt.plus(other: BigUint): BigUint = other + this
 
 operator fun BigUint.plusAssign(other: UInt) {
     if (other != 0u) {
@@ -105,9 +104,7 @@ operator fun BigUint.plus(other: ULong): BigUint {
     return result
 }
 
-operator fun ULong.plus(other: BigUint): BigUint {
-    return other + this
-}
+operator fun ULong.plus(other: BigUint): BigUint = other + this
 
 operator fun BigUint.plusAssign(other: ULong) {
     val (hi, lo) = fromDoubleBigDigit(other)
@@ -125,9 +122,7 @@ operator fun BigUint.plusAssign(other: ULong) {
     }
 }
 
-fun BigUint.checkedAdd(v: BigUint): BigUint? {
-    return this + v
-}
+fun BigUint.checkedAdd(v: BigUint): BigUint? = this + v
 
 fun Iterable<BigUint>.sumBigUint(): BigUint {
     var sum = BigUint.zero()

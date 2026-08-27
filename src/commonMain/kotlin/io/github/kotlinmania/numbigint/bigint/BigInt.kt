@@ -3,10 +3,10 @@
 
 package io.github.kotlinmania.numbigint
 
-import io.github.kotlinmania.numbigint.bigint.plus
-import io.github.kotlinmania.numbigint.bigint.plusAssign
 import io.github.kotlinmania.numbigint.bigint.minus
 import io.github.kotlinmania.numbigint.bigint.minusAssign
+import io.github.kotlinmania.numbigint.bigint.plus
+import io.github.kotlinmania.numbigint.bigint.plusAssign
 import io.github.kotlinmania.numbigint.bigint.times
 import io.github.kotlinmania.numbigint.bigint.timesAssign
 import kotlin.native.HiddenFromObjC
@@ -21,21 +21,19 @@ enum class Sign {
     Plus,
 }
 
-operator fun Sign.unaryMinus(): Sign {
-    return when (this) {
+operator fun Sign.unaryMinus(): Sign =
+    when (this) {
         Sign.Minus -> Sign.Plus
         Sign.NoSign -> Sign.NoSign
         Sign.Plus -> Sign.Minus
     }
-}
 
-operator fun Sign.times(other: Sign): Sign {
-    return when {
+operator fun Sign.times(other: Sign): Sign =
+    when {
         this == Sign.NoSign || other == Sign.NoSign -> Sign.NoSign
         this == other -> Sign.Plus
         else -> Sign.Minus
     }
-}
 
 /**
  * A big signed integer type.
@@ -45,9 +43,7 @@ class BigInt internal constructor(
     private var signValue: Sign,
     internal var data: BigUint,
 ) : Comparable<BigInt> {
-    fun clone(): BigInt {
-        return BigInt(signValue, data.clone())
-    }
+    fun clone(): BigInt = BigInt(signValue, data.clone())
 
     fun cloneFrom(other: BigInt) {
         signValue = other.signValue
@@ -86,25 +82,15 @@ class BigInt internal constructor(
         }
     }
 
-    override fun toString(): String {
-        return if (isNegative()) "-${data.toStrRadix(10u)}" else data.toStrRadix(10u)
-    }
+    override fun toString(): String = if (isNegative()) "-${data.toStrRadix(10u)}" else data.toStrRadix(10u)
 
-    fun toDebugString(): String {
-        return toString()
-    }
+    fun toDebugString(): String = toString()
 
-    fun toBinaryString(): String {
-        return if (isNegative()) "-${data.toStrRadix(2u)}" else data.toStrRadix(2u)
-    }
+    fun toBinaryString(): String = if (isNegative()) "-${data.toStrRadix(2u)}" else data.toStrRadix(2u)
 
-    fun toOctalString(): String {
-        return if (isNegative()) "-${data.toStrRadix(8u)}" else data.toStrRadix(8u)
-    }
+    fun toOctalString(): String = if (isNegative()) "-${data.toStrRadix(8u)}" else data.toStrRadix(8u)
 
-    fun toLowerHexString(): String {
-        return if (isNegative()) "-${data.toStrRadix(16u)}" else data.toStrRadix(16u)
-    }
+    fun toLowerHexString(): String = if (isNegative()) "-${data.toStrRadix(16u)}" else data.toStrRadix(16u)
 
     fun toUpperHexString(): String {
         val s = data.toStrRadix(16u).uppercase()
@@ -135,45 +121,33 @@ class BigInt internal constructor(
         signValue = Sign.NoSign
     }
 
-    fun isZero(): Boolean {
-        return signValue == Sign.NoSign
-    }
+    fun isZero(): Boolean = signValue == Sign.NoSign
 
     fun setOne() {
         data.setOne()
         signValue = Sign.Plus
     }
 
-    fun isOne(): Boolean {
-        return signValue == Sign.Plus && data.isOne()
-    }
+    fun isOne(): Boolean = signValue == Sign.Plus && data.isOne()
 
-    fun abs(): BigInt {
-        return when (signValue) {
+    fun abs(): BigInt =
+        when (signValue) {
             Sign.Plus, Sign.NoSign -> clone()
             Sign.Minus -> from(data.clone())
         }
-    }
 
-    fun absSub(other: BigInt): BigInt {
-        return if (this <= other) ZERO else this - other
-    }
+    fun absSub(other: BigInt): BigInt = if (this <= other) ZERO else this - other
 
-    fun signum(): BigInt {
-        return when (signValue) {
+    fun signum(): BigInt =
+        when (signValue) {
             Sign.Plus -> one()
             Sign.Minus -> -one()
             Sign.NoSign -> ZERO
         }
-    }
 
-    fun isPositive(): Boolean {
-        return signValue == Sign.Plus
-    }
+    fun isPositive(): Boolean = signValue == Sign.Plus
 
-    fun isNegative(): Boolean {
-        return signValue == Sign.Minus
-    }
+    fun isNegative(): Boolean = signValue == Sign.Minus
 
     operator fun unaryMinus(): BigInt {
         val result = clone()
@@ -245,16 +219,12 @@ class BigInt internal constructor(
      *
      * The result is always positive.
      */
-    fun gcd(other: BigInt): BigInt {
-        return from(data.gcd(other.data))
-    }
+    fun gcd(other: BigInt): BigInt = from(data.gcd(other.data))
 
     /**
      * Calculates the lowest common multiple of the number and `other`.
      */
-    fun lcm(other: BigInt): BigInt {
-        return from(data.lcm(other.data))
-    }
+    fun lcm(other: BigInt): BigInt = from(data.lcm(other.data))
 
     /**
      * Calculates the greatest common divisor and lowest common multiple together.
@@ -267,30 +237,22 @@ class BigInt internal constructor(
     /**
      * Deprecated, use [isMultipleOf] instead.
      */
-    fun divides(other: BigInt): Boolean {
-        return isMultipleOf(other)
-    }
+    fun divides(other: BigInt): Boolean = isMultipleOf(other)
 
     /**
      * Returns `true` if the number is a multiple of `other`.
      */
-    fun isMultipleOf(other: BigInt): Boolean {
-        return data.isMultipleOf(other.data)
-    }
+    fun isMultipleOf(other: BigInt): Boolean = data.isMultipleOf(other.data)
 
     /**
      * Returns `true` if the number is divisible by `2`.
      */
-    fun isEven(): Boolean {
-        return data.isEven()
-    }
+    fun isEven(): Boolean = data.isEven()
 
     /**
      * Returns `true` if the number is not divisible by `2`.
      */
-    fun isOdd(): Boolean {
-        return data.isOdd()
-    }
+    fun isOdd(): Boolean = data.isOdd()
 
     /**
      * Rounds up to nearest multiple of argument.
@@ -303,9 +265,7 @@ class BigInt internal constructor(
     /**
      * Rounds down to nearest multiple of argument.
      */
-    fun prevMultipleOf(other: BigInt): BigInt {
-        return this - modFloor(other)
-    }
+    fun prevMultipleOf(other: BigInt): BigInt = this - modFloor(other)
 
     fun dec() {
         minusAssign(1u)
@@ -339,48 +299,36 @@ class BigInt internal constructor(
     /**
      * Returns the sign and the byte representation of the `BigInt` in big-endian byte order.
      */
-    fun toBytesBe(): Pair<Sign, List<UByte>> {
-        return Pair(signValue, data.toBytesBe())
-    }
+    fun toBytesBe(): Pair<Sign, List<UByte>> = Pair(signValue, data.toBytesBe())
 
     /**
      * Returns the sign and the byte representation of the `BigInt` in little-endian byte order.
      */
-    fun toBytesLe(): Pair<Sign, List<UByte>> {
-        return Pair(signValue, data.toBytesLe())
-    }
+    fun toBytesLe(): Pair<Sign, List<UByte>> = Pair(signValue, data.toBytesLe())
 
     /**
      * Returns the sign and the `UInt` digits representation of the `BigInt` ordered least
      * significant digit first.
      */
-    fun toU32Digits(): Pair<Sign, List<UInt>> {
-        return Pair(signValue, data.toU32Digits())
-    }
+    fun toU32Digits(): Pair<Sign, List<UInt>> = Pair(signValue, data.toU32Digits())
 
     /**
      * Returns the sign and the `ULong` digits representation of the `BigInt` ordered least
      * significant digit first.
      */
-    fun toU64Digits(): Pair<Sign, List<ULong>> {
-        return Pair(signValue, data.toU64Digits())
-    }
+    fun toU64Digits(): Pair<Sign, List<ULong>> = Pair(signValue, data.toU64Digits())
 
     /**
      * Returns an iterator of `UInt` digits representation of the `BigInt` ordered least
      * significant digit first.
      */
-    fun iterU32Digits(): U32Digits {
-        return data.iterU32Digits()
-    }
+    fun iterU32Digits(): U32Digits = data.iterU32Digits()
 
     /**
      * Returns an iterator of `ULong` digits representation of the `BigInt` ordered least
      * significant digit first.
      */
-    fun iterU64Digits(): U64Digits {
-        return data.iterU64Digits()
-    }
+    fun iterU64Digits(): U64Digits = data.iterU64Digits()
 
     /**
      * Returns the two's-complement byte representation of the `BigInt` in big-endian byte order.
@@ -394,8 +342,8 @@ class BigInt internal constructor(
     /**
      * Returns the two's-complement byte representation of the `BigInt` in little-endian byte order.
      */
-    fun toSignedBytesLe(): List<UByte> {
-        return when (signValue) {
+    fun toSignedBytesLe(): List<UByte> =
+        when (signValue) {
             Sign.NoSign -> listOf(0u)
             Sign.Plus -> {
                 val bytes = data.toBytesLe().toMutableList()
@@ -418,7 +366,6 @@ class BigInt internal constructor(
                 bytes
             }
         }
-    }
 
     /**
      * Returns the integer formatted as a string in the given radix.
@@ -441,9 +388,7 @@ class BigInt internal constructor(
      * based `UByte` number.
      * `radix` must be in the range `2...256`.
      */
-    fun toRadixBe(radix: UInt): Pair<Sign, List<UByte>> {
-        return Pair(signValue, data.toRadixBe(radix))
-    }
+    fun toRadixBe(radix: UInt): Pair<Sign, List<UByte>> = Pair(signValue, data.toRadixBe(radix))
 
     /**
      * Returns the integer in the requested base in little-endian digit order.
@@ -451,62 +396,45 @@ class BigInt internal constructor(
      * based `UByte` number.
      * `radix` must be in the range `2...256`.
      */
-    fun toRadixLe(radix: UInt): Pair<Sign, List<UByte>> {
-        return Pair(signValue, data.toRadixLe(radix))
-    }
+    fun toRadixLe(radix: UInt): Pair<Sign, List<UByte>> = Pair(signValue, data.toRadixLe(radix))
 
     /**
      * Returns the sign of the `BigInt` as a `Sign`.
      */
-    fun sign(): Sign {
-        return signValue
-    }
+    fun sign(): Sign = signValue
 
     /**
      * Returns the magnitude of the `BigInt` as a `BigUint`.
      */
-    fun magnitude(): BigUint {
-        return data
-    }
+    fun magnitude(): BigUint = data
 
     /**
      * Convert this `BigInt` into its `Sign` and `BigUint` magnitude,
      * the reverse of `fromBiguint`.
      */
-    fun intoParts(): Pair<Sign, BigUint> {
-        return Pair(signValue, data)
-    }
+    fun intoParts(): Pair<Sign, BigUint> = Pair(signValue, data)
 
     /**
      * Determines the fewest bits necessary to express the `BigInt`,
      * not including the sign.
      */
-    fun bits(): ULong {
-        return data.bits()
-    }
+    fun bits(): ULong = data.bits()
 
     /**
      * Converts this `BigInt` into a `BigUint`, if it's not negative.
      */
-    fun toBigUint(): BigUint? {
-        return when (signValue) {
+    fun toBigUint(): BigUint? =
+        when (signValue) {
             Sign.Plus -> data.clone()
             Sign.NoSign -> BigUint.ZERO
             Sign.Minus -> null
         }
-    }
 
-    fun checkedAdd(v: BigInt): BigInt? {
-        return this + v
-    }
+    fun checkedAdd(v: BigInt): BigInt? = this + v
 
-    fun checkedSub(v: BigInt): BigInt? {
-        return this - v
-    }
+    fun checkedSub(v: BigInt): BigInt? = this - v
 
-    fun checkedMul(v: BigInt): BigInt? {
-        return this * v
-    }
+    fun checkedMul(v: BigInt): BigInt? = this * v
 
     fun checkedDiv(v: BigInt): BigInt? {
         if (v.isZero()) {
@@ -518,9 +446,9 @@ class BigInt internal constructor(
     /**
      * Returns `self ^ exponent`.
      */
-    fun pow(exponent: UInt): BigInt {
-        return io.github.kotlinmania.numbigint.bigint.pow(this, exponent)
-    }
+    fun pow(exponent: UInt): BigInt =
+        io.github.kotlinmania.numbigint.bigint
+            .pow(this, exponent)
 
     /**
      * Returns `(self ^ exponent) mod modulus`.
@@ -532,9 +460,9 @@ class BigInt internal constructor(
      *
      * Panics if the exponent is negative or the modulus is zero.
      */
-    fun modpow(exponent: BigInt, modulus: BigInt): BigInt {
-        return io.github.kotlinmania.numbigint.bigint.modpow(this, exponent, modulus)
-    }
+    fun modpow(exponent: BigInt, modulus: BigInt): BigInt =
+        io.github.kotlinmania.numbigint.bigint
+            .modpow(this, exponent, modulus)
 
     /**
      * Returns the modular multiplicative inverse if it exists, otherwise `null`.
@@ -549,12 +477,13 @@ class BigInt internal constructor(
     fun modinv(modulus: BigInt): BigInt? {
         val result = data.modinv(modulus.data) ?: return null
         // The sign of the result follows the modulus, like `modFloor`.
-        val (sign, mag) = when (Pair(isNegative(), modulus.isNegative())) {
-            Pair(false, false) -> Pair(Sign.Plus, result)
-            Pair(true, false) -> Pair(Sign.Plus, modulus.data - result)
-            Pair(false, true) -> Pair(Sign.Minus, modulus.data - result)
-            else -> Pair(Sign.Minus, result)
-        }
+        val (sign, mag) =
+            when (Pair(isNegative(), modulus.isNegative())) {
+                Pair(false, false) -> Pair(Sign.Plus, result)
+                Pair(true, false) -> Pair(Sign.Plus, modulus.data - result)
+                Pair(false, true) -> Pair(Sign.Minus, modulus.data - result)
+                else -> Pair(Sign.Minus, result)
+            }
         return fromBiguint(sign, mag)
     }
 
@@ -569,9 +498,7 @@ class BigInt internal constructor(
     /**
      * Returns the truncated principal cube root of `self`.
      */
-    fun cbrt(): BigInt {
-        return fromBiguint(signValue, data.cbrt())
-    }
+    fun cbrt(): BigInt = fromBiguint(signValue, data.cbrt())
 
     /**
      * Returns the truncated principal `n`th root of `self`.
@@ -585,22 +512,19 @@ class BigInt internal constructor(
      * Returns the number of least-significant bits that are zero,
      * or `null` if the entire number is zero.
      */
-    fun trailingZeros(): ULong? {
-        return data.trailingZeros()
-    }
+    fun trailingZeros(): ULong? = data.trailingZeros()
 
     /**
      * Returns whether the bit in position `bit` is set,
      * using the two's complement for negative numbers.
      */
-    fun bit(bit: ULong): Boolean {
-        return if (isNegative()) {
+    fun bit(bit: ULong): Boolean =
+        if (isNegative()) {
             val magnitudeMinusOne = data - 1u
             !magnitudeMinusOne.bit(bit)
         } else {
             data.bit(bit)
         }
-    }
 
     /**
      * Sets or clears the bit in the given position,
@@ -644,9 +568,7 @@ class BigInt internal constructor(
          *
          * The base 2^32 digits are ordered least significant digit first.
          */
-        fun new(sign: Sign, digits: List<UInt>): BigInt {
-            return fromBiguint(sign, BigUint.new(digits))
-        }
+        fun new(sign: Sign, digits: List<UInt>): BigInt = fromBiguint(sign, BigUint.new(digits))
 
         /**
          * Creates and initializes a `BigInt`.
@@ -670,27 +592,21 @@ class BigInt internal constructor(
          *
          * The base 2^32 digits are ordered least significant digit first.
          */
-        fun fromSlice(sign: Sign, slice: List<UInt>): BigInt {
-            return fromBiguint(sign, BigUint.fromSlice(slice))
-        }
+        fun fromSlice(sign: Sign, slice: List<UInt>): BigInt = fromBiguint(sign, BigUint.fromSlice(slice))
 
         /**
          * Creates and initializes a `BigInt`.
          *
          * The bytes are in big-endian byte order.
          */
-        fun fromBytesBe(sign: Sign, bytes: List<UByte>): BigInt {
-            return fromBiguint(sign, BigUint.fromBytesBe(bytes))
-        }
+        fun fromBytesBe(sign: Sign, bytes: List<UByte>): BigInt = fromBiguint(sign, BigUint.fromBytesBe(bytes))
 
         /**
          * Creates and initializes a `BigInt`.
          *
          * The bytes are in little-endian byte order.
          */
-        fun fromBytesLe(sign: Sign, bytes: List<UByte>): BigInt {
-            return fromBiguint(sign, BigUint.fromBytesLe(bytes))
-        }
+        fun fromBytesLe(sign: Sign, bytes: List<UByte>): BigInt = fromBiguint(sign, BigUint.fromBytesLe(bytes))
 
         /**
          * Creates and initializes a `BigInt` from an array of bytes in
@@ -726,8 +642,9 @@ class BigInt internal constructor(
          * Creates and initializes a `BigInt`.
          */
         fun parseBytes(buf: ByteArray, radix: UInt): BigInt? {
-            val s = runCatching { buf.decodeToString(throwOnInvalidSequence = true) }.getOrNull()
-                ?: return null
+            val s =
+                runCatching { buf.decodeToString(throwOnInvalidSequence = true) }.getOrNull()
+                    ?: return null
             return fromStrRadix(s, radix).getOrNull()
         }
 
@@ -757,9 +674,7 @@ class BigInt internal constructor(
 
         fun zero(): BigInt = ZERO
 
-        fun one(): BigInt {
-            return BigInt(Sign.Plus, BigUint.one())
-        }
+        fun one(): BigInt = BigInt(Sign.Plus, BigUint.one())
 
         fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> {
             var s = s0
@@ -771,33 +686,25 @@ class BigInt internal constructor(
             return BigUint.fromStrRadix(s, radix).map { fromBiguint(sign, it) }
         }
 
-        fun from(value: BigUint): BigInt {
-            return fromBiguint(Sign.Plus, value)
-        }
+        fun from(value: BigUint): BigInt = fromBiguint(Sign.Plus, value)
 
-        fun from(value: UInt): BigInt {
-            return from(value.toBigUint())
-        }
+        fun from(value: UInt): BigInt = from(value.toBigUint())
 
-        fun from(value: ULong): BigInt {
-            return from(value.toBigUint())
-        }
+        fun from(value: ULong): BigInt = from(value.toBigUint())
 
-        fun from(value: Int): BigInt {
-            return if (value >= 0) {
+        fun from(value: Int): BigInt =
+            if (value >= 0) {
                 from(value.toUInt())
             } else {
                 fromBiguint(Sign.Minus, value.toUInt().inv().toBigUint() + 1u)
             }
-        }
 
-        fun from(value: Long): BigInt {
-            return if (value >= 0) {
+        fun from(value: Long): BigInt =
+            if (value >= 0) {
                 from(value.toULong())
             } else {
                 fromBiguint(Sign.Minus, value.toULong().inv().toBigUint() + 1u)
             }
-        }
     }
 }
 
@@ -805,138 +712,136 @@ fun zeroBigInt(): BigInt = BigInt.zero()
 
 fun oneBigInt(): BigInt = BigInt.one()
 
-operator fun BigInt.div(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun BigInt.div(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
 operator fun BigInt.divAssign(other: BigInt) {
-    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .divAssign(this, other)
 }
 
-operator fun BigInt.div(other: UInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun BigInt.div(other: UInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
 operator fun BigInt.divAssign(other: UInt) {
-    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .divAssign(this, other)
 }
 
-operator fun UInt.div(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun UInt.div(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
-operator fun BigInt.div(other: ULong): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun BigInt.div(other: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
 operator fun BigInt.divAssign(other: ULong) {
-    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .divAssign(this, other)
 }
 
-operator fun ULong.div(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun ULong.div(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
-operator fun BigInt.div(other: Int): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun BigInt.div(other: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
 operator fun BigInt.divAssign(other: Int) {
-    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .divAssign(this, other)
 }
 
-operator fun Int.div(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun Int.div(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
-operator fun BigInt.div(other: Long): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun BigInt.div(other: Long): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
 operator fun BigInt.divAssign(other: Long) {
-    io.github.kotlinmania.numbigint.bigint.divAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .divAssign(this, other)
 }
 
-operator fun Long.div(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.div(this, other)
-}
+operator fun Long.div(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .div(this, other)
 
-operator fun BigInt.rem(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun BigInt.rem(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
 operator fun BigInt.remAssign(other: BigInt) {
-    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .remAssign(this, other)
 }
 
-operator fun BigInt.rem(other: UInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun BigInt.rem(other: UInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
 operator fun BigInt.remAssign(other: UInt) {
-    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .remAssign(this, other)
 }
 
-operator fun UInt.rem(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun UInt.rem(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
-operator fun BigInt.rem(other: ULong): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun BigInt.rem(other: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
 operator fun BigInt.remAssign(other: ULong) {
-    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .remAssign(this, other)
 }
 
-operator fun ULong.rem(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun ULong.rem(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
-operator fun BigInt.rem(other: Int): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun BigInt.rem(other: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
 operator fun BigInt.remAssign(other: Int) {
-    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .remAssign(this, other)
 }
 
-operator fun Int.rem(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun Int.rem(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
-operator fun BigInt.rem(other: Long): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun BigInt.rem(other: Long): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
 operator fun BigInt.remAssign(other: Long) {
-    io.github.kotlinmania.numbigint.bigint.remAssign(this, other)
+    io.github.kotlinmania.numbigint.bigint
+        .remAssign(this, other)
 }
 
-operator fun Long.rem(other: BigInt): BigInt {
-    return io.github.kotlinmania.numbigint.bigint.rem(this, other)
-}
+operator fun Long.rem(other: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .rem(this, other)
 
-fun BigInt.toBigInt(): BigInt? {
-    return clone()
-}
+fun BigInt.toBigInt(): BigInt? = clone()
 
-fun BigUint.toBigInt(): BigInt {
-    return BigInt.from(this)
-}
+fun BigUint.toBigInt(): BigInt = BigInt.from(this)
 
-fun Int.toBigInt(): BigInt {
-    return BigInt.from(this)
-}
+fun Int.toBigInt(): BigInt = BigInt.from(this)
 
-fun UInt.toBigInt(): BigInt {
-    return BigInt.from(this)
-}
+fun UInt.toBigInt(): BigInt = BigInt.from(this)
 
-fun Long.toBigInt(): BigInt {
-    return BigInt.from(this)
-}
+fun Long.toBigInt(): BigInt = BigInt.from(this)
 
-fun ULong.toBigInt(): BigInt {
-    return BigInt.from(this)
-}
+fun ULong.toBigInt(): BigInt = BigInt.from(this)

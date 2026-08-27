@@ -59,12 +59,11 @@ class ParseBigIntError private constructor(
 
     internal companion object {
         fun empty(): ParseBigIntError = ParseBigIntError(BigIntErrorKind.Empty)
+
         fun invalid(): ParseBigIntError = ParseBigIntError(BigIntErrorKind.InvalidDigit)
     }
 
-    override fun equals(other: Any?): Boolean {
-        return this === other || (other is ParseBigIntError && kind == other.kind)
-    }
+    override fun equals(other: Any?): Boolean = this === other || (other is ParseBigIntError && kind == other.kind)
 
     override fun hashCode(): Int = kind.hashCode()
 
@@ -95,10 +94,9 @@ class TryFromBigIntError<T> internal constructor(
      */
     fun intoOriginal(): T = original
 
-    override fun equals(other: Any?): Boolean {
-        return this === other ||
+    override fun equals(other: Any?): Boolean =
+        this === other ||
             (other is TryFromBigIntError<*> && original == other.original)
-    }
 
     override fun hashCode(): Int = original.hashCode()
 
@@ -127,23 +125,19 @@ internal const val BIG_DIGIT_MAX: BigDigit = UInt.MAX_VALUE
 
 private const val LO_MASK: DoubleBigDigit = 0xFFFF_FFFFuL
 
-internal fun doubleBigDigitHigh(n: DoubleBigDigit): BigDigit {
-    return (n shr BIG_DIGIT_BITS).toUInt()
-}
+internal fun doubleBigDigitHigh(n: DoubleBigDigit): BigDigit = (n shr BIG_DIGIT_BITS).toUInt()
 
-internal fun doubleBigDigitLow(n: DoubleBigDigit): BigDigit {
-    return (n and LO_MASK).toUInt()
-}
+internal fun doubleBigDigitLow(n: DoubleBigDigit): BigDigit = (n and LO_MASK).toUInt()
 
 /**
  * Split one [DoubleBigDigit] into two [BigDigit]s.
  */
-internal fun fromDoubleBigDigit(n: DoubleBigDigit): Pair<BigDigit, BigDigit> {
-    return Pair(doubleBigDigitHigh(n), doubleBigDigitLow(n))
-}
+internal fun fromDoubleBigDigit(n: DoubleBigDigit): Pair<BigDigit, BigDigit> = Pair(doubleBigDigitHigh(n), doubleBigDigitLow(n))
 
 /**
  * Join two [BigDigit]s into one [DoubleBigDigit].
  */
-internal fun toDoubleBigDigit(hi: BigDigit, lo: BigDigit): DoubleBigDigit =
-    lo.toULong() or (hi.toULong() shl BIG_DIGIT_BITS)
+internal fun toDoubleBigDigit(
+    hi: BigDigit,
+    lo: BigDigit,
+): DoubleBigDigit = lo.toULong() or (hi.toULong() shl BIG_DIGIT_BITS)

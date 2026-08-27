@@ -13,18 +13,19 @@ private fun biguintShl(n: BigUint, shift: ULong): BigUint {
 }
 
 private fun biguintShl2(n: BigUint, digits: Int, shift: Int): BigUint {
-    val data = when (digits) {
-        0 -> n.data.toMutableList()
-        else -> {
-            val len = digits.saturatingAdd(n.data.size + 1)
-            val data = ArrayList<BigDigit>(len)
-            repeat(digits) {
-                data.add(0u)
+    val data =
+        when (digits) {
+            0 -> n.data.toMutableList()
+            else -> {
+                val len = digits.saturatingAdd(n.data.size + 1)
+                val data = ArrayList<BigDigit>(len)
+                repeat(digits) {
+                    data.add(0u)
+                }
+                data.addAll(n.data)
+                data
             }
-            data.addAll(n.data)
-            data
         }
-    }
 
     if (shift > 0) {
         var carry = 0u
@@ -77,9 +78,7 @@ private fun biguintShr2(n: BigUint, digits: Int, shift: Int): BigUint {
     return biguintFromVec(data)
 }
 
-fun BigUint.shiftLeft(rhs: ULong): BigUint {
-    return biguintShl(this, rhs)
-}
+fun BigUint.shiftLeft(rhs: ULong): BigUint = biguintShl(this, rhs)
 
 fun BigUint.shiftLeftAssign(rhs: ULong) {
     val n = clone()
@@ -87,9 +86,7 @@ fun BigUint.shiftLeftAssign(rhs: ULong) {
     data.addAll(n.shiftLeft(rhs).data)
 }
 
-fun BigUint.shiftRight(rhs: ULong): BigUint {
-    return biguintShr(this, rhs)
-}
+fun BigUint.shiftRight(rhs: ULong): BigUint = biguintShr(this, rhs)
 
 fun BigUint.shiftRightAssign(rhs: ULong) {
     val n = clone()
