@@ -1,25 +1,21 @@
 // port-lint: source biguint/power.rs
 package io.github.kotlinmania.numbigint
 
-fun BigUint.pow(exp: BigUint): BigUint {
-    return powBigUint(this, exp)
-}
+fun BigUint.pow(exp: BigUint): BigUint = powBigUint(this, exp)
 
-internal fun powBigUint(self: BigUint, exp: BigUint): BigUint {
-    return if (self.isOne() || exp.isZero()) {
+internal fun powBigUint(self: BigUint, exp: BigUint): BigUint =
+    if (self.isOne() || exp.isZero()) {
         BigUint.one()
     } else if (self.isZero()) {
         BigUint.ZERO
     } else {
-        val primitiveExp = exp.toULongOrNull()
-            ?: throw ArithmeticException("memory overflow")
+        val primitiveExp =
+            exp.toULongOrNull()
+                ?: throw ArithmeticException("memory overflow")
         powBigUint(self, primitiveExp)
     }
-}
 
-internal fun powBigUint(self: BigUint, exp: UInt): BigUint {
-    return powBigUint(self, exp.toULong())
-}
+internal fun powBigUint(self: BigUint, exp: UInt): BigUint = powBigUint(self, exp.toULong())
 
 internal fun powBigUint(self: BigUint, exp0: ULong): BigUint {
     var exp = exp0

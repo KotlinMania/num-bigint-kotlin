@@ -15,9 +15,7 @@ import io.github.kotlinmania.numbigint.toULongOrNull
 import kotlin.native.HiddenFromObjC
 
 @HiddenFromObjC
-fun fromStr(s: String): Result<BigInt> {
-    return fromStrRadix(s, 10u)
-}
+fun fromStr(s: String): Result<BigInt> = fromStrRadix(s, 10u)
 
 /**
  * Creates and initializes a `BigInt`.
@@ -25,15 +23,16 @@ fun fromStr(s: String): Result<BigInt> {
 @HiddenFromObjC
 fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> {
     var s = s0
-    val sign = if (s.startsWith("-")) {
-        val tail = s.drop(1)
-        if (!tail.startsWith("+")) {
-            s = tail
+    val sign =
+        if (s.startsWith("-")) {
+            val tail = s.drop(1)
+            if (!tail.startsWith("+")) {
+                s = tail
+            }
+            Sign.Minus
+        } else {
+            Sign.Plus
         }
-        Sign.Minus
-    } else {
-        Sign.Plus
-    }
     return BigUint.fromStrRadix(s, radix).map { BigInt.fromBiguint(sign, it) }
 }
 
@@ -53,17 +52,14 @@ fun toI64(value: BigInt): Long? {
     }
 }
 
-fun toU64(value: BigInt): ULong? {
-    return when (value.sign()) {
+fun toU64(value: BigInt): ULong? =
+    when (value.sign()) {
         Sign.Plus -> value.data.toULongOrNull()
         Sign.NoSign -> 0uL
         Sign.Minus -> null
     }
-}
 
-fun toF32(value: BigInt): Float? {
-    return toF64(value)?.toFloat()
-}
+fun toF32(value: BigInt): Float? = toF64(value)?.toFloat()
 
 fun toF64(value: BigInt): Double? {
     val n = value.data.toDoubleOrNull() ?: return null
@@ -71,70 +67,46 @@ fun toF64(value: BigInt): Double? {
 }
 
 @HiddenFromObjC
-fun tryFromBigintToULong(value: BigInt): Result<ULong> {
-    return toU64(value)?.let { Result.success(it) }
+fun tryFromBigintToULong(value: BigInt): Result<ULong> =
+    toU64(value)?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
-}
 
 @HiddenFromObjC
-fun tryFromBigintToLong(value: BigInt): Result<Long> {
-    return toI64(value)?.let { Result.success(it) }
+fun tryFromBigintToLong(value: BigInt): Result<Long> =
+    toI64(value)?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
-}
 
-fun fromI64(n: Long): BigInt? {
-    return BigInt.from(n)
-}
+fun fromI64(n: Long): BigInt? = BigInt.from(n)
 
-fun fromU64(n: ULong): BigInt? {
-    return BigInt.from(n)
-}
+fun fromU64(n: ULong): BigInt? = BigInt.from(n)
 
-fun fromF64(n: Double): BigInt? {
-    return if (n >= 0.0) {
+fun fromF64(n: Double): BigInt? =
+    if (n >= 0.0) {
         BigUint.fromDouble(n)?.let { BigInt.from(it) }
     } else {
         BigUint.fromDouble(-n)?.let { -BigInt.from(it) }
     }
-}
 
-fun fromBool(x: Boolean): BigInt {
-    return if (x) BigInt.one() else BigInt.ZERO
-}
+fun fromBool(x: Boolean): BigInt = if (x) BigInt.one() else BigInt.ZERO
 
-fun toBigint(value: BigInt): BigInt? {
-    return value.clone()
-}
+fun toBigint(value: BigInt): BigInt? = value.clone()
 
-fun toBigint(value: BigUint): BigInt? {
-    return if (value.isZero()) BigInt.ZERO else BigInt.from(value.clone())
-}
+fun toBigint(value: BigUint): BigInt? = if (value.isZero()) BigInt.ZERO else BigInt.from(value.clone())
 
-fun toBiguint(value: BigInt): BigUint? {
-    return value.toBigUint()
-}
+fun toBiguint(value: BigInt): BigUint? = value.toBigUint()
 
 @HiddenFromObjC
-fun tryFromBigintToBiguint(value: BigInt): Result<BigUint> {
-    return value.toBigUint()?.let { Result.success(it) }
+fun tryFromBigintToBiguint(value: BigInt): Result<BigUint> =
+    value.toBigUint()?.let { Result.success(it) }
         ?: Result.failure(TryFromBigIntException(TryFromBigIntError(value)))
-}
 
-fun fromSignedBytesBe(digits: List<UByte>): BigInt {
-    return BigInt.fromSignedBytesBe(digits)
-}
+fun fromSignedBytesBe(digits: List<UByte>): BigInt = BigInt.fromSignedBytesBe(digits)
 
-fun fromSignedBytesLe(digits: List<UByte>): BigInt {
-    return BigInt.fromSignedBytesLe(digits)
-}
+fun fromSignedBytesLe(digits: List<UByte>): BigInt = BigInt.fromSignedBytesLe(digits)
 
-fun toSignedBytesBe(x: BigInt): List<UByte> {
-    return x.toSignedBytesBe()
-}
+fun toSignedBytesBe(x: BigInt): List<UByte> = x.toSignedBytesBe()
 
-fun toSignedBytesLe(x: BigInt): List<UByte> {
-    return x.toSignedBytesLe()
-}
+fun toSignedBytesLe(x: BigInt): List<UByte> = x.toSignedBytesLe()
 
 /**
  * Perform in-place two's complement of the given binary representation,

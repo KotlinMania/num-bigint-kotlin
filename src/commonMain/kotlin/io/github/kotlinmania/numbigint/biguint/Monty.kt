@@ -168,13 +168,14 @@ fun montyModpow(x0: BigUint, y: BigUint, m: BigUint): BigUint {
                 zz = montgomery(z, z, m, mr.n0inv, numWords)
                 z = montgomery(zz, zz, m, mr.n0inv, numWords)
             }
-            zz = montgomery(
-                z,
-                powers[(yi shr (BIG_DIGIT_BITS - window)).toInt()],
-                m,
-                mr.n0inv,
-                numWords,
-            )
+            zz =
+                montgomery(
+                    z,
+                    powers[(yi shr (BIG_DIGIT_BITS - window)).toInt()],
+                    m,
+                    mr.n0inv,
+                    numWords,
+                )
             val tmp = z
             z = zz
             zz = tmp

@@ -40,11 +40,12 @@ internal fun divRemDigit(a: BigUint, b: BigDigit): Pair<BigUint, BigDigit> {
     var rem = 0u
     var i = a.data.lastIndex
     while (i >= 0) {
-        val (q, r) = if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
-            divHalf(rem, a.data[i], b)
-        } else {
-            divWide(rem, a.data[i], b)
-        }
+        val (q, r) =
+            if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
+                divHalf(rem, a.data[i], b)
+            } else {
+                divWide(rem, a.data[i], b)
+            }
         a.data[i] = q
         rem = r
         i -= 1
@@ -59,11 +60,12 @@ private fun remDigit(a: BigUint, b: BigDigit): BigDigit {
     var rem = 0u
     var i = a.data.lastIndex
     while (i >= 0) {
-        val (_, r) = if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
-            divHalf(rem, a.data[i], b)
-        } else {
-            divWide(rem, a.data[i], b)
-        }
+        val (_, r) =
+            if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
+                divHalf(rem, a.data[i], b)
+            } else {
+                divWide(rem, a.data[i], b)
+            }
         rem = r
         i -= 1
     }
@@ -105,9 +107,7 @@ private fun subMulDigitSameLen(a: MutableList<BigDigit>, b: List<BigDigit>, c: B
     return BIG_DIGIT_MAX - offsetCarry
 }
 
-private fun divRem(u: BigUint, d: BigUint): Pair<BigUint, BigUint> {
-    return divRemRef(u, d)
-}
+private fun divRem(u: BigUint, d: BigUint): Pair<BigUint, BigUint> = divRemRef(u, d)
 
 internal fun divRemRef(u: BigUint, d: BigUint): Pair<BigUint, BigUint> {
     require(!d.isZero()) { "attempt to divide by zero" }
@@ -175,13 +175,12 @@ operator fun BigUint.divAssign(other: UInt) {
     data.addAll(next.data)
 }
 
-operator fun UInt.div(other: BigUint): BigUint {
-    return when (other.data.size) {
+operator fun UInt.div(other: BigUint): BigUint =
+    when (other.data.size) {
         0 -> throw ArithmeticException("attempt to divide by zero")
         1 -> (this / other.data[0]).toBigUint()
         else -> BigUint.ZERO
     }
-}
 
 operator fun BigUint.div(other: ULong): BigUint {
     val (q, _) = divRem(this, other.toBigUint())
@@ -194,23 +193,21 @@ operator fun BigUint.divAssign(other: ULong) {
     data.addAll(next.data)
 }
 
-operator fun ULong.div(other: BigUint): BigUint {
-    return when (other.data.size) {
+operator fun ULong.div(other: BigUint): BigUint =
+    when (other.data.size) {
         0 -> throw ArithmeticException("attempt to divide by zero")
         1 -> (this / other.data[0]).toBigUint()
         2 -> (this / toDoubleBigDigit(other.data[1], other.data[0])).toBigUint()
         else -> BigUint.ZERO
     }
-}
 
-operator fun BigUint.rem(other: BigUint): BigUint {
-    return if (other.data.size == 1) {
+operator fun BigUint.rem(other: BigUint): BigUint =
+    if (other.data.size == 1) {
         remDigit(this, other.data[0]).toBigUint()
     } else {
         val (_, r) = divRem(this, other)
         r
     }
-}
 
 operator fun BigUint.remAssign(other: BigUint) {
     val next = this % other
@@ -218,9 +215,7 @@ operator fun BigUint.remAssign(other: BigUint) {
     data.addAll(next.data)
 }
 
-operator fun BigUint.rem(other: UInt): BigUint {
-    return remDigit(this, other).toBigUint()
-}
+operator fun BigUint.rem(other: UInt): BigUint = remDigit(this, other).toBigUint()
 
 operator fun BigUint.remAssign(other: UInt) {
     val next = this % other
@@ -228,13 +223,12 @@ operator fun BigUint.remAssign(other: UInt) {
     data.addAll(next.data)
 }
 
-operator fun UInt.rem(other: BigUint): BigUint {
-    return when (val primitive = other.toUIntOrNull()) {
+operator fun UInt.rem(other: BigUint): BigUint =
+    when (val primitive = other.toUIntOrNull()) {
         null -> this.toBigUint()
         0u -> throw ArithmeticException("attempt to divide by zero")
         else -> (this % primitive).toBigUint()
     }
-}
 
 operator fun BigUint.rem(other: ULong): BigUint {
     val (_, r) = divRem(this, other.toBigUint())
@@ -247,13 +241,12 @@ operator fun BigUint.remAssign(other: ULong) {
     data.addAll(next.data)
 }
 
-operator fun ULong.rem(other: BigUint): BigUint {
-    return when (val primitive = other.toULongOrNull()) {
+operator fun ULong.rem(other: BigUint): BigUint =
+    when (val primitive = other.toULongOrNull()) {
         null -> this.toBigUint()
         0uL -> throw ArithmeticException("attempt to divide by zero")
         else -> (this % primitive).toBigUint()
     }
-}
 
 fun BigUint.checkedDiv(v: BigUint): BigUint? {
     if (v.isZero()) {

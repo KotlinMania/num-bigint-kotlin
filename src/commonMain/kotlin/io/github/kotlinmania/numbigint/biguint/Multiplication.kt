@@ -42,11 +42,12 @@ private fun macDigit(acc: MutableList<BigDigit>, offset: Int, b: List<BigDigit>,
     }
 
     val (carryHi, carryLo) = fromDoubleBigDigit(carry)
-    val finalCarry = if (carryHi == 0u) {
-        add2Carry(acc, listOf(carryLo), aOffset = offset + b.size)
-    } else {
-        add2Carry(acc, listOf(carryLo, carryHi), aOffset = offset + b.size)
-    }
+    val finalCarry =
+        if (carryHi == 0u) {
+            add2Carry(acc, listOf(carryLo), aOffset = offset + b.size)
+        } else {
+            add2Carry(acc, listOf(carryLo, carryHi), aOffset = offset + b.size)
+        }
     check(finalCarry == 0u) { "carry overflow during multiplication!" }
 }
 
@@ -111,14 +112,13 @@ private fun scalarMul(a: BigUint, b: BigDigit) {
     }
 }
 
-operator fun BigUint.times(other: BigUint): BigUint {
-    return when {
+operator fun BigUint.times(other: BigUint): BigUint =
+    when {
         data.isEmpty() || other.data.isEmpty() -> BigUint.ZERO
         other.data.size == 1 -> this * other.data[0]
         data.size == 1 -> other * data[0]
         else -> mul3(data, other.data)
     }
-}
 
 operator fun BigUint.timesAssign(other: BigUint) {
     when {
@@ -144,9 +144,7 @@ operator fun BigUint.times(other: UInt): BigUint {
     return result
 }
 
-operator fun UInt.times(other: BigUint): BigUint {
-    return other * this
-}
+operator fun UInt.times(other: BigUint): BigUint = other * this
 
 operator fun BigUint.timesAssign(other: UInt) {
     scalarMul(this, other)
@@ -158,9 +156,7 @@ operator fun BigUint.times(other: ULong): BigUint {
     return result
 }
 
-operator fun ULong.times(other: BigUint): BigUint {
-    return other * this
-}
+operator fun ULong.times(other: BigUint): BigUint = other * this
 
 operator fun BigUint.timesAssign(other: ULong) {
     if (other <= UInt.MAX_VALUE.toULong()) {
@@ -173,9 +169,7 @@ operator fun BigUint.timesAssign(other: ULong) {
     }
 }
 
-fun BigUint.checkedMul(v: BigUint): BigUint? {
-    return this * v
-}
+fun BigUint.checkedMul(v: BigUint): BigUint? = this * v
 
 fun Iterable<BigUint>.productBigUint(): BigUint {
     var product = BigUint.one()
