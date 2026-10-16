@@ -215,6 +215,22 @@ operator fun BigUint.timesAssign(other: ULong) {
     }
 }
 
+operator fun BigUint.times(other: UByte): BigUint = this * other.toUInt()
+
+operator fun UByte.times(other: BigUint): BigUint = toUInt() * other
+
+operator fun BigUint.timesAssign(other: UByte) {
+    this *= other.toUInt()
+}
+
+operator fun BigUint.times(other: UShort): BigUint = this * other.toUInt()
+
+operator fun UShort.times(other: BigUint): BigUint = toUInt() * other
+
+operator fun BigUint.timesAssign(other: UShort) {
+    this *= other.toUInt()
+}
+
 fun BigUint.checkedMul(v: BigUint): BigUint? = this * v
 
 fun Iterable<BigUint>.productBigUint(): BigUint {

@@ -133,4 +133,36 @@ operator fun BigInt.minusAssign(other: Long) {
 
 operator fun Long.minus(other: BigInt): BigInt = sub(this, other)
 
+operator fun BigInt.minus(other: UByte): BigInt = sub(this, other.toUInt())
+
+operator fun BigInt.minusAssign(other: UByte) {
+    subAssign(this, other.toUInt())
+}
+
+operator fun UByte.minus(other: BigInt): BigInt = sub(toUInt(), other)
+
+operator fun BigInt.minus(other: UShort): BigInt = sub(this, other.toUInt())
+
+operator fun BigInt.minusAssign(other: UShort) {
+    subAssign(this, other.toUInt())
+}
+
+operator fun UShort.minus(other: BigInt): BigInt = sub(toUInt(), other)
+
+operator fun BigInt.minus(other: Byte): BigInt = sub(this, other.toInt())
+
+operator fun BigInt.minusAssign(other: Byte) {
+    subAssign(this, other.toInt())
+}
+
+operator fun Byte.minus(other: BigInt): BigInt = sub(toInt(), other)
+
+operator fun BigInt.minus(other: Short): BigInt = sub(this, other.toInt())
+
+operator fun BigInt.minusAssign(other: Short) {
+    subAssign(this, other.toInt())
+}
+
+operator fun Short.minus(other: BigInt): BigInt = sub(toInt(), other)
+
 fun checkedSub(self: BigInt, v: BigInt): BigInt? = sub(self, v)

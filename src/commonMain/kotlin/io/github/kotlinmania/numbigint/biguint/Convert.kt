@@ -245,7 +245,17 @@ private fun highBitsToU64(v: BigUint): ULong =
         }
     }
 
+fun BigUint.toByteOrNull(): Byte? = toUIntOrNull()?.takeIf { it <= Byte.MAX_VALUE.toUInt() }?.toByte()
+
+fun BigUint.toShortOrNull(): Short? = toUIntOrNull()?.takeIf { it <= Short.MAX_VALUE.toUInt() }?.toShort()
+
+fun BigUint.toIntOrNull(): Int? = toUIntOrNull()?.takeIf { it <= Int.MAX_VALUE.toUInt() }?.toInt()
+
 fun BigUint.toLongOrNull(): Long? = toULongOrNull()?.takeIf { it <= Long.MAX_VALUE.toULong() }?.toLong()
+
+fun BigUint.toUByteOrNull(): UByte? = toUIntOrNull()?.takeIf { it <= UByte.MAX_VALUE.toUInt() }?.toUByte()
+
+fun BigUint.toUShortOrNull(): UShort? = toUIntOrNull()?.takeIf { it <= UShort.MAX_VALUE.toUInt() }?.toUShort()
 
 fun BigUint.toUIntOrNull(): UInt? =
     when (data.size) {

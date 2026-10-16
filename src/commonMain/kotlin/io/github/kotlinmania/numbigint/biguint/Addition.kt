@@ -122,6 +122,22 @@ operator fun BigUint.plusAssign(other: ULong) {
     }
 }
 
+operator fun BigUint.plus(other: UByte): BigUint = this + other.toUInt()
+
+operator fun UByte.plus(other: BigUint): BigUint = toUInt() + other
+
+operator fun BigUint.plusAssign(other: UByte) {
+    this += other.toUInt()
+}
+
+operator fun BigUint.plus(other: UShort): BigUint = this + other.toUInt()
+
+operator fun UShort.plus(other: BigUint): BigUint = toUInt() + other
+
+operator fun BigUint.plusAssign(other: UShort) {
+    this += other.toUInt()
+}
+
 fun BigUint.checkedAdd(v: BigUint): BigUint? = this + v
 
 fun Iterable<BigUint>.sumBigUint(): BigUint {

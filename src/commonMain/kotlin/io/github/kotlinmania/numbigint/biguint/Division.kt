@@ -248,6 +248,38 @@ operator fun ULong.rem(other: BigUint): BigUint =
         else -> (this % primitive).toBigUint()
     }
 
+operator fun BigUint.div(other: UByte): BigUint = this / other.toUInt()
+
+operator fun UByte.div(other: BigUint): BigUint = toUInt() / other
+
+operator fun BigUint.divAssign(other: UByte) {
+    this /= other.toUInt()
+}
+
+operator fun BigUint.div(other: UShort): BigUint = this / other.toUInt()
+
+operator fun UShort.div(other: BigUint): BigUint = toUInt() / other
+
+operator fun BigUint.divAssign(other: UShort) {
+    this /= other.toUInt()
+}
+
+operator fun BigUint.rem(other: UByte): BigUint = this % other.toUInt()
+
+operator fun UByte.rem(other: BigUint): BigUint = toUInt() % other
+
+operator fun BigUint.remAssign(other: UByte) {
+    this %= other.toUInt()
+}
+
+operator fun BigUint.rem(other: UShort): BigUint = this % other.toUInt()
+
+operator fun UShort.rem(other: BigUint): BigUint = toUInt() % other
+
+operator fun BigUint.remAssign(other: UShort) {
+    this %= other.toUInt()
+}
+
 fun BigUint.checkedDiv(v: BigUint): BigUint? {
     if (v.isZero()) {
         return null

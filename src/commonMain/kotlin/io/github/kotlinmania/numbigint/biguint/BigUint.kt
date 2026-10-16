@@ -666,6 +666,14 @@ class BigUint internal constructor(
         fun fromFloat(n: Float): BigUint? = fromDoubleImpl(Float.fromBits(n.toRawBits()).toDouble())
 
         fun fromDouble(n: Double): BigUint? = fromDoubleImpl(n)
+
+        fun from(n: UByte): BigUint = fromUInt(n.toUInt())
+
+        fun from(n: UShort): BigUint = fromUInt(n.toUInt())
+
+        fun from(n: UInt): BigUint = fromUInt(n)
+
+        fun from(n: ULong): BigUint = fromULong(n)
     }
 }
 
