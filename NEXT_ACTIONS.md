@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 346/534 matched (target 597) — 64.8%
-- **Class/type parity:** 13/41 matched (target 22) — 31.7%
+- **Function parity:** 346/534 matched (target 599) — 64.8%
+- **Class/type parity:** 13/41 matched (target 20) — 31.7%
 - **Combined symbol parity:** 359/575 matched (target 619) — 62.4%
-- **Average inline-code cosine:** 0.18 (function body across 23 matched files)
+- **Average inline-code cosine:** 0.20 (function body across 23 matched files)
 - **Average documentation cosine:** 0.37 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
 - **Critical Issues:** 23 files with <0.60 function similarity
@@ -35,7 +35,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.24
 - **Dependents:** 7
 - **Priority Score:** 7218907.5
-- **Functions:** 65/85 matched (target 82)
+- **Functions:** 65/85 matched (target 84)
 - **Missing functions:** `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`, `test_u32_u128`, `test_u128_u32_roundtrip`
 - **Types:** 3/4 matched
 - **Missing types:** `Bytes`
@@ -47,7 +47,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.20
 - **Dependents:** 6
 - **Priority Score:** 6391108.0
-- **Functions:** 71/104 matched (target 125)
+- **Functions:** 71/104 matched (target 129)
 - **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `extended_gcd_lcm`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`, `test_from_biguint`, `check`, `test_from_slice`, `check`, `test_assign_from_slice`, `check`
 - **Types:** 2/7 matched (target 2)
 - **Missing types:** `Output`, `UnsignedAbs`, `CheckedUnsignedAbs`, `ToBigInt`, `Bytes`
@@ -236,32 +236,32 @@ Every matched file is listed below with function and type symbol parity.
 ### 19. biguint.serde
 
 - **Target:** `biguint.Serde`
-- **Similarity:** 0.08
+- **Similarity:** 0.34
 - **Dependents:** 0
-- **Priority Score:** 509.2
+- **Priority Score:** 506.6
 - **Functions:** 3/3 matched (target 6)
 - **Missing functions:** _none_
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
-### 20. bigint.serde
-
-- **Target:** `bigint.Serde`
-- **Similarity:** 0.06
-- **Dependents:** 0
-- **Priority Score:** 409.4
-- **Functions:** 4/4 matched (target 8)
-- **Missing functions:** _none_
-- **Types:** 0/0 matched (target 2)
-- **Missing types:** _none_
-
-### 21. biguint.shift
+### 20. biguint.shift
 
 - **Target:** `biguint.Shift`
 - **Similarity:** 0.27
 - **Dependents:** 0
 - **Priority Score:** 407.3
 - **Functions:** 4/4 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 21. bigint.serde
+
+- **Target:** `bigint.Serde`
+- **Similarity:** 0.33
+- **Dependents:** 0
+- **Priority Score:** 406.7
+- **Functions:** 4/4 matched
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
