@@ -788,9 +788,17 @@ class BigInt internal constructor(
 
         fun from(value: BigUint): BigInt = fromBiguint(Sign.Plus, value)
 
+        fun from(value: UByte): BigInt = from(value.toUInt())
+
+        fun from(value: UShort): BigInt = from(value.toUInt())
+
         fun from(value: UInt): BigInt = from(value.toBigUint())
 
         fun from(value: ULong): BigInt = from(value.toBigUint())
+
+        fun from(value: Byte): BigInt = from(value.toInt())
+
+        fun from(value: Short): BigInt = from(value.toInt())
 
         fun from(value: Int): BigInt =
             if (value >= 0) {
@@ -847,6 +855,22 @@ operator fun BigInt.divAssign(other: BigInt) {
         .divAssign(this, other)
 }
 
+operator fun BigInt.div(other: UByte): BigInt = this / other.toUInt()
+
+operator fun BigInt.divAssign(other: UByte) {
+    this /= other.toUInt()
+}
+
+operator fun UByte.div(other: BigInt): BigInt = toUInt() / other
+
+operator fun BigInt.div(other: UShort): BigInt = this / other.toUInt()
+
+operator fun BigInt.divAssign(other: UShort) {
+    this /= other.toUInt()
+}
+
+operator fun UShort.div(other: BigInt): BigInt = toUInt() / other
+
 operator fun BigInt.div(other: UInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .div(this, other)
@@ -872,6 +896,22 @@ operator fun BigInt.divAssign(other: ULong) {
 operator fun ULong.div(other: BigInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .div(this, other)
+
+operator fun BigInt.div(other: Byte): BigInt = this / other.toInt()
+
+operator fun BigInt.divAssign(other: Byte) {
+    this /= other.toInt()
+}
+
+operator fun Byte.div(other: BigInt): BigInt = toInt() / other
+
+operator fun BigInt.div(other: Short): BigInt = this / other.toInt()
+
+operator fun BigInt.divAssign(other: Short) {
+    this /= other.toInt()
+}
+
+operator fun Short.div(other: BigInt): BigInt = toInt() / other
 
 operator fun BigInt.div(other: Int): BigInt =
     io.github.kotlinmania.numbigint.bigint
@@ -908,6 +948,22 @@ operator fun BigInt.remAssign(other: BigInt) {
         .remAssign(this, other)
 }
 
+operator fun BigInt.rem(other: UByte): BigInt = this % other.toUInt()
+
+operator fun BigInt.remAssign(other: UByte) {
+    this %= other.toUInt()
+}
+
+operator fun UByte.rem(other: BigInt): BigInt = toUInt() % other
+
+operator fun BigInt.rem(other: UShort): BigInt = this % other.toUInt()
+
+operator fun BigInt.remAssign(other: UShort) {
+    this %= other.toUInt()
+}
+
+operator fun UShort.rem(other: BigInt): BigInt = toUInt() % other
+
 operator fun BigInt.rem(other: UInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .rem(this, other)
@@ -933,6 +989,22 @@ operator fun BigInt.remAssign(other: ULong) {
 operator fun ULong.rem(other: BigInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .rem(this, other)
+
+operator fun BigInt.rem(other: Byte): BigInt = this % other.toInt()
+
+operator fun BigInt.remAssign(other: Byte) {
+    this %= other.toInt()
+}
+
+operator fun Byte.rem(other: BigInt): BigInt = toInt() % other
+
+operator fun BigInt.rem(other: Short): BigInt = this % other.toInt()
+
+operator fun BigInt.remAssign(other: Short) {
+    this %= other.toInt()
+}
+
+operator fun Short.rem(other: BigInt): BigInt = toInt() % other
 
 operator fun BigInt.rem(other: Int): BigInt =
     io.github.kotlinmania.numbigint.bigint
@@ -1004,9 +1076,27 @@ fun BigInt.divRemEuclid(v: BigInt): Pair<BigInt, BigInt> =
     io.github.kotlinmania.numbigint.bigint
         .divRemEuclid(this, v)
 
+fun BigInt.toByteOrNull(): Byte? =
+    toLongOrNull()?.takeIf { it in Byte.MIN_VALUE.toLong()..Byte.MAX_VALUE.toLong() }?.toByte()
+
+fun BigInt.toShortOrNull(): Short? =
+    toLongOrNull()?.takeIf { it in Short.MIN_VALUE.toLong()..Short.MAX_VALUE.toLong() }?.toShort()
+
+fun BigInt.toIntOrNull(): Int? =
+    toLongOrNull()?.takeIf { it in Int.MIN_VALUE.toLong()..Int.MAX_VALUE.toLong() }?.toInt()
+
 fun BigInt.toLongOrNull(): Long? =
     io.github.kotlinmania.numbigint.bigint
         .toI64(this)
+
+fun BigInt.toUByteOrNull(): UByte? =
+    toULongOrNull()?.takeIf { it <= UByte.MAX_VALUE.toULong() }?.toUByte()
+
+fun BigInt.toUShortOrNull(): UShort? =
+    toULongOrNull()?.takeIf { it <= UShort.MAX_VALUE.toULong() }?.toUShort()
+
+fun BigInt.toUIntOrNull(): UInt? =
+    toULongOrNull()?.takeIf { it <= UInt.MAX_VALUE.toULong() }?.toUInt()
 
 fun BigInt.toULongOrNull(): ULong? =
     io.github.kotlinmania.numbigint.bigint

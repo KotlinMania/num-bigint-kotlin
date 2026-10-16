@@ -88,6 +88,38 @@ operator fun BigInt.timesAssign(other: Long) {
 
 operator fun Long.times(other: BigInt): BigInt = mul(this, other)
 
+operator fun BigInt.times(other: UByte): BigInt = mul(this, other.toUInt())
+
+operator fun BigInt.timesAssign(other: UByte) {
+    mulAssign(this, other.toUInt())
+}
+
+operator fun UByte.times(other: BigInt): BigInt = mul(toUInt(), other)
+
+operator fun BigInt.times(other: UShort): BigInt = mul(this, other.toUInt())
+
+operator fun BigInt.timesAssign(other: UShort) {
+    mulAssign(this, other.toUInt())
+}
+
+operator fun UShort.times(other: BigInt): BigInt = mul(toUInt(), other)
+
+operator fun BigInt.times(other: Byte): BigInt = mul(this, other.toInt())
+
+operator fun BigInt.timesAssign(other: Byte) {
+    mulAssign(this, other.toInt())
+}
+
+operator fun Byte.times(other: BigInt): BigInt = mul(toInt(), other)
+
+operator fun BigInt.times(other: Short): BigInt = mul(this, other.toInt())
+
+operator fun BigInt.timesAssign(other: Short) {
+    mulAssign(this, other.toInt())
+}
+
+operator fun Short.times(other: BigInt): BigInt = mul(toInt(), other)
+
 fun checkedMul(self: BigInt, v: BigInt): BigInt? = mul(self, v)
 
 fun Iterable<BigInt>.productBigInt(): BigInt {

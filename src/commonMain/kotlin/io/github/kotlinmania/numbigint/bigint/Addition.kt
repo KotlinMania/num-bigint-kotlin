@@ -132,6 +132,38 @@ operator fun BigInt.plusAssign(other: Long) {
 
 operator fun Long.plus(other: BigInt): BigInt = add(this, other)
 
+operator fun BigInt.plus(other: UByte): BigInt = add(this, other.toUInt())
+
+operator fun BigInt.plusAssign(other: UByte) {
+    addAssign(this, other.toUInt())
+}
+
+operator fun UByte.plus(other: BigInt): BigInt = add(toUInt(), other)
+
+operator fun BigInt.plus(other: UShort): BigInt = add(this, other.toUInt())
+
+operator fun BigInt.plusAssign(other: UShort) {
+    addAssign(this, other.toUInt())
+}
+
+operator fun UShort.plus(other: BigInt): BigInt = add(toUInt(), other)
+
+operator fun BigInt.plus(other: Byte): BigInt = add(this, other.toInt())
+
+operator fun BigInt.plusAssign(other: Byte) {
+    addAssign(this, other.toInt())
+}
+
+operator fun Byte.plus(other: BigInt): BigInt = add(toInt(), other)
+
+operator fun BigInt.plus(other: Short): BigInt = add(this, other.toInt())
+
+operator fun BigInt.plusAssign(other: Short) {
+    addAssign(this, other.toInt())
+}
+
+operator fun Short.plus(other: BigInt): BigInt = add(toInt(), other)
+
 fun checkedAdd(self: BigInt, v: BigInt): BigInt? = add(self, v)
 
 fun Iterable<BigInt>.sumBigInt(): BigInt {

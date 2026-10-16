@@ -129,6 +129,22 @@ operator fun ULong.minus(other: BigUint): BigUint {
     return result.normalized()
 }
 
+operator fun BigUint.minus(other: UByte): BigUint = this - other.toUInt()
+
+operator fun UByte.minus(other: BigUint): BigUint = toUInt() - other
+
+operator fun BigUint.minusAssign(other: UByte) {
+    this -= other.toUInt()
+}
+
+operator fun BigUint.minus(other: UShort): BigUint = this - other.toUInt()
+
+operator fun UShort.minus(other: BigUint): BigUint = toUInt() - other
+
+operator fun BigUint.minusAssign(other: UShort) {
+    this -= other.toUInt()
+}
+
 fun BigUint.checkedSub(v: BigUint): BigUint? =
     when {
         this < v -> null
