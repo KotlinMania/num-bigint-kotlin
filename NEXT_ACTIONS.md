@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 346/534 matched (target 599) — 64.8%
-- **Class/type parity:** 13/41 matched (target 20) — 31.7%
-- **Combined symbol parity:** 359/575 matched (target 619) — 62.4%
-- **Average inline-code cosine:** 0.20 (function body across 23 matched files)
+- **Function parity:** 367/534 matched (target 625) — 68.7%
+- **Class/type parity:** 13/41 matched (target 26) — 31.7%
+- **Combined symbol parity:** 380/575 matched (target 651) — 66.1%
+- **Average inline-code cosine:** 0.22 (function body across 23 matched files)
 - **Average documentation cosine:** 0.37 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
 - **Critical Issues:** 23 files with <0.60 function similarity
@@ -34,36 +34,36 @@ Every matched file is listed below with function and type symbol parity.
 - **Target:** `biguint.BigUint`
 - **Similarity:** 0.24
 - **Dependents:** 7
-- **Priority Score:** 7218907.5
-- **Functions:** 65/85 matched (target 84)
-- **Missing functions:** `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`, `test_u32_u128`, `test_u128_u32_roundtrip`
-- **Types:** 3/4 matched
+- **Priority Score:** 7198907.5
+- **Functions:** 67/85 matched (target 90)
+- **Missing functions:** `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
+- **Types:** 3/4 matched (target 5)
 - **Missing types:** `Bytes`
-- **Tests:** 0/2 matched
+- **Tests:** 2/2 matched
 
 ### 2. bigint
 
 - **Target:** `bigint.BigInt`
-- **Similarity:** 0.20
+- **Similarity:** 0.22
 - **Dependents:** 6
-- **Priority Score:** 6391108.0
-- **Functions:** 71/104 matched (target 129)
-- **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `extended_gcd_lcm`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`, `test_from_biguint`, `check`, `test_from_slice`, `check`, `test_assign_from_slice`, `check`
-- **Types:** 2/7 matched (target 2)
+- **Priority Score:** 6331108.0
+- **Functions:** 77/104 matched (target 135)
+- **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `extended_gcd_lcm`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
+- **Types:** 2/7 matched (target 3)
 - **Missing types:** `Output`, `UnsignedAbs`, `CheckedUnsignedAbs`, `ToBigInt`, `Bytes`
-- **Tests:** 0/3 matched
+- **Tests:** 3/3 matched
 
 ### 3. biguint.convert
 
 - **Target:** `biguint.Convert`
-- **Similarity:** 0.09
+- **Similarity:** 0.13
 - **Dependents:** 0
-- **Priority Score:** 243709.1
-- **Functions:** 13/35 matched (target 39)
-- **Missing functions:** `from_str`, `from_radix_be`, `from_radix_le`, `from_str_radix`, `to_i64`, `to_i128`, `to_u64`, `to_u128`, `to_f32`, `to_f64`, `from_i64`, `from_i128`, `from_u64`, `from_u128`, `from_f64`, `from`, `from`, `from`, `to_radix_le`, `generate_radix_bases`, `test_radix_bases`, `test_half_radix_bases`
-- **Types:** 0/2 matched (target 0)
+- **Priority Score:** 213708.7
+- **Functions:** 16/35 matched (target 43)
+- **Missing functions:** `from_str`, `from_radix_be`, `from_radix_le`, `from_str_radix`, `to_i64`, `to_i128`, `to_u64`, `to_u128`, `to_f32`, `to_f64`, `from_i64`, `from_i128`, `from_u64`, `from_u128`, `from_f64`, `from`, `from`, `from`, `to_radix_le`
+- **Types:** 0/2 matched (target 1)
 - **Missing types:** `Err`, `FromStrRadixErr`
-- **Tests:** 0/2 matched
+- **Tests:** 2/2 matched
 
 ### 4. bigint.convert
 
@@ -109,19 +109,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched (target 8)
 - **Missing types:** _none_
 
-### 8. biguint.multiplication
-
-- **Target:** `biguint.Multiplication`
-- **Similarity:** 0.11
-- **Dependents:** 0
-- **Priority Score:** 91608.9
-- **Functions:** 7/15 matched (target 16)
-- **Missing functions:** `bigint_from_slice`, `sub_sign`, `mul`, `mul_assign`, `mul`, `mul`, `test_sub_sign`, `sub_sign_i`
-- **Types:** 0/1 matched (target 0)
-- **Missing types:** `Output`
-- **Tests:** 0/1 matched
-
-### 9. biguint.subtraction
+### 8. biguint.subtraction
 
 - **Target:** `biguint.Subtraction`
 - **Similarity:** 0.05
@@ -132,7 +120,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 10. biguint.division
+### 9. biguint.division
 
 - **Target:** `biguint.Division`
 - **Similarity:** 0.20
@@ -143,7 +131,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 11. biguint.addition
+### 10. biguint.addition
 
 - **Target:** `biguint.Addition`
 - **Similarity:** 0.10
@@ -154,17 +142,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
+### 11. biguint.multiplication
+
+- **Target:** `biguint.Multiplication`
+- **Similarity:** 0.23
+- **Dependents:** 0
+- **Priority Score:** 51607.7
+- **Functions:** 11/15 matched (target 20)
+- **Missing functions:** `mul`, `mul_assign`, `mul`, `mul`
+- **Types:** 0/1 matched
+- **Missing types:** `Output`
+- **Tests:** 1/1 matched
+
 ### 12. biguint.power
 
 - **Target:** `biguint.Power`
-- **Similarity:** 0.06
+- **Similarity:** 0.15
 - **Dependents:** 0
-- **Priority Score:** 70909.4
-- **Functions:** 2/8 matched (target 7)
-- **Missing functions:** `pow`, `pow`, `pow`, `modpow`, `test_plain_modpow`, `test_pow_biguint`
-- **Types:** 0/1 matched (target 0)
+- **Priority Score:** 50908.5
+- **Functions:** 4/8 matched (target 9)
+- **Missing functions:** `pow`, `pow`, `pow`, `modpow`
+- **Types:** 0/1 matched
 - **Missing types:** `Output`
-- **Tests:** 0/2 matched
+- **Tests:** 2/2 matched
 
 ### 13. bigint.addition
 
@@ -177,19 +177,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 14. biguint.iter
-
-- **Target:** `biguint.Iter`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 40510.0
-- **Functions:** 1/5 matched (target 15)
-- **Missing functions:** `test_iter_u32_digits`, `test_iter_u64_digits`, `test_iter_u32_digits_be`, `test_iter_u64_digits_be`
-- **Types:** 0/0 matched (target 2)
-- **Missing types:** _none_
-- **Tests:** 0/4 matched
-
-### 15. bigint.multiplication
+### 14. bigint.multiplication
 
 - **Target:** `bigint.Multiplication`
 - **Similarity:** 0.21
@@ -200,7 +188,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 16. biguint.bits
+### 15. biguint.bits
 
 - **Target:** `biguint.Bits`
 - **Similarity:** 0.09
@@ -211,7 +199,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 17. bigint.bits
+### 16. bigint.bits
 
 - **Target:** `bigint.Bits`
 - **Similarity:** 0.09
@@ -222,7 +210,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched
 - **Missing types:** `Output`
 
-### 18. biguint.monty
+### 17. biguint.monty
 
 - **Target:** `biguint.Monty`
 - **Similarity:** 0.47
@@ -232,6 +220,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 1/1 matched
 - **Missing types:** _none_
+
+### 18. biguint.iter
+
+- **Target:** `biguint.Iter`
+- **Similarity:** 0.18
+- **Dependents:** 0
+- **Priority Score:** 508.2
+- **Functions:** 5/5 matched (target 19)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 3)
+- **Missing types:** _none_
+- **Tests:** 4/4 matched
 
 ### 19. biguint.serde
 

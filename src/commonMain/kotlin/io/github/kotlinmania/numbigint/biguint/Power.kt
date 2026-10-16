@@ -51,7 +51,7 @@ internal fun modpowBigUint(x: BigUint, exponent: BigUint, modulus: BigUint): Big
     return plainModpow(x, exponent.data, modulus)
 }
 
-private fun plainModpow(base0: BigUint, expData: List<BigDigit>, modulus: BigUint): BigUint {
+internal fun plainModpow(base0: BigUint, expData: List<BigDigit>, modulus: BigUint): BigUint {
     require(!modulus.isZero()) { "attempt to calculate with zero modulus!" }
 
     val start = expData.indexOfFirst { it != 0u }

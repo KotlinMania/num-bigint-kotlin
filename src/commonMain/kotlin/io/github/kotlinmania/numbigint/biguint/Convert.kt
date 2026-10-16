@@ -491,22 +491,26 @@ internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
     return res
 }
 
+private val BASES: List<Pair<BigDigit, Int>> = generateRadixBases(BIG_DIGIT_MAX)
+
 /**
  * Returns the greatest power of the radix for the `BigDigit` bit size.
  */
-private fun getRadixBase(radix: UInt): Pair<BigDigit, Int> {
+internal fun getRadixBase(radix: UInt): Pair<BigDigit, Int> {
     check(!radix.isPowerOfTwo())
-    check(radix in 3u..255u)
-    return generateRadixBase(radix, BIG_DIGIT_MAX)
+    check(radix in 3u..<256u)
+    return BASES[radix.toInt()]
 }
+
+private val HALF_BASES: List<Pair<BigDigit, Int>> = generateRadixBases(BIG_DIGIT_HALF)
 
 /**
  * Returns the greatest power of the radix for half the `BigDigit` bit size.
  */
-private fun getHalfRadixBase(radix: UInt): Pair<BigDigit, Int> {
+internal fun getHalfRadixBase(radix: UInt): Pair<BigDigit, Int> {
     check(!radix.isPowerOfTwo())
-    check(radix in 3u..255u)
-    return generateRadixBase(radix, BIG_DIGIT_HALF)
+    check(radix in 3u..<256u)
+    return HALF_BASES[radix.toInt()]
 }
 
 /**
@@ -518,21 +522,32 @@ private fun getHalfRadixBase(radix: UInt): Pair<BigDigit, Int> {
  *
  * Powers of two are not included, just zeroed, as they're implemented with shifts.
  */
-private fun generateRadixBase(radix: UInt, max: BigDigit): Pair<BigDigit, Int> {
-    var power = 1
-    var base = radix
-    while (true) {
-        val next = base.toULong() * radix.toULong()
-        if (next > max.toULong()) {
-            break
+internal fun generateRadixBases(max: BigDigit): List<Pair<BigDigit, Int>> {
+    val bases = MutableList(257) { Pair(0u, 0) }
+
+    var radix: BigDigit = 3u
+    while (radix < 256u) {
+        if (!radix.isPowerOfTwo()) {
+            var power = 1
+            var base = radix
+
+            while (true) {
+                val next = base.toULong() * radix.toULong()
+                if (next > UInt.MAX_VALUE.toULong() || next.toUInt() > max) {
+                    break
+                }
+                base = next.toUInt()
+                power += 1
+            }
+            bases[radix.toInt()] = Pair(base, power)
         }
-        base = next.toUInt()
-        power += 1
+        radix += 1u
     }
-    return Pair(base, power)
+
+    return bases
 }
 
-private fun UInt.isPowerOfTwo(): Boolean = this != 0u && (this and (this - 1u)) == 0u
+internal fun UInt.isPowerOfTwo(): Boolean = this != 0u && (this and (this - 1u)) == 0u
 
 private const val DOUBLE_MAX_EXPONENT_VALUE: Int = 1024
 

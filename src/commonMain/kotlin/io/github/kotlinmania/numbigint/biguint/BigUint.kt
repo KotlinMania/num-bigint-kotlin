@@ -767,6 +767,26 @@ internal fun u32ChunkToU64(chunk: List<UInt>): ULong {
     return digit
 }
 
+/**
+ * Combine four `UInt`s into a single 128-bit unsigned integer `(hi, lo)`.
+ */
+internal fun u32ToU128(a: UInt, b: UInt, c: UInt, d: UInt): Pair<ULong, ULong> =
+    Pair(
+        b.toULong() or (a.toULong() shl 32),
+        d.toULong() or (c.toULong() shl 32),
+    )
+
+/**
+ * Split a single 128-bit unsigned integer `(hi, lo)` into four `UInt`s.
+ */
+internal fun u32FromU128(n: Pair<ULong, ULong>): List<UInt> =
+    listOf(
+        (n.first shr 32).toUInt(),
+        n.first.toUInt(),
+        (n.second shr 32).toUInt(),
+        n.second.toUInt(),
+    )
+
 private fun divCeil(a: ULong, b: ULong): ULong {
     val (d, m) = Pair(a / b, a % b)
     return if (m == 0uL) d else d + 1uL
