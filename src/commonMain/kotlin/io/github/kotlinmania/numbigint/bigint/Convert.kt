@@ -90,6 +90,8 @@ fun fromI64(n: Long): BigInt? = BigInt.from(n)
 
 fun fromU64(n: ULong): BigInt? = BigInt.from(n)
 
+fun fromF32(n: Float): BigInt? = fromF64(Float.fromBits(n.toRawBits()).toDouble())
+
 fun fromF64(n: Double): BigInt? =
     if (n >= 0.0) {
         BigUint.fromDouble(n)?.let { BigInt.from(it) }
