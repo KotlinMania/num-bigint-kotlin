@@ -2,9 +2,12 @@
 package io.github.kotlinmania.numbigint
 
 // Add with carry.
-private fun adc(carry: BigDigit, lhs: BigDigit, rhs: BigDigit): Pair<BigDigit, BigDigit> {
-    val sum = lhs.toULong() + rhs.toULong() + carry.toULong()
-    return Pair(sum.toUInt(), (sum shr BIG_DIGIT_BITS).toUInt())
+private fun adc(carry: BigDigit, lhs: BigDigit, rhs: BigDigit): BigDigit {
+    val s1 = lhs + rhs
+    val c1 = if (s1 < lhs) 1u else 0u
+    val s2 = s1 + carry
+    val c2 = if (s2 < s1) 1u else 0u
+    return c1 or c2
 }
 
 /**
@@ -27,17 +30,19 @@ internal fun add2Carry(
     var carry = 0u
     var i = 0
     while (i < len) {
-        val (out, nextCarry) = adc(carry, a[aOffset + i], b[bOffset + i])
-        a[aOffset + i] = out
+        val lhs = a[aOffset + i]
+        val rhs = b[bOffset + i]
+        val nextCarry = adc(carry, lhs, rhs)
+        a[aOffset + i] = lhs + rhs + carry
         carry = nextCarry
         i += 1
     }
 
     var j = aOffset + len
     while (carry != 0u && j < a.size) {
-        val (out, nextCarry) = adc(carry, a[j], 0u)
-        a[j] = out
-        carry = nextCarry
+        val sum = a[j] + carry
+        a[j] = sum
+        carry = if (sum < carry) 1u else 0u
         j += 1
     }
 

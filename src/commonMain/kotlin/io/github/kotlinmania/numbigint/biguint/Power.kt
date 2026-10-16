@@ -47,8 +47,13 @@ internal fun powBigUint(self: BigUint, exp0: ULong): BigUint {
 internal fun modpowBigUint(x: BigUint, exponent: BigUint, modulus: BigUint): BigUint {
     require(!modulus.isZero()) { "attempt to calculate with zero modulus!" }
 
-    // Otherwise do basically the same as numeric power, but with a modulus.
-    return plainModpow(x, exponent.data, modulus)
+    return if (modulus.isOdd()) {
+        // For an odd modulus, we can use Montgomery multiplication in base 2^32.
+        montyModpow(x, exponent, modulus)
+    } else {
+        // Otherwise do basically the same as numeric power, but with a modulus.
+        plainModpow(x, exponent.data, modulus)
+    }
 }
 
 internal fun plainModpow(base0: BigUint, expData: List<BigDigit>, modulus: BigUint): BigUint {

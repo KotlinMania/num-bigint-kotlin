@@ -39,9 +39,9 @@ internal fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int)
 
     var c: BigDigit = 0u
     for (i in 0 until n) {
-        val c2 = addMulVvw(z.data.subList(i, n + i), x.data, y.data[i])
+        val c2 = addMulVvw(z.data, x.data, y.data[i], zOffset = i)
         val t = z.data[i] * k
-        val c3 = addMulVvw(z.data.subList(i, n + i), m.data, t)
+        val c3 = addMulVvw(z.data, m.data, t, zOffset = i)
         val cx = c + c2
         val cy = cx + c3
         z.data[n + i] = cy
@@ -64,13 +64,13 @@ internal fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int)
     return z
 }
 
-internal fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit): BigDigit {
+internal fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit, zOffset: Int = 0): BigDigit {
     var c: BigDigit = 0u
-    val len = minOf(z.size, x.size)
+    val len = minOf(z.size - zOffset, x.size)
     for (i in 0 until len) {
-        val (z1, z0) = mulAddWww(x[i], y, z[i])
+        val (z1, z0) = mulAddWww(x[i], y, z[zOffset + i])
         val (c0, zi) = addWw(z0, c, 0u)
-        z[i] = zi
+        z[zOffset + i] = zi
         c = c0 + z1
     }
 
