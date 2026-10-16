@@ -51,6 +51,9 @@ private fun macDigit(acc: MutableList<BigDigit>, offset: Int, b: List<BigDigit>,
     check(finalCarry == 0u) { "carry overflow during multiplication!" }
 }
 
+internal fun bigintFromSlice(slice: List<BigDigit>): BigInt =
+    BigInt.from(biguintFromVec(slice.toMutableList()))
+
 /**
  * Three argument multiply accumulate:
  * `acc += b * c`
@@ -112,6 +115,39 @@ private fun scalarMul(a: BigUint, b: BigDigit) {
     }
     if (carry != 0uL) {
         a.data.add(carry.toUInt())
+    }
+}
+
+internal fun subSign(a0: List<BigDigit>, b0: List<BigDigit>): Pair<Sign, BigUint> {
+    var a = a0
+    var b = b0
+    // Normalize:
+    if (a.lastOrNull() == 0u) {
+        val len = a.indexOfLast { it != 0u } + 1
+        a = a.subList(0, len)
+    }
+    if (b.lastOrNull() == 0u) {
+        val len = b.indexOfLast { it != 0u } + 1
+        b = b.subList(0, len)
+    }
+
+    val cmp = cmpSlice(a, b)
+    return when {
+        cmp > 0 -> {
+            val aVec = a.toMutableList()
+            sub2(aVec, b)
+            Pair(Sign.Plus, biguintFromVec(aVec))
+        }
+
+        cmp < 0 -> {
+            val bVec = b.toMutableList()
+            sub2(bVec, a)
+            Pair(Sign.Minus, biguintFromVec(bVec))
+        }
+
+        else -> {
+            Pair(Sign.NoSign, BigUint.ZERO)
+        }
     }
 }
 
