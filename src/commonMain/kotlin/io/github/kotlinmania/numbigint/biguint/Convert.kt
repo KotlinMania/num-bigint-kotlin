@@ -3,7 +3,6 @@
 
 package io.github.kotlinmania.numbigint
 
-import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.truncate
 import kotlin.native.HiddenFromObjC
@@ -270,6 +269,28 @@ fun BigUint.toULongOrNull(): ULong? {
     return ret
 }
 
+fun BigUint.toFloatOrNull(): Float? {
+    val mantissa = highBitsToU64(this)
+    if (mantissa == 0uL) {
+        return 0.0f
+    }
+    val mantissaBits = fls(mantissa)
+    val exponent = bits() - mantissaBits.toULong()
+
+    return if (exponent > FLOAT_MAX_EXPONENT_VALUE.toULong()) {
+        Float.POSITIVE_INFINITY
+    } else {
+        val m =
+            if (mantissaBits > 53u && (mantissa and 0xfffuL) != 0uL) {
+                (mantissa and 0xfffuL.inv()) or 0x1000uL
+            } else {
+                mantissa
+            }
+        val f = Float.fromBits(m.toDouble().toFloat().toRawBits()) * 2.0f.pow(exponent.toInt())
+        Float.fromBits(f.toRawBits())
+    }
+}
+
 fun BigUint.toDoubleOrNull(): Double? {
     val mantissa = highBitsToU64(this)
     if (mantissa == 0uL) {
@@ -301,6 +322,20 @@ internal fun fromULongImpl(n0: ULong): BigUint {
     return ret
 }
 
+private fun integerDecode(n: Double): Triple<ULong, Short, Byte> {
+    val bits = n.toRawBits().toULong()
+    val sign: Byte = if ((bits shr 63) == 0uL) 1 else -1
+    var exponent: Short = ((bits shr 52) and 0x7ffuL).toShort()
+    val mantissa =
+        if (exponent == 0.toShort()) {
+            (bits and 0xfffffffffffffuL) shl 1
+        } else {
+            (bits and 0xfffffffffffffuL) or 0x10000000000000uL
+        }
+    exponent = (exponent - (1023 + 52)).toShort()
+    return Triple(mantissa, exponent, sign)
+}
+
 internal fun fromDoubleImpl(n0: Double): BigUint? {
     // handle not-a-number, positive infinity, negative infinity
     if (!n0.isFinite()) {
@@ -308,24 +343,24 @@ internal fun fromDoubleImpl(n0: Double): BigUint? {
     }
 
     // match the rounding of casting from float to int
-    var n = truncate(n0)
+    val n = truncate(n0)
 
     // handle 0.x and -0.x
     if (n == 0.0) {
         return BigUint.ZERO
     }
-    if (n < 0.0) {
+
+    val (mantissa, exponent, sign) = integerDecode(n)
+    if (sign < 0) {
         return null
     }
 
-    val ret = BigUint.ZERO
-    val base = 2.0.pow(BIG_DIGIT_BITS)
-    while (n > 0.0) {
-        val digit = (n % base).toLong().toUInt()
-        ret.data.add(digit)
-        n = floor(n / base)
+    var ret = BigUint.fromULong(mantissa)
+    when {
+        exponent > 0 -> ret = ret.shiftLeft(exponent.toULong())
+        exponent < 0 -> ret = ret.shiftRight((-exponent.toInt()).toULong())
     }
-    return ret.normalized()
+    return ret
 }
 
 fun BigUint.toBigUint(): BigUint? = clone()
@@ -338,7 +373,7 @@ fun Long.toBigUint(): BigUint? = if (this >= 0) toULong().toBigUint() else null
 
 fun ULong.toBigUint(): BigUint = BigUint.fromULong(this)
 
-fun Float.toBigUint(): BigUint? = BigUint.fromDouble(toDouble())
+fun Float.toBigUint(): BigUint? = BigUint.fromFloat(this)
 
 fun Double.toBigUint(): BigUint? = BigUint.fromDouble(this)
 
@@ -548,6 +583,8 @@ internal fun generateRadixBases(max: BigDigit): List<Pair<BigDigit, Int>> {
 }
 
 internal fun UInt.isPowerOfTwo(): Boolean = this != 0u && (this and (this - 1u)) == 0u
+
+private const val FLOAT_MAX_EXPONENT_VALUE: Int = 128
 
 private const val DOUBLE_MAX_EXPONENT_VALUE: Int = 1024
 

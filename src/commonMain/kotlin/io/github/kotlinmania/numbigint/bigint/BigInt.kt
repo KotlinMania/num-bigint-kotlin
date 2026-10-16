@@ -891,6 +891,46 @@ operator fun Long.rem(other: BigInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .rem(this, other)
 
+infix fun BigInt.shl(rhs: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: UInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: Long): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shr(rhs: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: UInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: Long): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+fun BigInt.toFloatOrNull(): Float? =
+    io.github.kotlinmania.numbigint.bigint
+        .toF32(this)
+
+fun BigInt.toDoubleOrNull(): Double? =
+    io.github.kotlinmania.numbigint.bigint
+        .toF64(this)
+
 fun BigInt.toBigInt(): BigInt? = clone()
 
 fun BigUint.toBigInt(): BigInt = BigInt.from(this)

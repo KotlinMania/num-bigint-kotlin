@@ -10,6 +10,7 @@ import io.github.kotlinmania.numbigint.Sign
 import io.github.kotlinmania.numbigint.TryFromBigIntError
 import io.github.kotlinmania.numbigint.TryFromBigIntException
 import io.github.kotlinmania.numbigint.toDoubleOrNull
+import io.github.kotlinmania.numbigint.toFloatOrNull
 import io.github.kotlinmania.numbigint.toLongOrNull
 import io.github.kotlinmania.numbigint.toULongOrNull
 import kotlin.native.HiddenFromObjC
@@ -65,7 +66,10 @@ fun toU64(value: BigInt): ULong? =
         Sign.Minus -> null
     }
 
-fun toF32(value: BigInt): Float? = toF64(value)?.toFloat()
+fun toF32(value: BigInt): Float? {
+    val n = value.data.toFloatOrNull() ?: return null
+    return if (value.sign() == Sign.Minus) -n else n
+}
 
 fun toF64(value: BigInt): Double? {
     val n = value.data.toDoubleOrNull() ?: return null
