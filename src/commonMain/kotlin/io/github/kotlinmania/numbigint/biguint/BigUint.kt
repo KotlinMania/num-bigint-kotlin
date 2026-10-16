@@ -3,6 +3,11 @@
 
 package io.github.kotlinmania.numbigint
 
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.de.Deserialize
+import io.github.kotlinmania.serdecore.de.Deserializer
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.pow
@@ -12,10 +17,14 @@ import kotlin.native.HiddenFromObjC
 /**
  * A big unsigned integer type.
  */
-@kotlinx.serialization.Serializable(with = io.github.kotlinmania.numbigint.biguint.U32Visitor::class)
 class BigUint internal constructor(
     internal val data: MutableList<BigDigit>,
-) : Comparable<BigUint> {
+) : Comparable<BigUint>,
+    Serialize {
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> =
+        io.github.kotlinmania.numbigint.biguint
+            .serialize(this, serializer)
+
     fun clone(): BigUint = BigUint(data.toMutableList())
 
     fun cloneFrom(other: BigUint) {
@@ -548,7 +557,11 @@ class BigUint internal constructor(
     }
 
     @HiddenFromObjC
-    companion object {
+    companion object : Deserialize<BigUint> {
+        override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
+            io.github.kotlinmania.numbigint.biguint
+                .deserialize(deserializer)
+
         /**
          * A constant `BigUint` with value 0, useful for static initialization.
          */

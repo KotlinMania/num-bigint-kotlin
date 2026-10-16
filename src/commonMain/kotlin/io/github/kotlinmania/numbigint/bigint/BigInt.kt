@@ -9,16 +9,32 @@ import io.github.kotlinmania.numbigint.bigint.plus
 import io.github.kotlinmania.numbigint.bigint.plusAssign
 import io.github.kotlinmania.numbigint.bigint.times
 import io.github.kotlinmania.numbigint.bigint.timesAssign
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.de.Deserialize
+import io.github.kotlinmania.serdecore.de.Deserializer
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.native.HiddenFromObjC
 
 /**
  * A `Sign` is a `BigInt`'s composing element.
  */
-@kotlinx.serialization.Serializable(with = io.github.kotlinmania.numbigint.bigint.SignSerializer::class)
-enum class Sign {
+enum class Sign : Serialize {
     Minus,
     NoSign,
     Plus,
+    ;
+
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> =
+        io.github.kotlinmania.numbigint.bigint
+            .serialize(this, serializer)
+
+    @HiddenFromObjC
+    companion object : Deserialize<Sign> {
+        override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
+            io.github.kotlinmania.numbigint.bigint
+                .deserialize(deserializer)
+    }
 }
 
 operator fun Sign.unaryMinus(): Sign =
@@ -38,11 +54,15 @@ operator fun Sign.times(other: Sign): Sign =
 /**
  * A big signed integer type.
  */
-@kotlinx.serialization.Serializable(with = io.github.kotlinmania.numbigint.bigint.BigIntSerializer::class)
 class BigInt internal constructor(
     private var signValue: Sign,
     internal var data: BigUint,
-) : Comparable<BigInt> {
+) : Comparable<BigInt>,
+    Serialize {
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> =
+        io.github.kotlinmania.numbigint.bigint
+            .serialize(this, serializer)
+
     fun clone(): BigInt = BigInt(signValue, data.clone())
 
     fun cloneFrom(other: BigInt) {
@@ -589,7 +609,11 @@ class BigInt internal constructor(
     }
 
     @HiddenFromObjC
-    companion object {
+    companion object : Deserialize<BigInt> {
+        override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigInt> =
+            io.github.kotlinmania.numbigint.bigint
+                .deserialize(deserializer, this)
+
         /**
          * A constant `BigInt` with value 0, useful for static initialization.
          */
