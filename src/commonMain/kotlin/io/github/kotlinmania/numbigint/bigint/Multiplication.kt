@@ -91,7 +91,7 @@ operator fun Long.times(other: BigInt): BigInt = mul(this, other)
 fun checkedMul(self: BigInt, v: BigInt): BigInt? = mul(self, v)
 
 fun Iterable<BigInt>.productBigInt(): BigInt {
-    var product = BigInt.one()
+    val product = BigInt.one()
     for (value in this) {
         product.timesAssign(value)
     }
@@ -99,7 +99,7 @@ fun Iterable<BigInt>.productBigInt(): BigInt {
 }
 
 fun Sequence<BigInt>.productBigInt(): BigInt {
-    var product = BigInt.one()
+    val product = BigInt.one()
     for (value in this) {
         product.timesAssign(value)
     }

@@ -23,25 +23,6 @@ import kotlin.native.HiddenFromObjC
  *
  * Common numerical operations are overloaded, so callers can treat them
  * the same way they treat other numbers.
- *
- * Example:
- *
- * ```kotlin
- * fun fib(n: Int): BigUint {
- *     var f0 = BigUint.ZERO
- *     var f1 = BigUint.ONE
- *     repeat(n) {
- *         val f2 = f0 + f1
- *         f0 = f1
- *         f1 = f2
- *     }
- *     return f0
- * }
- *
- * println("fib(1000) = ${fib(1000)}")
- * ```
- *
- * The upstream crate is tested for compiler version 1.60 and greater.
  */
 
 internal typealias UsizePromotion = ULong
@@ -114,30 +95,3 @@ class TryFromBigIntException internal constructor(
     override val message: String
         get() = error.message
 }
-
-internal typealias BigDigit = UInt
-internal typealias DoubleBigDigit = ULong
-
-internal const val BIG_DIGIT_BITS: Int = UInt.SIZE_BITS
-internal const val BIG_DIGIT_HALF_BITS: Int = BIG_DIGIT_BITS / 2
-internal const val BIG_DIGIT_HALF: BigDigit = 0x0000_FFFFu
-internal const val BIG_DIGIT_MAX: BigDigit = UInt.MAX_VALUE
-
-private const val LO_MASK: DoubleBigDigit = 0xFFFF_FFFFuL
-
-internal fun doubleBigDigitHigh(n: DoubleBigDigit): BigDigit = (n shr BIG_DIGIT_BITS).toUInt()
-
-internal fun doubleBigDigitLow(n: DoubleBigDigit): BigDigit = (n and LO_MASK).toUInt()
-
-/**
- * Split one [DoubleBigDigit] into two [BigDigit]s.
- */
-internal fun fromDoubleBigDigit(n: DoubleBigDigit): Pair<BigDigit, BigDigit> = Pair(doubleBigDigitHigh(n), doubleBigDigitLow(n))
-
-/**
- * Join two [BigDigit]s into one [DoubleBigDigit].
- */
-internal fun toDoubleBigDigit(
-    hi: BigDigit,
-    lo: BigDigit,
-): DoubleBigDigit = lo.toULong() or (hi.toULong() shl BIG_DIGIT_BITS)

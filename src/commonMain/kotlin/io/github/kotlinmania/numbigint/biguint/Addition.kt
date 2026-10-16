@@ -125,7 +125,7 @@ operator fun BigUint.plusAssign(other: ULong) {
 fun BigUint.checkedAdd(v: BigUint): BigUint? = this + v
 
 fun Iterable<BigUint>.sumBigUint(): BigUint {
-    var sum = BigUint.zero()
+    val sum = BigUint.zero()
     for (value in this) {
         sum.plusAssign(value)
     }

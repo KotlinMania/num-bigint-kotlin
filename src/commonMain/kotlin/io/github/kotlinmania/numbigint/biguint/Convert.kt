@@ -82,7 +82,7 @@ private fun fromRadixDigitsBe(v: List<UByte>, radix: UInt): BigUint {
     check(v.isNotEmpty() && !radix.isPowerOfTwo())
     check(v.all { it.toUInt() < radix })
 
-    var result = BigUint.zero()
+    val result = BigUint.zero()
     for (digit in v) {
         result.timesAssign(radix)
         result.plusAssign(digit.toUInt())
@@ -203,8 +203,14 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
 
 private fun highBitsToU64(v: BigUint): ULong =
     when (v.data.size) {
-        0 -> 0uL
-        1 -> v.data[0].toULong()
+        0 -> {
+            0uL
+        }
+
+        1 -> {
+            v.data[0].toULong()
+        }
+
         else -> {
             var bits = v.bits()
             var ret = 0uL

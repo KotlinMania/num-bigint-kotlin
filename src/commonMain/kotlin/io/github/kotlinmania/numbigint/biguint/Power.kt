@@ -33,7 +33,7 @@ internal fun powBigUint(self: BigUint, exp0: ULong): BigUint {
         return base
     }
 
-    var acc = base.clone()
+    val acc = base.clone()
     while (exp > 1uL) {
         exp = exp shr 1
         base = base * base
@@ -78,7 +78,7 @@ private fun plainModpow(base0: BigUint, expData: List<BigDigit>, modulus: BigUin
         return base
     }
 
-    var acc = base.clone()
+    val acc = base.clone()
     r = r shr 1
     b += 1
 

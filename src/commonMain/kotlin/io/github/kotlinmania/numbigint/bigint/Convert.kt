@@ -38,8 +38,14 @@ fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> {
 
 fun toI64(value: BigInt): Long? {
     return when (value.sign()) {
-        Sign.Plus -> value.data.toLongOrNull()
-        Sign.NoSign -> 0L
+        Sign.Plus -> {
+            value.data.toLongOrNull()
+        }
+
+        Sign.NoSign -> {
+            0L
+        }
+
         Sign.Minus -> {
             val n = value.data.toULongOrNull() ?: return null
             val minMagnitude = 1uL shl 63

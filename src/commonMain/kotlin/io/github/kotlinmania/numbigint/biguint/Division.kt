@@ -78,7 +78,7 @@ private fun remDigit(a: BigUint, b: BigDigit): BigDigit {
  * `a -= b * c`
  * Returns a borrow if a is less than b.
  */
-private fun subMulDigitSameLen(a: MutableList<BigDigit>, b: List<BigDigit>, c: BigDigit): BigDigit {
+internal fun subMulDigitSameLen(a: MutableList<BigDigit>, b: List<BigDigit>, c: BigDigit): BigDigit {
     check(a.size == b.size)
 
     // carry is between -BIG_DIGIT_MAX and 0, so to avoid overflow we store

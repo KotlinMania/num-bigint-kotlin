@@ -29,8 +29,14 @@ fun subAssign(self: BigInt, other: BigInt) {
 
 fun sub(self: BigInt, other: UInt): BigInt =
     when (self.sign()) {
-        Sign.NoSign -> -BigInt.from(other)
-        Sign.Minus -> -BigInt.from(self.data + other)
+        Sign.NoSign -> {
+            -BigInt.from(other)
+        }
+
+        Sign.Minus -> {
+            -BigInt.from(self.data + other)
+        }
+
         Sign.Plus -> {
             val unsigned = BigUint.fromUInt(other)
             when {
@@ -49,8 +55,14 @@ fun sub(self: UInt, other: BigInt): BigInt = -sub(other, self)
 
 fun sub(self: BigInt, other: ULong): BigInt =
     when (self.sign()) {
-        Sign.NoSign -> -BigInt.from(other)
-        Sign.Minus -> -BigInt.from(self.data + other)
+        Sign.NoSign -> {
+            -BigInt.from(other)
+        }
+
+        Sign.Minus -> {
+            -BigInt.from(self.data + other)
+        }
+
         Sign.Plus -> {
             val unsigned = BigUint.fromULong(other)
             when {
