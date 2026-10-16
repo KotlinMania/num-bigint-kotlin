@@ -3,7 +3,7 @@ package io.github.kotlinmania.numbigint
 
 private fun biguintShl(n: BigUint, shift: ULong): BigUint {
     if (n.isZero()) {
-        return n
+        return n.clone()
     }
     val bits = BIG_DIGIT_BITS.toULong()
     val digits = shift / bits
@@ -50,7 +50,7 @@ private fun biguintShl2(n: BigUint, digits: Int, shift: Int): BigUint {
 
 private fun biguintShr(n: BigUint, shift: ULong): BigUint {
     if (n.isZero()) {
-        return n
+        return n.clone()
     }
     val bits = BIG_DIGIT_BITS.toULong()
     val digits = shift / bits
@@ -95,6 +95,34 @@ fun BigUint.shiftRightAssign(rhs: ULong) {
     val n = clone()
     data.clear()
     data.addAll(n.shiftRight(rhs).data)
+}
+
+infix fun BigUint.shl(rhs: ULong): BigUint = biguintShl(this, rhs)
+
+infix fun BigUint.shl(rhs: UInt): BigUint = biguintShl(this, rhs.toULong())
+
+infix fun BigUint.shl(rhs: Int): BigUint {
+    require(rhs >= 0) { "attempt to shift left with negative" }
+    return biguintShl(this, rhs.toULong())
+}
+
+infix fun BigUint.shl(rhs: Long): BigUint {
+    require(rhs >= 0L) { "attempt to shift left with negative" }
+    return biguintShl(this, rhs.toULong())
+}
+
+infix fun BigUint.shr(rhs: ULong): BigUint = biguintShr(this, rhs)
+
+infix fun BigUint.shr(rhs: UInt): BigUint = biguintShr(this, rhs.toULong())
+
+infix fun BigUint.shr(rhs: Int): BigUint {
+    require(rhs >= 0) { "attempt to shift right with negative" }
+    return biguintShr(this, rhs.toULong())
+}
+
+infix fun BigUint.shr(rhs: Long): BigUint {
+    require(rhs >= 0L) { "attempt to shift right with negative" }
+    return biguintShr(this, rhs.toULong())
 }
 
 private fun Int.saturatingAdd(rhs: Int): Int {

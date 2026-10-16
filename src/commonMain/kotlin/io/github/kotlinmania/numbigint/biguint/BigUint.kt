@@ -503,7 +503,7 @@ class BigUint internal constructor(
     fun trailingOnes(): ULong {
         val i = data.indexOfFirst { it.inv() != 0u }
         return if (i >= 0) {
-            val ones = data[i].countTrailingZeroBits().toULong()
+            val ones = data[i].inv().countTrailingZeroBits().toULong()
             i.toULong() * BIG_DIGIT_BITS.toULong() + ones
         } else {
             data.size.toULong() * BIG_DIGIT_BITS.toULong()
@@ -658,6 +658,12 @@ class BigUint internal constructor(
         fun fromULong(n: ULong): BigUint = fromULongImpl(n)
 
         fun fromUInt(n: UInt): BigUint = fromULong(n.toULong())
+
+        fun fromLong(n: Long): BigUint? = if (n >= 0L) fromULong(n.toULong()) else null
+
+        fun fromInt(n: Int): BigUint? = if (n >= 0) fromUInt(n.toUInt()) else null
+
+        fun fromFloat(n: Float): BigUint? = fromDoubleImpl(Float.fromBits(n.toRawBits()).toDouble())
 
         fun fromDouble(n: Double): BigUint? = fromDoubleImpl(n)
     }

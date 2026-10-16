@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 367/534 matched (target 625) — 68.7%
+- **Function parity:** 367/534 matched (target 648) — 68.7%
 - **Class/type parity:** 13/41 matched (target 26) — 31.7%
-- **Combined symbol parity:** 380/575 matched (target 651) — 66.1%
+- **Combined symbol parity:** 380/575 matched (target 674) — 66.1%
 - **Average inline-code cosine:** 0.22 (function body across 23 matched files)
 - **Average documentation cosine:** 0.37 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
@@ -35,7 +35,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.24
 - **Dependents:** 7
 - **Priority Score:** 7198907.5
-- **Functions:** 67/85 matched (target 90)
+- **Functions:** 67/85 matched (target 93)
 - **Missing functions:** `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
 - **Types:** 3/4 matched (target 5)
 - **Missing types:** `Bytes`
@@ -47,7 +47,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.22
 - **Dependents:** 6
 - **Priority Score:** 6331108.0
-- **Functions:** 77/104 matched (target 135)
+- **Functions:** 77/104 matched (target 145)
 - **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `extended_gcd_lcm`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
 - **Types:** 2/7 matched (target 3)
 - **Missing types:** `Output`, `UnsignedAbs`, `CheckedUnsignedAbs`, `ToBigInt`, `Bytes`
@@ -59,7 +59,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.13
 - **Dependents:** 0
 - **Priority Score:** 213708.7
-- **Functions:** 16/35 matched (target 43)
+- **Functions:** 16/35 matched (target 45)
 - **Missing functions:** `from_str`, `from_radix_be`, `from_radix_le`, `from_str_radix`, `to_i64`, `to_i128`, `to_u64`, `to_u128`, `to_f32`, `to_f64`, `from_i64`, `from_i128`, `from_u64`, `from_u128`, `from_f64`, `from`, `from`, `from`, `to_radix_le`
 - **Types:** 0/2 matched (target 1)
 - **Missing types:** `Err`, `FromStrRadixErr`
@@ -68,9 +68,9 @@ Every matched file is listed below with function and type symbol parity.
 ### 4. bigint.convert
 
 - **Target:** `bigint.Convert`
-- **Similarity:** 0.15
+- **Similarity:** 0.16
 - **Dependents:** 0
-- **Priority Score:** 153408.5
+- **Priority Score:** 153408.4
 - **Functions:** 19/31 matched (target 24)
 - **Missing functions:** `to_i128`, `to_u128`, `from_i128`, `from_u128`, `from`, `from`, `from`, `from`, `from`, `try_from`, `try_from`, `from`
 - **Types:** 0/3 matched (target 0)
@@ -247,10 +247,10 @@ Every matched file is listed below with function and type symbol parity.
 ### 20. biguint.shift
 
 - **Target:** `biguint.Shift`
-- **Similarity:** 0.27
+- **Similarity:** 0.28
 - **Dependents:** 0
-- **Priority Score:** 407.3
-- **Functions:** 4/4 matched (target 9)
+- **Priority Score:** 407.2
+- **Functions:** 4/4 matched (target 17)
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
