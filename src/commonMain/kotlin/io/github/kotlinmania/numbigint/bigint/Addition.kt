@@ -28,8 +28,14 @@ fun addAssign(self: BigInt, other: BigInt) {
 
 fun add(self: BigInt, other: UInt): BigInt =
     when (self.sign()) {
-        Sign.NoSign -> BigInt.from(other)
-        Sign.Plus -> BigInt.from(self.data + other)
+        Sign.NoSign -> {
+            BigInt.from(other)
+        }
+
+        Sign.Plus -> {
+            BigInt.from(self.data + other)
+        }
+
         Sign.Minus -> {
             val unsigned = BigUint.fromUInt(other)
             when {
@@ -48,8 +54,14 @@ fun add(self: UInt, other: BigInt): BigInt = add(other, self)
 
 fun add(self: BigInt, other: ULong): BigInt =
     when (self.sign()) {
-        Sign.NoSign -> BigInt.from(other)
-        Sign.Plus -> BigInt.from(self.data + other)
+        Sign.NoSign -> {
+            BigInt.from(other)
+        }
+
+        Sign.Plus -> {
+            BigInt.from(self.data + other)
+        }
+
         Sign.Minus -> {
             val unsigned = BigUint.fromULong(other)
             when {
@@ -123,7 +135,7 @@ operator fun Long.plus(other: BigInt): BigInt = add(this, other)
 fun checkedAdd(self: BigInt, v: BigInt): BigInt? = add(self, v)
 
 fun Iterable<BigInt>.sumBigInt(): BigInt {
-    var sum = BigInt.ZERO
+    val sum = BigInt.ZERO
     for (value in this) {
         sum.plusAssign(value)
     }
@@ -131,7 +143,7 @@ fun Iterable<BigInt>.sumBigInt(): BigInt {
 }
 
 fun Sequence<BigInt>.sumBigInt(): BigInt {
-    var sum = BigInt.ZERO
+    val sum = BigInt.ZERO
     for (value in this) {
         sum.plusAssign(value)
     }

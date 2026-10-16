@@ -566,24 +566,24 @@ tasks.withType<AbstractTestTask>().configureEach {
 // Static analysis: Detekt + Ktlint
 // ============================================================================
 detekt {
-    buildUponDefaultConfig = true
-    allRules = false
-    autoCorrect = false
+    buildUponDefaultConfig.set(true)
+    allRules.set(false)
+    autoCorrect.set(false)
     source.setFrom(files("src"))
     config.setFrom(files("detekt.yml"))
-    parallel = true
+    parallel.set(true)
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
     reports {
         html.required.set(true)
         sarif.required.set(true)
-        txt.required.set(false)
-        xml.required.set(false)
+        checkstyle.required.set(false)
     }
 }
 
 ktlint {
+    version.set(libs.versions.ktlintEngine.get())
     debug.set(false)
     verbose.set(false)
     android.set(false)
@@ -601,7 +601,7 @@ ktlint {
 
 if (benchmarkEnabled) {
     tasks
-        .withType<io.gitlab.arturbosch.detekt.Detekt>()
+        .withType<dev.detekt.gradle.Detekt>()
         .matching {
             it.name.contains("BenchmarkBenchmark")
         }.configureEach {
@@ -617,7 +617,7 @@ if (benchmarkEnabled) {
 }
 
 tasks.named("check") {
-    dependsOn(tasks.withType<io.gitlab.arturbosch.detekt.Detekt>())
+    dependsOn(tasks.withType<dev.detekt.gradle.Detekt>())
     dependsOn(tasks.named("ktlintCheck"))
     // Android host unit tests run here alongside the tests that check -> allTests
     // already executes (jvm, macosArm64, the Apple simulators, js, wasmJs,
@@ -870,7 +870,10 @@ val publishToCentralPortal by tasks.registering {
                 statusBody["deploymentState"]?.toString()
                     ?: error("Central Portal status response did not contain deploymentState: ${statusResponse.body()}")
             when (deploymentState) {
-                "FAILED" -> error("Central Portal deployment failed: ${statusBody["errors"] ?: statusResponse.body()}")
+                "FAILED" -> {
+                    error("Central Portal deployment failed: ${statusBody["errors"] ?: statusResponse.body()}")
+                }
+
                 in terminalStates -> {
                     logger.lifecycle("Central Portal deployment $deploymentId reached $deploymentState.")
                     return@doLast
@@ -920,10 +923,24 @@ tasks.register("hostTests") {
     )
 }
 
+// Exact test lifecycle task. Without this, ./gradlew test is ambiguous between
+// Android test task names. This runs commonTest through the KMP allTests
+// lifecycle and adds the Android host + Swift Export parity tests.
+tasks.register("test") {
+    group = "verification"
+    description = "Runs the commonTest-backed KMP suite, Android host tests, and Swift Export smoke test."
+    dependsOn("hostTests")
+    dependsOn("swiftExportSmokeTest")
+}
+
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     doLast {
-        val spmDir = layout.buildDirectory.dir("SPMPackage").orNull?.asFile
+        val spmDir =
+            layout.buildDirectory
+                .dir("SPMPackage")
+                .orNull
+                ?.asFile
         if (spmDir != null && spmDir.exists()) {
             spmDir.walkTopDown().filter { it.name == "Package.swift" }.forEach { file ->
                 val text = file.readText()

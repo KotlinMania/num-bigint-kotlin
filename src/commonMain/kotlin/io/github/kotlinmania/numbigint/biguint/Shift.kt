@@ -15,7 +15,10 @@ private fun biguintShl(n: BigUint, shift: ULong): BigUint {
 private fun biguintShl2(n: BigUint, digits: Int, shift: Int): BigUint {
     val data =
         when (digits) {
-            0 -> n.data.toMutableList()
+            0 -> {
+                n.data.toMutableList()
+            }
+
             else -> {
                 val len = digits.saturatingAdd(n.data.size + 1)
                 val data = ArrayList<BigDigit>(len)
@@ -57,9 +60,9 @@ private fun biguintShr(n: BigUint, shift: ULong): BigUint {
 
 private fun biguintShr2(n: BigUint, digits: Int, shift: Int): BigUint {
     if (digits >= n.data.size) {
-        val n = n.clone()
-        n.setZero()
-        return n
+        val zero = n.clone()
+        zero.setZero()
+        return zero
     }
     val data = n.data.subList(digits, n.data.size).toMutableList()
 

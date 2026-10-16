@@ -108,6 +108,7 @@ class BigInt internal constructor(
                 result.data.plusAssign(1u)
                 result.signValue = Sign.Minus
             }
+
             Sign.Minus -> {
                 result.data.minusAssign(1u)
                 result.signValue = if (result.data.isZero()) Sign.NoSign else Sign.Plus
@@ -167,11 +168,17 @@ class BigInt internal constructor(
         val (dUi, m) = data.divModFloor(other.data)
         val d = from(dUi)
         return when (Pair(signValue, other.signValue)) {
-            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> d
+            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> {
+                d
+            }
+
             Pair(Sign.Plus, Sign.Minus), Pair(Sign.NoSign, Sign.Minus), Pair(Sign.Minus, Sign.Plus) -> {
                 if (m.isZero()) -d else -d - 1u
             }
-            else -> throw ArithmeticException("attempt to divide by zero")
+
+            else -> {
+                throw ArithmeticException("attempt to divide by zero")
+            }
         }
     }
 
@@ -180,11 +187,17 @@ class BigInt internal constructor(
         val mUi = data.modFloor(other.data)
         val m = fromBiguint(other.signValue, mUi)
         return when (Pair(signValue, other.signValue)) {
-            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> m
+            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> {
+                m
+            }
+
             Pair(Sign.Plus, Sign.Minus), Pair(Sign.NoSign, Sign.Minus), Pair(Sign.Minus, Sign.Plus) -> {
                 if (m.isZero()) m else other - m
             }
-            else -> throw ArithmeticException("attempt to divide by zero")
+
+            else -> {
+                throw ArithmeticException("attempt to divide by zero")
+            }
         }
     }
 
@@ -194,11 +207,17 @@ class BigInt internal constructor(
         val d = from(dUi)
         val m = fromBiguint(other.signValue, mUi)
         return when (Pair(signValue, other.signValue)) {
-            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> Pair(d, m)
+            Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> {
+                Pair(d, m)
+            }
+
             Pair(Sign.Plus, Sign.Minus), Pair(Sign.NoSign, Sign.Minus), Pair(Sign.Minus, Sign.Plus) -> {
                 if (m.isZero()) Pair(-d, m) else Pair(-d - 1u, other - m)
             }
-            else -> throw ArithmeticException("attempt to divide by zero")
+
+            else -> {
+                throw ArithmeticException("attempt to divide by zero")
+            }
         }
     }
 
@@ -206,11 +225,17 @@ class BigInt internal constructor(
         val (dUi, m) = data.divModFloor(other.data)
         val d = from(dUi)
         return when (Pair(signValue, other.signValue)) {
-            Pair(Sign.Plus, Sign.Minus), Pair(Sign.NoSign, Sign.Minus), Pair(Sign.Minus, Sign.Plus) -> -d
+            Pair(Sign.Plus, Sign.Minus), Pair(Sign.NoSign, Sign.Minus), Pair(Sign.Minus, Sign.Plus) -> {
+                -d
+            }
+
             Pair(Sign.Plus, Sign.Plus), Pair(Sign.NoSign, Sign.Plus), Pair(Sign.Minus, Sign.Minus) -> {
                 if (m.isZero()) d else d + 1u
             }
-            else -> throw ArithmeticException("attempt to divide by zero")
+
+            else -> {
+                throw ArithmeticException("attempt to divide by zero")
+            }
         }
     }
 
@@ -344,7 +369,10 @@ class BigInt internal constructor(
      */
     fun toSignedBytesLe(): List<UByte> =
         when (signValue) {
-            Sign.NoSign -> listOf(0u)
+            Sign.NoSign -> {
+                listOf(0u)
+            }
+
             Sign.Plus -> {
                 val bytes = data.toBytesLe().toMutableList()
                 if (bytes.last().toUInt() and 0x80u != 0u) {
@@ -352,6 +380,7 @@ class BigInt internal constructor(
                 }
                 bytes
             }
+
             Sign.Minus -> {
                 val magnitudeMinusOne = data - 1u
                 val bytes = magnitudeMinusOne.toBytesLe().toMutableList()
@@ -536,12 +565,16 @@ class BigInt internal constructor(
      */
     fun setBit(bit: ULong, value: Boolean) {
         when (signValue) {
-            Sign.Plus -> data.setBit(bit, value)
+            Sign.Plus -> {
+                data.setBit(bit, value)
+            }
+
             Sign.Minus -> {
                 val magnitudeMinusOne = data - 1u
                 magnitudeMinusOne.setBit(bit, !value)
                 data = magnitudeMinusOne + 1u
             }
+
             Sign.NoSign -> {
                 if (value) {
                     data.setBit(bit, true)

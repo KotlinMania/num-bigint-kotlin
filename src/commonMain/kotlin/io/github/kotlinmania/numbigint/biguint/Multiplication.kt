@@ -92,23 +92,26 @@ private fun mul3(x: List<BigDigit>, y: List<BigDigit>): BigUint {
 }
 
 private fun scalarMul(a: BigUint, b: BigDigit) {
-    when {
-        b == 0u -> a.setZero()
-        b == 1u -> Unit
-        b.countOneBits() == 1 -> a.shiftLeftAssign(b.countTrailingZeroBits().toULong())
-        else -> {
-            var carry = 0uL
-            var i = 0
-            while (i < a.data.size) {
-                val (out, nextCarry) = mulWithCarry(a.data[i], b, carry)
-                a.data[i] = out
-                carry = nextCarry
-                i += 1
-            }
-            if (carry != 0uL) {
-                a.data.add(carry.toUInt())
-            }
-        }
+    if (b == 1u) return
+    if (b == 0u) {
+        a.setZero()
+        return
+    }
+    if (b.countOneBits() == 1) {
+        a.shiftLeftAssign(b.countTrailingZeroBits().toULong())
+        return
+    }
+
+    var carry = 0uL
+    var i = 0
+    while (i < a.data.size) {
+        val (out, nextCarry) = mulWithCarry(a.data[i], b, carry)
+        a.data[i] = out
+        carry = nextCarry
+        i += 1
+    }
+    if (carry != 0uL) {
+        a.data.add(carry.toUInt())
     }
 }
 
@@ -121,15 +124,22 @@ operator fun BigUint.times(other: BigUint): BigUint =
     }
 
 operator fun BigUint.timesAssign(other: BigUint) {
+    if (data.isEmpty()) return
     when {
-        data.isEmpty() -> Unit
-        other.data.isEmpty() -> setZero()
-        other.data.size == 1 -> timesAssign(other.data[0])
+        other.data.isEmpty() -> {
+            setZero()
+        }
+
+        other.data.size == 1 -> {
+            timesAssign(other.data[0])
+        }
+
         data.size == 1 -> {
             val next = other * data[0]
             data.clear()
             data.addAll(next.data)
         }
+
         else -> {
             val next = mul3(data, other.data)
             data.clear()
@@ -172,7 +182,7 @@ operator fun BigUint.timesAssign(other: ULong) {
 fun BigUint.checkedMul(v: BigUint): BigUint? = this * v
 
 fun Iterable<BigUint>.productBigUint(): BigUint {
-    var product = BigUint.one()
+    val product = BigUint.one()
     for (value in this) {
         product.timesAssign(value)
     }
