@@ -280,6 +280,42 @@ class BigInt internal constructor(
     }
 
     /**
+     * Greatest common divisor and Bézout coefficients.
+     */
+    fun extendedGcd(other: BigInt): ExtendedGcd {
+        var s = Pair(ZERO, one())
+        var t = Pair(one(), ZERO)
+        var r = Pair(other.clone(), clone())
+
+        while (!r.first.isZero()) {
+            val q = r.second / r.first
+            r = Pair(r.second - q * r.first, r.first)
+            s = Pair(s.second - q * s.first, s.first)
+            t = Pair(t.second - q * t.first, t.first)
+        }
+
+        return if (r.second >= ZERO) {
+            ExtendedGcd(r.second, s.second, t.second)
+        } else {
+            ExtendedGcd(-r.second, -s.second, -t.second)
+        }
+    }
+
+    /**
+     * Greatest common divisor, least common multiple, and Bézout coefficients.
+     */
+    fun extendedGcdLcm(other: BigInt): Pair<ExtendedGcd, BigInt> {
+        val egcd = extendedGcd(other)
+        val lcm =
+            if (egcd.gcd.isZero()) {
+                ZERO
+            } else {
+                from(data / egcd.gcd.data * other.data)
+            }
+        return Pair(egcd, lcm)
+    }
+
+    /**
      * Deprecated, use [isMultipleOf] instead.
      */
     fun divides(other: BigInt): Boolean = isMultipleOf(other)
@@ -569,8 +605,21 @@ class BigInt internal constructor(
      */
     fun bit(bit: ULong): Boolean =
         if (isNegative()) {
-            val magnitudeMinusOne = data - 1u
-            !magnitudeMinusOne.bit(bit)
+            // Let the binary representation of a number be
+            //   ... 0  x 1 0 ... 0
+            // Then the two's complement is
+            //   ... 1 !x 1 0 ... 0
+            // where !x is obtained from x by flipping each bit
+            if (bit >= BIG_DIGIT_BITS.toULong() * data.data.size.toULong()) {
+                true
+            } else {
+                val trailingZeros = data.trailingZeros()!!
+                when {
+                    bit < trailingZeros -> false
+                    bit == trailingZeros -> true
+                    else -> !data.bit(bit)
+                }
+            }
         } else {
             data.bit(bit)
         }
@@ -733,15 +782,9 @@ class BigInt internal constructor(
 
         fun one(): BigInt = BigInt(Sign.Plus, BigUint.one())
 
-        fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> {
-            var s = s0
-            var sign = Sign.Plus
-            if (s.startsWith("-")) {
-                sign = Sign.Minus
-                s = s.drop(1)
-            }
-            return BigUint.fromStrRadix(s, radix).map { fromBiguint(sign, it) }
-        }
+        fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> =
+            io.github.kotlinmania.numbigint.bigint
+                .fromStrRadix(s0, radix)
 
         fun from(value: BigUint): BigInt = fromBiguint(Sign.Plus, value)
 
@@ -762,8 +805,34 @@ class BigInt internal constructor(
             } else {
                 fromBiguint(Sign.Minus, value.toULong().inv().toBigUint() + 1u)
             }
+
+        fun fromInt(n: Int): BigInt? = from(n)
+
+        fun fromUInt(n: UInt): BigInt? = from(n)
+
+        fun fromLong(n: Long): BigInt? =
+            io.github.kotlinmania.numbigint.bigint
+                .fromI64(n)
+
+        fun fromULong(n: ULong): BigInt? =
+            io.github.kotlinmania.numbigint.bigint
+                .fromU64(n)
+
+        fun fromFloat(n: Float): BigInt? =
+            io.github.kotlinmania.numbigint.bigint
+                .fromF32(n)
+
+        fun fromDouble(n: Double): BigInt? =
+            io.github.kotlinmania.numbigint.bigint
+                .fromF64(n)
     }
 }
+
+class ExtendedGcd(
+    val gcd: BigInt,
+    val x: BigInt,
+    val y: BigInt,
+)
 
 fun zeroBigInt(): BigInt = BigInt.zero()
 
@@ -922,6 +991,26 @@ infix fun BigInt.shr(rhs: Long): BigInt =
 infix fun BigInt.shr(rhs: ULong): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shr(this, rhs)
+
+fun BigInt.divEuclid(v: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .divEuclid(this, v)
+
+fun BigInt.remEuclid(v: BigInt): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .remEuclid(this, v)
+
+fun BigInt.divRemEuclid(v: BigInt): Pair<BigInt, BigInt> =
+    io.github.kotlinmania.numbigint.bigint
+        .divRemEuclid(this, v)
+
+fun BigInt.toLongOrNull(): Long? =
+    io.github.kotlinmania.numbigint.bigint
+        .toI64(this)
+
+fun BigInt.toULongOrNull(): ULong? =
+    io.github.kotlinmania.numbigint.bigint
+        .toU64(this)
 
 fun BigInt.toFloatOrNull(): Float? =
     io.github.kotlinmania.numbigint.bigint

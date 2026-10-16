@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 367/534 matched (target 648) — 68.7%
-- **Class/type parity:** 13/41 matched (target 26) — 31.7%
-- **Combined symbol parity:** 380/575 matched (target 674) — 66.1%
+- **Function parity:** 368/534 matched (target 662) — 68.9%
+- **Class/type parity:** 13/41 matched (target 27) — 31.7%
+- **Combined symbol parity:** 381/575 matched (target 689) — 66.3%
 - **Average inline-code cosine:** 0.22 (function body across 23 matched files)
 - **Average documentation cosine:** 0.37 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
@@ -44,12 +44,12 @@ Every matched file is listed below with function and type symbol parity.
 ### 2. bigint
 
 - **Target:** `bigint.BigInt`
-- **Similarity:** 0.22
+- **Similarity:** 0.23
 - **Dependents:** 6
-- **Priority Score:** 6331108.0
-- **Functions:** 77/104 matched (target 145)
-- **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `extended_gcd_lcm`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
-- **Types:** 2/7 matched (target 3)
+- **Priority Score:** 6321107.5
+- **Functions:** 78/104 matched (target 158)
+- **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
+- **Types:** 2/7 matched (target 4)
 - **Missing types:** `Output`, `UnsignedAbs`, `CheckedUnsignedAbs`, `ToBigInt`, `Bytes`
 - **Tests:** 3/3 matched
 
@@ -71,7 +71,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.16
 - **Dependents:** 0
 - **Priority Score:** 153408.4
-- **Functions:** 19/31 matched (target 24)
+- **Functions:** 19/31 matched (target 25)
 - **Missing functions:** `to_i128`, `to_u128`, `from_i128`, `from_u128`, `from`, `from`, `from`, `from`, `from`, `try_from`, `try_from`, `from`
 - **Types:** 0/3 matched (target 0)
 - **Missing types:** `Err`, `FromStrRadixErr`, `Error`
