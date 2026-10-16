@@ -1,5 +1,4 @@
 // port-lint: source bigint.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.numbigint
 
@@ -14,7 +13,6 @@ import io.github.kotlinmania.serdecore.de.Deserialize
 import io.github.kotlinmania.serdecore.de.Deserializer
 import io.github.kotlinmania.serdecore.ser.Serialize
 import io.github.kotlinmania.serdecore.ser.Serializer
-import kotlin.native.HiddenFromObjC
 
 /**
  * A `Sign` is a `BigInt`'s composing element.
@@ -29,7 +27,6 @@ enum class Sign : Serialize {
         io.github.kotlinmania.numbigint.bigint
             .serialize(this, serializer)
 
-    @HiddenFromObjC
     companion object : Deserialize<Sign> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
             io.github.kotlinmania.numbigint.bigint
@@ -657,7 +654,6 @@ class BigInt internal constructor(
         normalize()
     }
 
-    @HiddenFromObjC
     companion object : Deserialize<BigInt> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigInt> =
             io.github.kotlinmania.numbigint.bigint
@@ -782,7 +778,7 @@ class BigInt internal constructor(
 
         fun one(): BigInt = BigInt(Sign.Plus, BigUint.one())
 
-        fun fromStrRadix(s0: String, radix: UInt): Result<BigInt> =
+        fun fromStrRadix(s0: String, radix: UInt): BigIntParseResult =
             io.github.kotlinmania.numbigint.bigint
                 .fromStrRadix(s0, radix)
 

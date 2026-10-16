@@ -40,6 +40,26 @@ dependencies {
 ./gradlew test
 ```
 
+## Apple-facing API
+
+`BigInt` and `BigUint` expose their companion factories to Swift. The Swift
+consumer tests construct both types and exercise arithmetic, formatting and
+parsing rather than checking only that the module imports.
+
+Parsing returns `BigIntParseResult` or `BigUintParseResult`. Checked conversions
+return concrete `BigIntToLongResult`, `BigIntToULongResult`,
+`BigIntToBigUintResult` or `BigUintToUIntResult` values. Each result contains
+exactly one non-null `value` or `error`, with `isSuccess()`, `isFailure()`,
+`getOrNull()` and `getOrThrow()` accessors. Error values do not extend
+`Throwable`; Kotlin callers can use `getOrThrow()` to raise an
+`IllegalArgumentException` on failure.
+
+These concrete results replace `kotlin.Result` at the public parsing and
+checked-conversion boundary. Code explicitly typed as `kotlin.Result` must use
+the corresponding concrete result type; generic `Result` extension operations
+are not part of this API. `TryFromBigIntError` is non-generic and retains a
+`BigInt` input for failed signed-to-unsigned-big-integer conversion.
+
 ## Porting guidelines
 
 See [CLAUDE.md](CLAUDE.md) and [AGENTS.md](AGENTS.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.

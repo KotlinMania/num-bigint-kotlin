@@ -1,5 +1,4 @@
 // port-lint: source biguint/serde.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.numbigint.biguint
 
@@ -16,7 +15,6 @@ import io.github.kotlinmania.serdecore.ser.Serialize
 import io.github.kotlinmania.serdecore.ser.Serializer
 import io.github.kotlinmania.serdecore.ser.serialize
 import kotlin.math.min
-import kotlin.native.HiddenFromObjC
 
 private const val MAX_PREALLOC_BYTES: Int = 1024 * 1024
 
@@ -24,7 +22,6 @@ internal typealias Value = BigUint
 
 fun cautious(hint: Int?): Int = min(hint ?: 0, MAX_PREALLOC_BYTES / UInt.SIZE_BYTES)
 
-@HiddenFromObjC
 fun <Ok> serialize(
     self: BigUint,
     serializer: Serializer<Ok>,
@@ -43,11 +40,9 @@ fun <Ok> serialize(
     )
 }
 
-@HiddenFromObjC
 fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
     deserializer.deserializeSeq(U32Visitor)
 
-@HiddenFromObjC
 object U32Visitor : Visitor<BigUint> {
     override fun expecting(): String = "a sequence of unsigned 32-bit numbers"
 

@@ -78,28 +78,33 @@ private fun remDigit(a: BigUint, b: BigDigit): BigDigit {
  * `a -= b * c`
  * Returns a borrow if a is less than b.
  */
-internal fun subMulDigitSameLen(a: MutableList<BigDigit>, b: List<BigDigit>, c: BigDigit): BigDigit {
-    check(a.size == b.size)
+internal fun subMulDigitSameLen(
+    a: MutableList<BigDigit>,
+    b: List<BigDigit>,
+    c: BigDigit,
+    aOffset: Int = 0,
+): BigDigit {
+    check(a.size - aOffset == b.size)
 
     // carry is between -BIG_DIGIT_MAX and 0, so to avoid overflow we store
     // offsetCarry = carry + BIG_DIGIT_MAX
     var offsetCarry = BIG_DIGIT_MAX
 
     var i = 0
-    while (i < a.size) {
+    while (i < b.size) {
         // We want to calculate sum = x - y * c + carry.
         // sum >= -(BIG_DIGIT_MAX * BIG_DIGIT_MAX) - BIG_DIGIT_MAX
         // sum <= BIG_DIGIT_MAX
         // Offsetting sum by (BIG_DIGIT_MAX << BIG_DIGIT_BITS) puts it in DoubleBigDigit range.
         val offsetSum =
-            toDoubleBigDigit(BIG_DIGIT_MAX, a[i]) -
+            toDoubleBigDigit(BIG_DIGIT_MAX, a[aOffset + i]) -
                 BIG_DIGIT_MAX.toULong() +
                 offsetCarry.toULong() -
                 b[i].toULong() * c.toULong()
 
         val (newOffsetCarry, newX) = fromDoubleBigDigit(offsetSum)
         offsetCarry = newOffsetCarry
-        a[i] = newX
+        a[aOffset + i] = newX
         i += 1
     }
 
@@ -124,10 +129,26 @@ internal fun divRemRef(u: BigUint, d: BigUint): Pair<BigUint, BigUint> {
         return Pair(div, rem.toBigUint())
     }
 
-    return when {
-        u < d -> Pair(BigUint.ZERO, u.clone())
-        u == d -> Pair(BigUint.one(), BigUint.ZERO)
-        else -> divRemCore(u.clone(), d)
+    when {
+        u < d -> return Pair(BigUint.ZERO, u.clone())
+        u == d -> return Pair(BigUint.one(), BigUint.ZERO)
+    }
+
+    // This algorithm is from Knuth, TAOCP vol 2 section 4.3, algorithm D:
+    //
+    // First, normalize the arguments so the highest bit in the highest digit of the divisor is
+    // set: the main loop uses the highest digit of the divisor for generating guesses, so we
+    // want it to be the largest number we can efficiently divide by.
+    //
+    val shift = d.data.last().countLeadingZeroBits()
+
+    return if (shift == 0) {
+        // no need to clone d
+        divRemCore(u.clone(), d.data)
+    } else {
+        val (q, r) = divRemCore(u.shiftLeft(shift.toULong()), (d.shiftLeft(shift.toULong())).data)
+        // renormalize the remainder
+        Pair(q, r.shiftRight(shift.toULong()))
     }
 }
 
@@ -135,22 +156,81 @@ internal fun divRemRef(u: BigUint, d: BigUint): Pair<BigUint, BigUint> {
  * An implementation of the base division algorithm.
  * Knuth, TAOCP vol 2 section 4.3.1, algorithm D, with an improvement from exercises 19-21.
  */
-private fun divRemCore(a: BigUint, b: BigUint): Pair<BigUint, BigUint> {
-    val q = BigUint.zero()
-    var r = BigUint.zero()
-    var bit = a.bits()
-    while (bit > 0uL) {
-        bit -= 1uL
-        r = r.shiftLeft(1uL)
-        if (a.bit(bit)) {
-            r.setBit(0uL, true)
+private fun divRemCore(a: BigUint, b: List<BigDigit>): Pair<BigUint, BigUint> {
+    check(a.data.size >= b.size && b.size > 1)
+    check(b.last().countLeadingZeroBits() == 0)
+
+    // a0 stores an additional extra most significant digit of the dividend, not stored in a.
+    var a0: BigDigit = 0u
+
+    // [b1, b0] are the two most significant digits of the divisor. They never change.
+    val b0 = b[b.size - 1]
+    val b1 = b[b.size - 2]
+
+    val qLen = a.data.size - b.size + 1
+    val q = BigUint(MutableList(qLen) { 0u })
+
+    for (j in (0 until qLen).reversed()) {
+        check(a.data.size == b.size + j)
+
+        val a1 = a.data.last()
+        val a2 = a.data[a.data.size - 2]
+
+        // The first q0 estimate is [a1,a0] / b0. It will never be too small, it may be too large
+        // by at most 2.
+        var q0: BigDigit
+        var r: DoubleBigDigit
+        if (a0 < b0) {
+            val (qEst, rEst) = divWide(a0, a1, b0)
+            q0 = qEst
+            r = rEst.toULong()
+        } else {
+            check(a0 == b0)
+            // Avoid overflowing q0, we know the quotient fits in BigDigit.
+            // [a1,a0] = b0 * (1<<BITS - 1) + (a0 + a1)
+            q0 = BIG_DIGIT_MAX
+            r = a0.toULong() + a1.toULong()
         }
-        if (r >= b) {
-            r.minusAssign(b)
-            q.setBit(bit, true)
+
+        // r = [a1,a0] - q0 * b0
+        //
+        // Now we want to compute a more precise estimate [a2,a1,a0] / [b1,b0] which can only be
+        // less or equal to the current q0.
+        //
+        // q0 is too large if:
+        // [a2,a1,a0] < q0 * [b1,b0]
+        // (r << BITS) + a2 < q0 * b1
+        while (r <= BIG_DIGIT_MAX.toULong() &&
+            toDoubleBigDigit(r.toUInt(), a2) < q0.toULong() * b1.toULong()
+        ) {
+            q0 -= 1u
+            r += b0.toULong()
         }
+
+        // q0 is now either the correct quotient digit, or in rare cases 1 too large.
+        // Subtract (q0 << j) from a. This may overflow, in which case we will have to correct.
+
+        var borrow = subMulDigitSameLen(a.data, b, q0, aOffset = j)
+        if (borrow > a0) {
+            // q0 is too large. We need to add back one multiple of b.
+            q0 -= 1u
+            borrow -= add2Carry(a.data, b, aOffset = j)
+        }
+        // The top digit of a, stored in a0, has now been zeroed.
+        check(borrow == a0)
+
+        q.data[j] = q0
+
+        // Pop off the next top digit of a.
+        a0 = a.data.removeAt(a.data.lastIndex)
     }
-    return Pair(q.normalized(), r.normalized())
+
+    a.data.add(a0)
+    a.normalize()
+
+    check(cmpSlice(a.data, b) < 0)
+
+    return Pair(q.normalized(), a)
 }
 
 operator fun BigUint.div(other: BigUint): BigUint {

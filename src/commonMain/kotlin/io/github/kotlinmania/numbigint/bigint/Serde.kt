@@ -1,5 +1,4 @@
 // port-lint: source bigint/serde.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.numbigint.bigint
 
@@ -17,9 +16,7 @@ import io.github.kotlinmania.serdecore.de.Unexpected
 import io.github.kotlinmania.serdecore.de.pairDeserialize
 import io.github.kotlinmania.serdecore.ser.Serializer
 import io.github.kotlinmania.serdecore.ser.serialize
-import kotlin.native.HiddenFromObjC
 
-@HiddenFromObjC
 fun <Ok> serialize(
     self: Sign,
     serializer: Serializer<Ok>,
@@ -32,7 +29,6 @@ fun <Ok> serialize(
         Sign.Plus -> 1.toByte().serialize(serializer)
     }
 
-@HiddenFromObjC
 fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
     serdeCatching {
         val sign = I8Deserialize.deserialize(deserializer).getOrThrow().toInt()
@@ -60,7 +56,6 @@ fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
         }
     }
 
-@HiddenFromObjC
 fun <Ok> serialize(
     self: BigInt,
     serializer: Serializer<Ok>,
@@ -69,7 +64,6 @@ fun <Ok> serialize(
     // forward and backward compatibility of serialized data!
     Pair(self.sign(), self.data).serialize(serializer)
 
-@HiddenFromObjC
 fun <D : Deserializer> deserialize(
     deserializer: D,
     companion: BigInt.Companion = BigInt,

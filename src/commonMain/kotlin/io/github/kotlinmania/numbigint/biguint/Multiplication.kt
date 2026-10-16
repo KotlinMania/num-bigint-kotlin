@@ -5,23 +5,11 @@ internal fun macWithCarry(
     a: BigDigit,
     b: BigDigit,
     c: BigDigit,
-    acc: ULong,
-): Pair<BigDigit, ULong> {
-    var nextAcc = acc
-    nextAcc += a.toULong()
-    nextAcc += b.toULong() * c.toULong()
-    val lo = nextAcc.toUInt()
-    nextAcc = nextAcc shr BIG_DIGIT_BITS
-    return Pair(lo, nextAcc)
-}
+    acc: DoubleBigDigit,
+): DoubleBigDigit = acc + a.toULong() + b.toULong() * c.toULong()
 
-private fun mulWithCarry(a: BigDigit, b: BigDigit, acc: ULong): Pair<BigDigit, ULong> {
-    var nextAcc = acc
-    nextAcc += a.toULong() * b.toULong()
-    val lo = nextAcc.toUInt()
-    nextAcc = nextAcc shr BIG_DIGIT_BITS
-    return Pair(lo, nextAcc)
-}
+private fun mulWithCarry(a: BigDigit, b: BigDigit, acc: DoubleBigDigit): DoubleBigDigit =
+    acc + a.toULong() * b.toULong()
 
 /**
  * Three argument multiply accumulate:
@@ -35,9 +23,9 @@ private fun macDigit(acc: MutableList<BigDigit>, offset: Int, b: List<BigDigit>,
     var carry = 0uL
     var i = 0
     while (i < b.size) {
-        val (out, nextCarry) = macWithCarry(acc[offset + i], b[i], c, carry)
-        acc[offset + i] = out
-        carry = nextCarry
+        val nextAcc = macWithCarry(acc[offset + i], b[i], c, carry)
+        acc[offset + i] = nextAcc.toUInt()
+        carry = nextAcc shr BIG_DIGIT_BITS
         i += 1
     }
 
@@ -46,7 +34,7 @@ private fun macDigit(acc: MutableList<BigDigit>, offset: Int, b: List<BigDigit>,
         if (carryHi == 0u) {
             add2Carry(acc, listOf(carryLo), aOffset = offset + b.size)
         } else {
-            add2Carry(acc, listOf(carryLo, carryHi), aOffset = offset + b.size)
+            add2Carry(acc, listOf(carryHi, carryLo), aOffset = offset + b.size)
         }
     check(finalCarry == 0u) { "carry overflow during multiplication!" }
 }
@@ -108,9 +96,9 @@ private fun scalarMul(a: BigUint, b: BigDigit) {
     var carry = 0uL
     var i = 0
     while (i < a.data.size) {
-        val (out, nextCarry) = mulWithCarry(a.data[i], b, carry)
-        a.data[i] = out
-        carry = nextCarry
+        val nextAcc = mulWithCarry(a.data[i], b, carry)
+        a.data[i] = nextAcc.toUInt()
+        carry = nextAcc shr BIG_DIGIT_BITS
         i += 1
     }
     if (carry != 0uL) {
