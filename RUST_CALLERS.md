@@ -15,7 +15,7 @@ For every Rust crate this repo owns (under `tmp/`), this file lists every **cros
 Per workspace transliteration invariant:
 - `lib.rs` is **not** ported as `Lib.kt`.
 - `mod big_digit` is ported to `src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigDigit.kt`.
-- Error types (`ParseBigIntError`, `TryFromBigIntError`, `TryFromBigIntException`) and promotion typealiases are ported to `src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigIntErrors.kt`.
+- Error values (`ParseBigIntError`, `TryFromBigIntError`) and promotion typealiases live in `src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigIntErrors.kt`. Apple-facing parse and checked-conversion outcomes use focused, concrete `*Result.kt` files rather than public `kotlin.Result` or generic error wrappers.
 - Public re-exports `BigUint`, `BigInt`, `Sign` are canonical symbols in `biguint/BigUint.kt` and `bigint/BigInt.kt` exposed at crate root `io.github.kotlinmania.numbigint`.
 
 ## Crates in this repo

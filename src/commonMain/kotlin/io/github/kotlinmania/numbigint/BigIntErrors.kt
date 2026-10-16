@@ -1,9 +1,4 @@
-// port-lint: source lib.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
-
 package io.github.kotlinmania.numbigint
-
-import kotlin.native.HiddenFromObjC
 
 /*
  * Copyright 2013-2014 The Rust Project Developers.
@@ -31,11 +26,10 @@ internal typealias IsizePromotion = Long
 /**
  * The error type returned when a big integer cannot be parsed from text.
  */
-@HiddenFromObjC
 class ParseBigIntError private constructor(
     private val kind: BigIntErrorKind,
-) : IllegalArgumentException(kind.description) {
-    override val message: String
+) {
+    val message: String
         get() = kind.description
 
     internal companion object {
@@ -62,9 +56,8 @@ private enum class BigIntErrorKind(
  * The error type returned when a checked conversion involving a big integer
  * fails.
  */
-@HiddenFromObjC
-class TryFromBigIntError<T> internal constructor(
-    private val original: T,
+class TryFromBigIntError internal constructor(
+    private val original: BigInt?,
 ) {
     val message: String
         get() = DESCRIPTION
@@ -73,11 +66,11 @@ class TryFromBigIntError<T> internal constructor(
      * Extract the original value, if available. The value is available if the
      * type before conversion was either [BigInt] or [BigUint].
      */
-    fun intoOriginal(): T = original
+    fun intoOriginal(): BigInt? = original
 
     override fun equals(other: Any?): Boolean =
         this === other ||
-            (other is TryFromBigIntError<*> && original == other.original)
+            (other is TryFromBigIntError && original == other.original)
 
     override fun hashCode(): Int = original.hashCode()
 
@@ -88,9 +81,8 @@ class TryFromBigIntError<T> internal constructor(
     }
 }
 
-@HiddenFromObjC
-class TryFromBigIntException internal constructor(
-    val error: TryFromBigIntError<*>,
+internal class TryFromBigIntException internal constructor(
+    val error: TryFromBigIntError,
 ) : IllegalArgumentException(error.message) {
     override val message: String
         get() = error.message

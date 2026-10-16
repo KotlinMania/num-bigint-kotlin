@@ -1,11 +1,9 @@
 // port-lint: source biguint/convert.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.numbigint
 
 import kotlin.math.pow
 import kotlin.math.truncate
-import kotlin.native.HiddenFromObjC
 
 /**
  * Find last set bit.
@@ -147,7 +145,7 @@ internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? {
 /**
  * Creates and initializes a `BigUint`.
  */
-internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
+internal fun fromStrRadixImpl(s0: String, radix: UInt): BigUintParseResult {
     require(radix in 2u..36u) { "The radix must be within 2...36" }
     var s = s0
     if (s.startsWith("+")) {
@@ -158,12 +156,12 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
     }
 
     if (s.isEmpty()) {
-        return Result.failure(ParseBigIntError.empty())
+        return BigUintParseResult(null, ParseBigIntError.empty())
     }
 
     if (s.startsWith("_")) {
         // Must lead with a real digit!
-        return Result.failure(ParseBigIntError.invalid())
+        return BigUintParseResult(null, ParseBigIntError.invalid())
     }
 
     // First normalize all characters to plain digit values.
@@ -180,7 +178,7 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
         if (d.toUInt() < radix) {
             v.add(d.toUByte())
         } else {
-            return Result.failure(ParseBigIntError.invalid())
+            return BigUintParseResult(null, ParseBigIntError.invalid())
         }
     }
 
@@ -197,7 +195,7 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): Result<BigUint> {
         } else {
             fromRadixDigitsBe(v, radix)
         }
-    return Result.success(res)
+    return BigUintParseResult(res, null)
 }
 
 private fun highBitsToU64(v: BigUint): ULong =
@@ -315,10 +313,9 @@ fun BigUint.toDoubleOrNull(): Double? {
     }
 }
 
-@HiddenFromObjC
-fun BigUint.tryToUInt(): Result<UInt> =
-    toUIntOrNull()?.let { Result.success(it) }
-        ?: Result.failure(TryFromBigIntException(TryFromBigIntError(Unit)))
+fun BigUint.tryToUInt(): BigUintToUIntResult =
+    toUIntOrNull()?.let { BigUintToUIntResult(it, null) }
+        ?: BigUintToUIntResult(null, TryFromBigIntError(null))
 
 internal fun fromULongImpl(n0: ULong): BigUint {
     var n = n0
