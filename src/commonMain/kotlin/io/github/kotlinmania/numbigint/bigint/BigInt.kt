@@ -442,43 +442,16 @@ class BigInt internal constructor(
     /**
      * Returns the two's-complement byte representation of the `BigInt` in big-endian byte order.
      */
-    fun toSignedBytesBe(): List<UByte> {
-        val v = toSignedBytesLe().toMutableList()
-        v.reverse()
-        return v
-    }
+    fun toSignedBytesBe(): List<UByte> =
+        io.github.kotlinmania.numbigint.bigint
+            .toSignedBytesBe(this)
 
     /**
      * Returns the two's-complement byte representation of the `BigInt` in little-endian byte order.
      */
     fun toSignedBytesLe(): List<UByte> =
-        when (signValue) {
-            Sign.NoSign -> {
-                listOf(0u)
-            }
-
-            Sign.Plus -> {
-                val bytes = data.toBytesLe().toMutableList()
-                if (bytes.last().toUInt() and 0x80u != 0u) {
-                    bytes.add(0u)
-                }
-                bytes
-            }
-
-            Sign.Minus -> {
-                val magnitudeMinusOne = data - 1u
-                val bytes = magnitudeMinusOne.toBytesLe().toMutableList()
-                var i = 0
-                while (i < bytes.size) {
-                    bytes[i] = bytes[i].inv()
-                    i += 1
-                }
-                if (bytes.last().toUInt() and 0x80u == 0u) {
-                    bytes.add(0xFFu)
-                }
-                bytes
-            }
-        }
+        io.github.kotlinmania.numbigint.bigint
+            .toSignedBytesLe(this)
 
     /**
      * Returns the integer formatted as a string in the given radix.
@@ -755,29 +728,18 @@ class BigInt internal constructor(
          *
          * The digits are in big-endian base 2^8.
          */
-        fun fromSignedBytesBe(digits: List<UByte>): BigInt {
-            val v = digits.toMutableList()
-            v.reverse()
-            return fromSignedBytesLe(v)
-        }
+        fun fromSignedBytesBe(digits: List<UByte>): BigInt =
+            io.github.kotlinmania.numbigint.bigint
+                .fromSignedBytesBe(digits)
 
         /**
          * Creates and initializes a `BigInt` from an array of bytes in two's complement.
          *
          * The digits are in little-endian base 2^8.
          */
-        fun fromSignedBytesLe(digits: List<UByte>): BigInt {
-            if (digits.isEmpty()) {
-                return ZERO
-            }
-            val negative = digits.last().toUInt() and 0x80u != 0u
-            if (!negative) {
-                return fromBiguint(Sign.Plus, BigUint.fromBytesLe(digits))
-            }
-            val inverted = digits.map { it.inv() }.toMutableList()
-            val magnitude = BigUint.fromBytesLe(inverted) + 1u
-            return fromBiguint(Sign.Minus, magnitude)
-        }
+        fun fromSignedBytesLe(digits: List<UByte>): BigInt =
+            io.github.kotlinmania.numbigint.bigint
+                .fromSignedBytesLe(digits)
 
         fun fromBeBytes(bytes: List<UByte>): BigInt = fromSignedBytesBe(bytes)
 

@@ -15,6 +15,10 @@ private fun fls(v: ULong): UInt = ULong.SIZE_BITS.toUInt() - v.countLeadingZeroB
 
 private fun ilog2(v: UInt): UInt = fls(v) - 1u
 
+internal interface Err
+
+internal fun fromStr(s: String): BigUintParseResult = BigUint.fromStrRadix(s, 10u)
+
 // Convert from a power of two radix where bits evenly divides `BIG_DIGIT_BITS`.
 internal fun fromBitwiseDigitsLe(v: List<UByte>, bits: UInt): BigUint {
     check(v.isNotEmpty() && bits <= 8u && BIG_DIGIT_BITS.toUInt() % bits == 0u)
@@ -79,15 +83,53 @@ private fun fromRadixDigitsBe(v: List<UByte>, radix: UInt): BigUint {
     check(v.isNotEmpty() && !radix.isPowerOfTwo())
     check(v.all { it.toUInt() < radix })
 
-    val result = BigUint.zero()
-    for (digit in v) {
-        result.timesAssign(radix)
-        result.plusAssign(digit.toUInt())
+    // Estimate how big the result will be, so we can pre-allocate it.
+    val radixLog2 = kotlin.math.log2(radix.toDouble())
+    val bits = radixLog2 * v.size.toDouble()
+    val bigDigits =
+        kotlin.math
+            .ceil(bits / BIG_DIGIT_BITS.toDouble())
+            .toInt()
+            .coerceAtLeast(0)
+
+    val data = ArrayList<BigDigit>(bigDigits)
+
+    val (base, power) = getRadixBase(radix)
+    val radixDigit: BigDigit = radix
+
+    val r = v.size % power
+    val i = if (r == 0) power else r
+    val head = v.subList(0, i)
+    val tail = v.subList(i, v.size)
+
+    val first = head.fold(0u) { acc, d -> acc * radixDigit + d.toUInt() }
+    data.add(first)
+
+    check(tail.size % power == 0)
+    var chunkStart = 0
+    while (chunkStart < tail.size) {
+        val chunk = tail.subList(chunkStart, chunkStart + power)
+        if (data.lastOrNull() != 0u) {
+            data.add(0u)
+        }
+
+        var carry = 0uL
+        for (idx in data.indices) {
+            val next = macWithCarry(0u, data[idx], base, carry)
+            data[idx] = next.toUInt()
+            carry = next shr BIG_DIGIT_BITS
+        }
+        check(carry == 0uL)
+
+        val n = chunk.fold(0u) { acc, d -> acc * radixDigit + d.toUInt() }
+        add2(data, listOf(n))
+        chunkStart += power
     }
-    return result
+
+    return biguintFromVec(data)
 }
 
-internal fun fromRadixBeDigits(buf: List<UByte>, radix: UInt): BigUint? {
+internal fun fromRadixBe(buf: List<UByte>, radix: UInt): BigUint? {
     require(radix in 2u..256u) { "The radix must be within 2...256" }
 
     if (buf.isEmpty()) {
@@ -115,7 +157,9 @@ internal fun fromRadixBeDigits(buf: List<UByte>, radix: UInt): BigUint? {
     return res
 }
 
-internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? {
+internal fun fromRadixBeDigits(buf: List<UByte>, radix: UInt): BigUint? = fromRadixBe(buf, radix)
+
+internal fun fromRadixLe(buf: List<UByte>, radix: UInt): BigUint? {
     require(radix in 2u..256u) { "The radix must be within 2...256" }
 
     if (buf.isEmpty()) {
@@ -142,10 +186,14 @@ internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? {
     return res
 }
 
+internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? = fromRadixLe(buf, radix)
+
+internal interface FromStrRadixErr
+
 /**
  * Creates and initializes a `BigUint`.
  */
-internal fun fromStrRadixImpl(s0: String, radix: UInt): BigUintParseResult {
+internal fun fromStrRadix(s0: String, radix: UInt): BigUintParseResult {
     require(radix in 2u..36u) { "The radix must be within 2...36" }
     var s = s0
     if (s.startsWith("+")) {
@@ -198,6 +246,8 @@ internal fun fromStrRadixImpl(s0: String, radix: UInt): BigUintParseResult {
     return BigUintParseResult(res, null)
 }
 
+internal fun fromStrRadixImpl(s0: String, radix: UInt): BigUintParseResult = fromStrRadix(s0, radix)
+
 private fun highBitsToU64(v: BigUint): ULong =
     when (v.data.size) {
         0 -> {
@@ -243,26 +293,11 @@ private fun highBitsToU64(v: BigUint): ULong =
         }
     }
 
-fun BigUint.toByteOrNull(): Byte? = toUIntOrNull()?.takeIf { it <= Byte.MAX_VALUE.toUInt() }?.toByte()
+fun BigUint.toI64(): Long? = toU64()?.takeIf { it <= Long.MAX_VALUE.toULong() }?.toLong()
 
-fun BigUint.toShortOrNull(): Short? = toUIntOrNull()?.takeIf { it <= Short.MAX_VALUE.toUInt() }?.toShort()
+fun BigUint.toI128(): Long? = toI64()
 
-fun BigUint.toIntOrNull(): Int? = toUIntOrNull()?.takeIf { it <= Int.MAX_VALUE.toUInt() }?.toInt()
-
-fun BigUint.toLongOrNull(): Long? = toULongOrNull()?.takeIf { it <= Long.MAX_VALUE.toULong() }?.toLong()
-
-fun BigUint.toUByteOrNull(): UByte? = toUIntOrNull()?.takeIf { it <= UByte.MAX_VALUE.toUInt() }?.toUByte()
-
-fun BigUint.toUShortOrNull(): UShort? = toUIntOrNull()?.takeIf { it <= UShort.MAX_VALUE.toUInt() }?.toUShort()
-
-fun BigUint.toUIntOrNull(): UInt? =
-    when (data.size) {
-        0 -> 0u
-        1 -> data[0]
-        else -> null
-    }
-
-fun BigUint.toULongOrNull(): ULong? {
+fun BigUint.toU64(): ULong? {
     var ret = 0uL
     var bits = 0
 
@@ -277,7 +312,9 @@ fun BigUint.toULongOrNull(): ULong? {
     return ret
 }
 
-fun BigUint.toFloatOrNull(): Float? {
+fun BigUint.toU128(): ULong? = toU64()
+
+fun BigUint.toF32(): Float? {
     val mantissa = highBitsToU64(this)
     if (mantissa == 0uL) {
         return 0.0f
@@ -299,7 +336,7 @@ fun BigUint.toFloatOrNull(): Float? {
     }
 }
 
-fun BigUint.toDoubleOrNull(): Double? {
+fun BigUint.toF64(): Double? {
     val mantissa = highBitsToU64(this)
     if (mantissa == 0uL) {
         return 0.0
@@ -313,11 +350,44 @@ fun BigUint.toDoubleOrNull(): Double? {
     }
 }
 
+fun BigUint.toByteOrNull(): Byte? = toUIntOrNull()?.takeIf { it <= Byte.MAX_VALUE.toUInt() }?.toByte()
+
+fun BigUint.toShortOrNull(): Short? = toUIntOrNull()?.takeIf { it <= Short.MAX_VALUE.toUInt() }?.toShort()
+
+fun BigUint.toIntOrNull(): Int? = toUIntOrNull()?.takeIf { it <= Int.MAX_VALUE.toUInt() }?.toInt()
+
+fun BigUint.toLongOrNull(): Long? = toI64()
+
+fun BigUint.toUByteOrNull(): UByte? = toUIntOrNull()?.takeIf { it <= UByte.MAX_VALUE.toUInt() }?.toUByte()
+
+fun BigUint.toUShortOrNull(): UShort? = toUIntOrNull()?.takeIf { it <= UShort.MAX_VALUE.toUInt() }?.toUShort()
+
+fun BigUint.toUIntOrNull(): UInt? =
+    when (data.size) {
+        0 -> 0u
+        1 -> data[0]
+        else -> null
+    }
+
+fun BigUint.toULongOrNull(): ULong? = toU64()
+
+fun BigUint.toFloatOrNull(): Float? = toF32()
+
+fun BigUint.toDoubleOrNull(): Double? = toF64()
+
 fun BigUint.tryToUInt(): BigUintToUIntResult =
     toUIntOrNull()?.let { BigUintToUIntResult(it, null) }
         ?: BigUintToUIntResult(null, TryFromBigIntError(null))
 
-internal fun fromULongImpl(n0: ULong): BigUint {
+internal fun fromI64(n: Long): BigUint? = if (n >= 0L) from(n.toULong()) else null
+
+internal fun fromI128(n: Long): BigUint? = fromI64(n)
+
+internal fun fromU64(n: ULong): BigUint? = from(n)
+
+internal fun fromU128(n: ULong): BigUint? = from(n)
+
+internal fun from(n0: ULong): BigUint {
     var n = n0
     val ret = BigUint.ZERO
 
@@ -328,6 +398,12 @@ internal fun fromULongImpl(n0: ULong): BigUint {
 
     return ret
 }
+
+internal fun from(n: UInt): BigUint = from(n.toULong())
+
+internal fun from(x: Boolean): BigUint = if (x) BigUint.one() else BigUint.ZERO
+
+internal fun fromULongImpl(n0: ULong): BigUint = from(n0)
 
 private fun integerDecode(n: Double): Triple<ULong, Short, Byte> {
     val bits = n.toRawBits().toULong()
@@ -343,7 +419,7 @@ private fun integerDecode(n: Double): Triple<ULong, Short, Byte> {
     return Triple(mantissa, exponent, sign)
 }
 
-internal fun fromDoubleImpl(n0: Double): BigUint? {
+internal fun fromF64(n0: Double): BigUint? {
     // handle not-a-number, positive infinity, negative infinity
     if (!n0.isFinite()) {
         return null
@@ -370,6 +446,8 @@ internal fun fromDoubleImpl(n0: Double): BigUint? {
     return ret
 }
 
+internal fun fromDoubleImpl(n0: Double): BigUint? = fromF64(n0)
+
 fun BigUint.toBigUint(): BigUint? = clone()
 
 fun Int.toBigUint(): BigUint? = if (this >= 0) toUInt().toBigUint() else null
@@ -384,7 +462,7 @@ fun Float.toBigUint(): BigUint? = BigUint.fromFloat(this)
 
 fun Double.toBigUint(): BigUint? = BigUint.fromDouble(this)
 
-fun Boolean.toBigUint(): BigUint = if (this) BigUint.one() else BigUint.ZERO
+fun Boolean.toBigUint(): BigUint = from(this)
 
 // Extract bitwise digits that evenly divide `BigDigit`.
 internal fun toBitwiseDigitsLe(u: BigUint, bits: UInt): List<UByte> {
@@ -470,6 +548,44 @@ internal fun toRadixDigitsLe(u: BigUint, radix: UInt): List<UByte> {
         } else {
             getHalfRadixBase(radix)
         }
+
+    // For very large numbers, the O(n^2) loop of repeated `divRemDigit` dominates the
+    // performance. We can mitigate this by dividing into chunks of a larger base first.
+    if (digits.data.size >= 64) {
+        var bigBase = from(base)
+        var bigPower = 1
+
+        // Choose a target base length near sqrt(n).
+        val targetLen =
+            digits.data.size
+                .toULong()
+                .sqrt()
+                .toInt()
+        while (bigBase.data.size < targetLen) {
+            bigBase = bigBase * bigBase
+            bigPower *= 2
+        }
+
+        // This outer loop will run approximately sqrt(n) times.
+        while (digits > bigBase) {
+            // This is still the dominating factor, with n digits divided by sqrt(n) digits.
+            val (q, bigR0) = digits.divRem(bigBase)
+            digits = q
+            var bigR = bigR0
+
+            // This inner loop now has O(sqrt(n)^2) = O(n) behavior altogether.
+            repeat(bigPower) {
+                val (qDigit, rem0) = divRemDigit(bigR, base)
+                bigR = qDigit
+                var r = rem0
+                repeat(power) {
+                    res.add((r % radix).toUByte())
+                    r /= radix
+                }
+            }
+        }
+    }
+
     while (digits.data.size > 1) {
         val (q, rem0) = divRemDigit(digits, base)
         var rem = rem0
@@ -489,7 +605,7 @@ internal fun toRadixDigitsLe(u: BigUint, radix: UInt): List<UByte> {
     return res
 }
 
-internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> =
+internal fun toRadixLe(u: BigUint, radix: UInt): List<UByte> =
     if (u.isZero()) {
         listOf(0.toUByte())
     } else if (radix.isPowerOfTwo()) {
@@ -508,6 +624,8 @@ internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> =
         toRadixDigitsLe(u, radix)
     }
 
+internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> = toRadixLe(u, radix)
+
 internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
     require(radix in 2u..36u) { "The radix must be within 2...36" }
 
@@ -515,7 +633,7 @@ internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
         return listOf('0'.code.toUByte())
     }
 
-    val res = toRadixLeDigits(u, radix).toMutableList()
+    val res = toRadixLe(u, radix).toMutableList()
 
     // Now convert everything to ASCII digits.
     var i = 0
