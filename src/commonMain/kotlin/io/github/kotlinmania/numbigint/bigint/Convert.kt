@@ -16,11 +16,7 @@ import io.github.kotlinmania.numbigint.toFloatOrNull
 import io.github.kotlinmania.numbigint.toLongOrNull
 import io.github.kotlinmania.numbigint.toULongOrNull
 
-internal interface Err
-
 fun fromStr(s: String): BigIntParseResult = fromStrRadix(s, 10u)
-
-internal interface FromStrRadixErr
 
 /**
  * Creates and initializes a `BigInt`.
@@ -153,8 +149,6 @@ fun toBiguint(value: BigInt): BigUint? =
         Sign.NoSign -> BigUint.ZERO
         Sign.Minus -> null
     }
-
-internal interface Error
 
 fun tryFrom(value: BigInt): BigIntToBigUintResult =
     toBiguint(value)?.let { BigIntToBigUintResult(it, null) }

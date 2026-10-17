@@ -1,28 +1,30 @@
 // port-lint: source biguint/power.rs
 package io.github.kotlinmania.numbigint
 
-fun BigUint.pow(exp: BigUint): BigUint = powBigUint(this, exp)
-
-internal fun powBigUint(self: BigUint, exp: BigUint): BigUint =
-    if (self.isOne() || exp.isZero()) {
+fun BigUint.pow(exp: BigUint): BigUint =
+    if (isOne() || exp.isZero()) {
         BigUint.one()
-    } else if (self.isZero()) {
+    } else if (isZero()) {
         BigUint.ZERO
     } else {
         val primitiveExp =
             exp.toULongOrNull()
                 ?: throw ArithmeticException("memory overflow")
-        powBigUint(self, primitiveExp)
+        pow(primitiveExp)
     }
 
-internal fun powBigUint(self: BigUint, exp: UInt): BigUint = powBigUint(self, exp.toULong())
+fun BigUint.pow(exp: UByte): BigUint = pow(exp.toULong())
 
-internal fun powBigUint(self: BigUint, exp0: ULong): BigUint {
+fun BigUint.pow(exp: UShort): BigUint = pow(exp.toULong())
+
+internal fun pow(self: BigUint, exp: UInt): BigUint = self.pow(exp.toULong())
+
+fun BigUint.pow(exp0: ULong): BigUint {
     var exp = exp0
     if (exp == 0uL) {
         return BigUint.one()
     }
-    var base = self.clone()
+    var base = clone()
 
     while (exp and 1uL == 0uL) {
         base = base * base
@@ -38,13 +40,13 @@ internal fun powBigUint(self: BigUint, exp0: ULong): BigUint {
         exp = exp shr 1
         base = base * base
         if (exp and 1uL == 1uL) {
-            acc.timesAssign(base)
+            acc *= base
         }
     }
     return acc
 }
 
-internal fun modpowBigUint(x: BigUint, exponent: BigUint, modulus: BigUint): BigUint {
+internal fun modpow(x: BigUint, exponent: BigUint, modulus: BigUint): BigUint {
     require(!modulus.isZero()) { "attempt to calculate with zero modulus!" }
 
     return if (modulus.isOdd()) {

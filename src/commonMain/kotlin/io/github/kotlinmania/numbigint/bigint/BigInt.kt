@@ -57,8 +57,8 @@ operator fun Sign.times(other: Sign): Sign =
  * A big signed integer type.
  */
 class BigInt internal constructor(
-    private var signValue: Sign,
-    internal var data: BigUint,
+    internal var signValue: Sign,
+    internal val data: BigUint,
 ) : Comparable<BigInt>,
     Serialize {
     override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> =
@@ -634,9 +634,8 @@ class BigInt internal constructor(
             }
 
             Sign.Minus -> {
-                val magnitudeMinusOne = data - 1u
-                magnitudeMinusOne.setBit(bit, !value)
-                data = magnitudeMinusOne + 1u
+                io.github.kotlinmania.numbigint.bigint
+                    .setNegativeBit(this, bit, value)
             }
 
             Sign.NoSign -> {
@@ -835,10 +834,6 @@ class BigInt internal constructor(
             io.github.kotlinmania.numbigint.bigint
                 .fromF64(n)
     }
-
-    internal interface Output
-
-    internal interface Bytes
 }
 
 internal interface UnsignedAbs<Unsigned> {
@@ -1122,7 +1117,11 @@ operator fun Long.rem(other: BigInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .rem(this, other)
 
-infix fun BigInt.shl(rhs: Int): BigInt =
+infix fun BigInt.shl(rhs: UByte): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: UShort): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shl(this, rhs)
 
@@ -1130,15 +1129,31 @@ infix fun BigInt.shl(rhs: UInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shl(this, rhs)
 
-infix fun BigInt.shl(rhs: Long): BigInt =
-    io.github.kotlinmania.numbigint.bigint
-        .shl(this, rhs)
-
 infix fun BigInt.shl(rhs: ULong): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shl(this, rhs)
 
-infix fun BigInt.shr(rhs: Int): BigInt =
+infix fun BigInt.shl(rhs: Byte): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: Short): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shl(rhs: Long): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shl(this, rhs)
+
+infix fun BigInt.shr(rhs: UByte): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: UShort): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shr(this, rhs)
 
@@ -1146,13 +1161,41 @@ infix fun BigInt.shr(rhs: UInt): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shr(this, rhs)
 
+infix fun BigInt.shr(rhs: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: Byte): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: Short): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
+infix fun BigInt.shr(rhs: Int): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .shr(this, rhs)
+
 infix fun BigInt.shr(rhs: Long): BigInt =
     io.github.kotlinmania.numbigint.bigint
         .shr(this, rhs)
 
-infix fun BigInt.shr(rhs: ULong): BigInt =
+fun BigInt.pow(rhs: UByte): BigInt =
     io.github.kotlinmania.numbigint.bigint
-        .shr(this, rhs)
+        .pow(this, rhs)
+
+fun BigInt.pow(rhs: UShort): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .pow(this, rhs)
+
+fun BigInt.pow(rhs: ULong): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .pow(this, rhs)
+
+fun BigInt.pow(rhs: BigUint): BigInt =
+    io.github.kotlinmania.numbigint.bigint
+        .pow(this, rhs)
 
 fun BigInt.divEuclid(v: BigInt): BigInt =
     io.github.kotlinmania.numbigint.bigint

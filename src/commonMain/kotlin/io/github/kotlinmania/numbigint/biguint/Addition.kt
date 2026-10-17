@@ -56,6 +56,8 @@ internal fun add2Carry(
  * The caller must ensure that a is big enough to store the result, typically by resizing a to
  * `max(a.len(), b.len()) + 1`, to fit a possible carry.
  */
+internal fun __add2(a: MutableList<BigDigit>, b: List<BigDigit>): BigDigit = add2Carry(a, b)
+
 internal fun add2(a: MutableList<BigDigit>, b: List<BigDigit>) {
     val carry = add2Carry(a, b)
     check(carry == 0u)

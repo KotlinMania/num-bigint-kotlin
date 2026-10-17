@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 460/520 matched (target 871) — 88.5%
-- **Class/type parity:** 23/36 matched (target 34) — 63.9%
-- **Combined symbol parity:** 483/556 matched (target 905) — 86.9%
-- **Average inline-code cosine:** 0.26 (function body across 23 matched files)
+- **Function parity:** 488/520 matched (target 923) — 93.8%
+- **Class/type parity:** 15/36 matched (target 25) — 41.7%
+- **Combined symbol parity:** 503/556 matched (target 948) — 90.5%
+- **Average inline-code cosine:** 0.28 (function body across 23 matched files)
 - **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
 - **Critical Issues:** 23 files with <0.60 function similarity
@@ -34,48 +34,26 @@ Every matched file is listed below with function and type symbol parity.
 - **Target:** `biguint.BigUint`
 - **Similarity:** 0.28
 - **Dependents:** 7
-- **Priority Score:** 7008907.0
+- **Priority Score:** 7018907.0
 - **Functions:** 85/85 matched (target 119)
 - **Missing functions:** _none_
-- **Types:** 4/4 matched (target 5)
-- **Missing types:** _none_
+- **Types:** 3/4 matched
+- **Missing types:** `Bytes`
 - **Tests:** 2/2 matched
 
 ### 2. bigint
 
 - **Target:** `bigint.BigInt`
-- **Similarity:** 0.30
+- **Similarity:** 0.31
 - **Dependents:** 6
-- **Priority Score:** 6011107.0
-- **Functions:** 104/104 matched (target 228)
+- **Priority Score:** 6031107.0
+- **Functions:** 104/104 matched (target 240)
 - **Missing functions:** _none_
-- **Types:** 7/7 matched (target 9)
-- **Missing types:** _none_
+- **Types:** 5/7 matched
+- **Missing types:** `Output`, `Bytes`
 - **Tests:** 3/3 matched
 
-### 3. bigint.division
-
-- **Target:** `bigint.Division`
-- **Similarity:** 0.28
-- **Dependents:** 0
-- **Priority Score:** 134807.2
-- **Functions:** 35/47 matched (target 35)
-- **Missing functions:** `div`, `div_assign`, `div`, `div`, `div_assign`, `div`, `rem`, `rem_assign`, `rem`, `rem`, `rem_assign`, `rem`
-- **Types:** 0/1 matched (target 0)
-- **Missing types:** `Output`
-
-### 4. bigint.subtraction
-
-- **Target:** `bigint.Subtraction`
-- **Similarity:** 0.16
-- **Dependents:** 0
-- **Priority Score:** 102508.4
-- **Functions:** 15/24 matched (target 42)
-- **Missing functions:** `sub`, `sub`, `sub`, `sub`, `sub_assign`, `sub`, `sub`, `sub_assign`, `sub`
-- **Types:** 0/1 matched (target 0)
-- **Missing types:** `Output`
-
-### 5. biguint.subtraction
+### 3. biguint.subtraction
 
 - **Target:** `biguint.Subtraction`
 - **Similarity:** 0.05
@@ -86,18 +64,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 6. biguint.addition
+### 4. biguint.addition
 
 - **Target:** `biguint.Addition`
-- **Similarity:** 0.09
+- **Similarity:** 0.10
 - **Dependents:** 0
-- **Priority Score:** 81109.1
-- **Functions:** 3/10 matched (target 19)
-- **Missing functions:** `add2`, `add`, `add_assign`, `add`, `add_assign`, `add`, `add`
+- **Priority Score:** 71109.0
+- **Functions:** 4/10 matched (target 20)
+- **Missing functions:** `add`, `add_assign`, `add`, `add_assign`, `add`, `add`
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 7. biguint.multiplication
+### 5. biguint.multiplication
 
 - **Target:** `biguint.Multiplication`
 - **Similarity:** 0.27
@@ -109,30 +87,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Output`
 - **Tests:** 1/1 matched
 
-### 8. biguint.power
+### 6. bigint.convert
 
-- **Target:** `biguint.Power`
-- **Similarity:** 0.15
+- **Target:** `bigint.Convert`
+- **Similarity:** 0.33
 - **Dependents:** 0
-- **Priority Score:** 50908.5
-- **Functions:** 4/8 matched (target 9)
-- **Missing functions:** `pow`, `pow`, `pow`, `modpow`
-- **Types:** 0/1 matched
-- **Missing types:** `Output`
-- **Tests:** 2/2 matched
+- **Priority Score:** 33406.7
+- **Functions:** 31/31 matched (target 37)
+- **Missing functions:** _none_
+- **Types:** 0/3 matched (target 0)
+- **Missing types:** `Err`, `FromStrRadixErr`, `Error`
 
-### 9. bigint.addition
+### 7. bigint.bits
 
-- **Target:** `bigint.Addition`
-- **Similarity:** 0.17
+- **Target:** `bigint.Bits`
+- **Similarity:** 0.19
 - **Dependents:** 0
-- **Priority Score:** 41908.3
-- **Functions:** 15/18 matched (target 44)
-- **Missing functions:** `add_assign`, `add`, `add_assign`
+- **Priority Score:** 32008.1
+- **Functions:** 17/19 matched (target 17)
+- **Missing functions:** `bitand`, `bitor`
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 10. biguint.division
+### 8. biguint.division
 
 - **Target:** `biguint.Division`
 - **Similarity:** 0.24
@@ -143,7 +120,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 11. bigrand
+### 9. biguint.convert
+
+- **Target:** `biguint.Convert`
+- **Similarity:** 0.32
+- **Dependents:** 0
+- **Priority Score:** 23706.8
+- **Functions:** 35/35 matched (target 64)
+- **Missing functions:** _none_
+- **Types:** 0/2 matched (target 1)
+- **Missing types:** `Err`, `FromStrRadixErr`
+- **Tests:** 2/2 matched
+
+### 10. bigrand
 
 - **Target:** `numbigint.BigRand`
 - **Similarity:** 0.43
@@ -154,18 +143,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/6 matched (target 5)
 - **Missing types:** `X`, `Sampler`
 
-### 12. bigint.multiplication
-
-- **Target:** `bigint.Multiplication`
-- **Similarity:** 0.21
-- **Dependents:** 0
-- **Priority Score:** 21507.9
-- **Functions:** 13/14 matched (target 44)
-- **Missing functions:** `mul_assign`
-- **Types:** 0/1 matched (target 0)
-- **Missing types:** `Output`
-
-### 13. biguint.bits
+### 11. biguint.bits
 
 - **Target:** `biguint.Bits`
 - **Similarity:** 0.09
@@ -176,39 +154,61 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 14. bigint.bits
+### 12. bigint.division
 
-- **Target:** `bigint.Bits`
-- **Similarity:** 0.09
+- **Target:** `bigint.Division`
+- **Similarity:** 0.36
 - **Dependents:** 0
-- **Priority Score:** 12009.1
-- **Functions:** 19/19 matched (target 27)
+- **Priority Score:** 14806.4
+- **Functions:** 47/47 matched
+- **Missing functions:** _none_
+- **Types:** 0/1 matched (target 0)
+- **Missing types:** `Output`
+
+### 13. bigint.subtraction
+
+- **Target:** `bigint.Subtraction`
+- **Similarity:** 0.21
+- **Dependents:** 0
+- **Priority Score:** 12507.9
+- **Functions:** 24/24 matched (target 51)
+- **Missing functions:** _none_
+- **Types:** 0/1 matched (target 0)
+- **Missing types:** `Output`
+
+### 14. bigint.addition
+
+- **Target:** `bigint.Addition`
+- **Similarity:** 0.18
+- **Dependents:** 0
+- **Priority Score:** 11908.2
+- **Functions:** 18/18 matched (target 47)
+- **Missing functions:** _none_
+- **Types:** 0/1 matched (target 0)
+- **Missing types:** `Output`
+
+### 15. bigint.multiplication
+
+- **Target:** `bigint.Multiplication`
+- **Similarity:** 0.32
+- **Dependents:** 0
+- **Priority Score:** 11506.8
+- **Functions:** 14/14 matched (target 45)
+- **Missing functions:** _none_
+- **Types:** 0/1 matched (target 0)
+- **Missing types:** `Output`
+
+### 16. biguint.power
+
+- **Target:** `biguint.Power`
+- **Similarity:** 0.33
+- **Dependents:** 0
+- **Priority Score:** 10906.7
+- **Functions:** 8/8 matched (target 10)
 - **Missing functions:** _none_
 - **Types:** 0/1 matched
 - **Missing types:** `Output`
-
-### 15. biguint.convert
-
-- **Target:** `biguint.Convert`
-- **Similarity:** 0.32
-- **Dependents:** 0
-- **Priority Score:** 3706.8
-- **Functions:** 35/35 matched (target 69)
-- **Missing functions:** _none_
-- **Types:** 2/2 matched (target 3)
-- **Missing types:** _none_
 - **Tests:** 2/2 matched
-
-### 16. bigint.convert
-
-- **Target:** `bigint.Convert`
-- **Similarity:** 0.33
-- **Dependents:** 0
-- **Priority Score:** 3406.7
-- **Functions:** 31/31 matched (target 37)
-- **Missing functions:** _none_
-- **Types:** 3/3 matched
-- **Missing types:** _none_
 
 ### 17. biguint.monty
 
@@ -250,7 +250,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.28
 - **Dependents:** 0
 - **Priority Score:** 407.2
-- **Functions:** 4/4 matched (target 17)
+- **Functions:** 4/4 matched (target 25)
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
@@ -272,7 +272,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.57
 - **Dependents:** 0
 - **Priority Score:** 204.3
-- **Functions:** 2/2 matched (target 7)
+- **Functions:** 2/2 matched (target 11)
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
@@ -283,7 +283,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.34
 - **Dependents:** 0
 - **Priority Score:** 106.6
-- **Functions:** 1/1 matched (target 17)
+- **Functions:** 1/1 matched (target 33)
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
@@ -309,4 +309,5 @@ do not treat them as the next implementation target by default.
 | Source | Expected target | Deps | Source path | Expected path |
 |--------|-----------------|------|-------------|---------------|
 | `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
+| `macros` | `Macros` | 0 | `macros.rs` | `Macros.kt` |
 

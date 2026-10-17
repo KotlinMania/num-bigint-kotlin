@@ -307,7 +307,9 @@ class BigUint internal constructor(
      * based `UByte` number.
      * `radix` must be in the range `2...256`.
      */
-    fun toRadixLe(radix: UInt): List<UByte> = toRadixLeDigits(this, radix)
+    fun toRadixLe(radix: UInt): List<UByte> =
+        io.github.kotlinmania.numbigint
+            .toRadixLe(this, radix)
 
     /**
      * Determines the fewest bits necessary to express the `BigUint`.
@@ -344,14 +346,18 @@ class BigUint internal constructor(
     /**
      * Returns `self ^ exponent`.
      */
-    fun pow(exponent: UInt): BigUint = powBigUint(this, exponent)
+    fun pow(exponent: UInt): BigUint =
+        io.github.kotlinmania.numbigint
+            .pow(this, exponent)
 
     /**
      * Returns `(self ^ exponent) % modulus`.
      *
      * Panics if the modulus is zero.
      */
-    fun modpow(exponent: BigUint, modulus: BigUint): BigUint = modpowBigUint(this, exponent, modulus)
+    fun modpow(exponent: BigUint, modulus: BigUint): BigUint =
+        io.github.kotlinmania.numbigint
+            .modpow(this, exponent, modulus)
 
     /**
      * Returns the modular multiplicative inverse if it exists, otherwise `null`.
@@ -507,8 +513,6 @@ class BigUint internal constructor(
 
     internal fun len(): Int = data.size
 
-    internal interface Bytes
-
     companion object : Deserialize<BigUint> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
             io.github.kotlinmania.numbigint.biguint
@@ -596,7 +600,9 @@ class BigUint internal constructor(
          * The bytes are in big-endian byte order.
          * `radix` must be in the range `2...256`.
          */
-        fun fromRadixBe(buf: List<UByte>, radix: UInt): BigUint? = fromRadixBeDigits(buf, radix)
+        fun fromRadixBe(buf: List<UByte>, radix: UInt): BigUint? =
+            io.github.kotlinmania.numbigint
+                .fromRadixBe(buf, radix)
 
         /**
          * Creates and initializes a `BigUint`. Each `UByte` of the input slice is
@@ -605,15 +611,21 @@ class BigUint internal constructor(
          * The bytes are in little-endian byte order.
          * `radix` must be in the range `2...256`.
          */
-        fun fromRadixLe(buf: List<UByte>, radix: UInt): BigUint? = fromRadixLeDigits(buf, radix)
+        fun fromRadixLe(buf: List<UByte>, radix: UInt): BigUint? =
+            io.github.kotlinmania.numbigint
+                .fromRadixLe(buf, radix)
 
         fun zero(): BigUint = ZERO
 
         fun one(): BigUint = BigUint(mutableListOf(1u))
 
-        fun fromStrRadix(s: String, radix: UInt): BigUintParseResult = fromStrRadixImpl(s, radix)
+        fun fromStrRadix(s: String, radix: UInt): BigUintParseResult =
+            io.github.kotlinmania.numbigint
+                .fromStrRadix(s, radix)
 
-        fun fromULong(n: ULong): BigUint = fromULongImpl(n)
+        fun fromULong(n: ULong): BigUint =
+            io.github.kotlinmania.numbigint
+                .from(n)
 
         fun fromUInt(n: UInt): BigUint = fromULong(n.toULong())
 
@@ -621,9 +633,13 @@ class BigUint internal constructor(
 
         fun fromInt(n: Int): BigUint? = if (n >= 0) fromUInt(n.toUInt()) else null
 
-        fun fromFloat(n: Float): BigUint? = fromDoubleImpl(Float.fromBits(n.toRawBits()).toDouble())
+        fun fromFloat(n: Float): BigUint? =
+            io.github.kotlinmania.numbigint
+                .fromF32(n)
 
-        fun fromDouble(n: Double): BigUint? = fromDoubleImpl(n)
+        fun fromDouble(n: Double): BigUint? =
+            io.github.kotlinmania.numbigint
+                .fromF64(n)
 
         fun from(n: UByte): BigUint = fromUInt(n.toUInt())
 

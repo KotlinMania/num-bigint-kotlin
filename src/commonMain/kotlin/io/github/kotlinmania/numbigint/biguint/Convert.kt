@@ -15,8 +15,6 @@ private fun fls(v: ULong): UInt = ULong.SIZE_BITS.toUInt() - v.countLeadingZeroB
 
 private fun ilog2(v: UInt): UInt = fls(v) - 1u
 
-internal interface Err
-
 internal fun fromStr(s: String): BigUintParseResult = BigUint.fromStrRadix(s, 10u)
 
 // Convert from a power of two radix where bits evenly divides `BIG_DIGIT_BITS`.
@@ -157,8 +155,6 @@ internal fun fromRadixBe(buf: List<UByte>, radix: UInt): BigUint? {
     return res
 }
 
-internal fun fromRadixBeDigits(buf: List<UByte>, radix: UInt): BigUint? = fromRadixBe(buf, radix)
-
 internal fun fromRadixLe(buf: List<UByte>, radix: UInt): BigUint? {
     require(radix in 2u..256u) { "The radix must be within 2...256" }
 
@@ -185,10 +181,6 @@ internal fun fromRadixLe(buf: List<UByte>, radix: UInt): BigUint? {
 
     return res
 }
-
-internal fun fromRadixLeDigits(buf: List<UByte>, radix: UInt): BigUint? = fromRadixLe(buf, radix)
-
-internal interface FromStrRadixErr
 
 /**
  * Creates and initializes a `BigUint`.
@@ -245,8 +237,6 @@ internal fun fromStrRadix(s0: String, radix: UInt): BigUintParseResult {
         }
     return BigUintParseResult(res, null)
 }
-
-internal fun fromStrRadixImpl(s0: String, radix: UInt): BigUintParseResult = fromStrRadix(s0, radix)
 
 private fun highBitsToU64(v: BigUint): ULong =
     when (v.data.size) {
@@ -403,8 +393,6 @@ internal fun from(n: UInt): BigUint = from(n.toULong())
 
 internal fun from(x: Boolean): BigUint = if (x) BigUint.one() else BigUint.ZERO
 
-internal fun fromULongImpl(n0: ULong): BigUint = from(n0)
-
 private fun integerDecode(n: Double): Triple<ULong, Short, Byte> {
     val bits = n.toRawBits().toULong()
     val sign: Byte = if ((bits shr 63) == 0uL) 1 else -1
@@ -418,6 +406,8 @@ private fun integerDecode(n: Double): Triple<ULong, Short, Byte> {
     exponent = (exponent - (1023 + 52)).toShort()
     return Triple(mantissa, exponent, sign)
 }
+
+internal fun fromF32(n: Float): BigUint? = fromF64(Float.fromBits(n.toRawBits()).toDouble())
 
 internal fun fromF64(n0: Double): BigUint? {
     // handle not-a-number, positive infinity, negative infinity
@@ -445,8 +435,6 @@ internal fun fromF64(n0: Double): BigUint? {
     }
     return ret
 }
-
-internal fun fromDoubleImpl(n0: Double): BigUint? = fromF64(n0)
 
 fun BigUint.toBigUint(): BigUint? = clone()
 
@@ -623,8 +611,6 @@ internal fun toRadixLe(u: BigUint, radix: UInt): List<UByte> =
     } else {
         toRadixDigitsLe(u, radix)
     }
-
-internal fun toRadixLeDigits(u: BigUint, radix: UInt): List<UByte> = toRadixLe(u, radix)
 
 internal fun toStrRadixReversed(u: BigUint, radix: UInt): List<UByte> {
     require(radix in 2u..36u) { "The radix must be within 2...36" }
