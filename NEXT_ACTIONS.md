@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 429/520 matched (target 840) — 82.5%
-- **Class/type parity:** 18/36 matched (target 29) — 50.0%
-- **Combined symbol parity:** 447/556 matched (target 869) — 80.4%
-- **Average inline-code cosine:** 0.24 (function body across 23 matched files)
+- **Function parity:** 460/520 matched (target 871) — 88.5%
+- **Class/type parity:** 23/36 matched (target 34) — 63.9%
+- **Combined symbol parity:** 483/556 matched (target 905) — 86.9%
+- **Average inline-code cosine:** 0.26 (function body across 23 matched files)
 - **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
 - **Critical Issues:** 23 files with <0.60 function similarity
@@ -53,30 +53,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 3/3 matched
 
-### 3. biguint.convert
-
-- **Target:** `biguint.Convert`
-- **Similarity:** 0.13
-- **Dependents:** 0
-- **Priority Score:** 213708.7
-- **Functions:** 16/35 matched (target 50)
-- **Missing functions:** `from_str`, `from_radix_be`, `from_radix_le`, `from_str_radix`, `to_i64`, `to_i128`, `to_u64`, `to_u128`, `to_f32`, `to_f64`, `from_i64`, `from_i128`, `from_u64`, `from_u128`, `from_f64`, `from`, `from`, `from`, `to_radix_le`
-- **Types:** 0/2 matched (target 1)
-- **Missing types:** `Err`, `FromStrRadixErr`
-- **Tests:** 2/2 matched
-
-### 4. bigint.convert
-
-- **Target:** `bigint.Convert`
-- **Similarity:** 0.15
-- **Dependents:** 0
-- **Priority Score:** 153408.5
-- **Functions:** 19/31 matched (target 25)
-- **Missing functions:** `to_i128`, `to_u128`, `from_i128`, `from_u128`, `from`, `from`, `from`, `from`, `from`, `try_from`, `try_from`, `from`
-- **Types:** 0/3 matched (target 0)
-- **Missing types:** `Err`, `FromStrRadixErr`, `Error`
-
-### 5. bigint.division
+### 3. bigint.division
 
 - **Target:** `bigint.Division`
 - **Similarity:** 0.28
@@ -87,7 +64,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 6. bigint.subtraction
+### 4. bigint.subtraction
 
 - **Target:** `bigint.Subtraction`
 - **Similarity:** 0.16
@@ -98,7 +75,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 7. biguint.subtraction
+### 5. biguint.subtraction
 
 - **Target:** `biguint.Subtraction`
 - **Similarity:** 0.05
@@ -109,7 +86,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 8. biguint.addition
+### 6. biguint.addition
 
 - **Target:** `biguint.Addition`
 - **Similarity:** 0.09
@@ -120,7 +97,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 9. biguint.multiplication
+### 7. biguint.multiplication
 
 - **Target:** `biguint.Multiplication`
 - **Similarity:** 0.27
@@ -132,7 +109,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Output`
 - **Tests:** 1/1 matched
 
-### 10. biguint.power
+### 8. biguint.power
 
 - **Target:** `biguint.Power`
 - **Similarity:** 0.15
@@ -144,7 +121,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Output`
 - **Tests:** 2/2 matched
 
-### 11. bigint.addition
+### 9. bigint.addition
 
 - **Target:** `bigint.Addition`
 - **Similarity:** 0.17
@@ -155,7 +132,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 12. biguint.division
+### 10. biguint.division
 
 - **Target:** `biguint.Division`
 - **Similarity:** 0.24
@@ -166,7 +143,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 13. bigrand
+### 11. bigrand
 
 - **Target:** `numbigint.BigRand`
 - **Similarity:** 0.43
@@ -177,7 +154,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/6 matched (target 5)
 - **Missing types:** `X`, `Sampler`
 
-### 14. bigint.multiplication
+### 12. bigint.multiplication
 
 - **Target:** `bigint.Multiplication`
 - **Similarity:** 0.21
@@ -188,7 +165,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 15. biguint.bits
+### 13. biguint.bits
 
 - **Target:** `biguint.Bits`
 - **Similarity:** 0.09
@@ -199,7 +176,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 0)
 - **Missing types:** `Output`
 
-### 16. bigint.bits
+### 14. bigint.bits
 
 - **Target:** `bigint.Bits`
 - **Similarity:** 0.09
@@ -209,6 +186,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/1 matched
 - **Missing types:** `Output`
+
+### 15. biguint.convert
+
+- **Target:** `biguint.Convert`
+- **Similarity:** 0.32
+- **Dependents:** 0
+- **Priority Score:** 3706.8
+- **Functions:** 35/35 matched (target 69)
+- **Missing functions:** _none_
+- **Types:** 2/2 matched (target 3)
+- **Missing types:** _none_
+- **Tests:** 2/2 matched
+
+### 16. bigint.convert
+
+- **Target:** `bigint.Convert`
+- **Similarity:** 0.33
+- **Dependents:** 0
+- **Priority Score:** 3406.7
+- **Functions:** 31/31 matched (target 37)
+- **Missing functions:** _none_
+- **Types:** 3/3 matched
+- **Missing types:** _none_
 
 ### 17. biguint.monty
 

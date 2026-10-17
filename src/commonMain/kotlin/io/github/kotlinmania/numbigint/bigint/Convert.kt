@@ -16,7 +16,11 @@ import io.github.kotlinmania.numbigint.toFloatOrNull
 import io.github.kotlinmania.numbigint.toLongOrNull
 import io.github.kotlinmania.numbigint.toULongOrNull
 
+internal interface Err
+
 fun fromStr(s: String): BigIntParseResult = fromStrRadix(s, 10u)
+
+internal interface FromStrRadixErr
 
 /**
  * Creates and initializes a `BigInt`.
@@ -63,12 +67,16 @@ fun toI64(value: BigInt): Long? {
     }
 }
 
+fun toI128(value: BigInt): Long? = toI64(value)
+
 fun toU64(value: BigInt): ULong? =
     when (value.sign()) {
         Sign.Plus -> value.data.toULongOrNull()
         Sign.NoSign -> 0uL
         Sign.Minus -> null
     }
+
+fun toU128(value: BigInt): ULong? = toU64(value)
 
 fun toF32(value: BigInt): Float? {
     val n = value.data.toFloatOrNull() ?: return null
@@ -88,38 +96,138 @@ fun tryFromBigintToLong(value: BigInt): BigIntToLongResult =
     toI64(value)?.let { BigIntToLongResult(it, null) }
         ?: BigIntToLongResult(null, TryFromBigIntError(null))
 
-fun fromI64(n: Long): BigInt? = BigInt.from(n)
+fun fromI64(n: Long): BigInt? = from(n)
 
-fun fromU64(n: ULong): BigInt? = BigInt.from(n)
+fun fromI128(n: Long): BigInt? = from(n)
+
+fun fromU64(n: ULong): BigInt? = from(n)
+
+fun fromU128(n: ULong): BigInt? = from(n)
 
 fun fromF32(n: Float): BigInt? = fromF64(Float.fromBits(n.toRawBits()).toDouble())
 
 fun fromF64(n: Double): BigInt? =
     if (n >= 0.0) {
-        BigUint.fromDouble(n)?.let { BigInt.from(it) }
+        BigUint.fromDouble(n)?.let { from(it) }
     } else {
-        BigUint.fromDouble(-n)?.let { -BigInt.from(it) }
+        BigUint.fromDouble(-n)?.let { -from(it) }
     }
 
-fun fromBool(x: Boolean): BigInt = if (x) BigInt.one() else BigInt.ZERO
+fun from(n: Long): BigInt =
+    if (n >= 0L) {
+        from(n.toULong())
+    } else {
+        val u = ULong.MAX_VALUE - n.toULong() + 1uL
+        BigInt.fromBiguint(Sign.Minus, BigUint.fromULong(u))
+    }
+
+fun from(n: Int): BigInt = from(n.toLong())
+
+fun from(n: ULong): BigInt =
+    if (n > 0uL) {
+        BigInt.fromBiguint(Sign.Plus, BigUint.fromULong(n))
+    } else {
+        BigInt.ZERO
+    }
+
+fun from(n: UInt): BigInt = from(n.toULong())
+
+fun from(n: BigUint): BigInt =
+    if (n.isZero()) {
+        BigInt.ZERO
+    } else {
+        BigInt.fromBiguint(Sign.Plus, n)
+    }
+
+fun from(x: Boolean): BigInt = if (x) BigInt.one() else BigInt.ZERO
+
+fun fromBool(x: Boolean): BigInt = from(x)
 
 fun toBigint(value: BigInt): BigInt? = value.clone()
 
-fun toBigint(value: BigUint): BigInt? = if (value.isZero()) BigInt.ZERO else BigInt.from(value.clone())
+fun toBigint(value: BigUint): BigInt? = if (value.isZero()) BigInt.ZERO else from(value.clone())
 
-fun toBiguint(value: BigInt): BigUint? = value.toBigUint()
+fun toBiguint(value: BigInt): BigUint? =
+    when (value.sign()) {
+        Sign.Plus -> value.data.clone()
+        Sign.NoSign -> BigUint.ZERO
+        Sign.Minus -> null
+    }
 
-fun tryFromBigintToBiguint(value: BigInt): BigIntToBigUintResult =
-    value.toBigUint()?.let { BigIntToBigUintResult(it, null) }
-        ?: BigIntToBigUintResult(null, TryFromBigIntError(value))
+internal interface Error
 
-fun fromSignedBytesBe(digits: List<UByte>): BigInt = BigInt.fromSignedBytesBe(digits)
+fun tryFrom(value: BigInt): BigIntToBigUintResult =
+    toBiguint(value)?.let { BigIntToBigUintResult(it, null) }
+        ?: BigIntToBigUintResult(null, TryFromBigIntError(null))
 
-fun fromSignedBytesLe(digits: List<UByte>): BigInt = BigInt.fromSignedBytesLe(digits)
+fun tryFrom(value: BigInt, consume: Boolean): BigIntToBigUintResult =
+    if (value.sign() == Sign.Minus) {
+        BigIntToBigUintResult(null, TryFromBigIntError(if (consume) value else null))
+    } else {
+        BigIntToBigUintResult(value.data, null)
+    }
 
-fun toSignedBytesBe(x: BigInt): List<UByte> = x.toSignedBytesBe()
+fun tryFromBigintToBiguint(value: BigInt): BigIntToBigUintResult = tryFrom(value, true)
 
-fun toSignedBytesLe(x: BigInt): List<UByte> = x.toSignedBytesLe()
+fun fromSignedBytesBe(digits: List<UByte>): BigInt {
+    val first = digits.firstOrNull() ?: return BigInt.ZERO
+    val sign = if (first > 0x7fu) Sign.Minus else Sign.Plus
+
+    return if (sign == Sign.Minus) {
+        // two's-complement the content to retrieve the magnitude
+        val mutDigits = digits.toMutableList()
+        twosComplementBe(mutDigits)
+        BigInt.fromBiguint(sign, BigUint.fromBytesBe(mutDigits))
+    } else {
+        BigInt.fromBiguint(sign, BigUint.fromBytesBe(digits))
+    }
+}
+
+fun fromSignedBytesLe(digits: List<UByte>): BigInt {
+    val last = digits.lastOrNull() ?: return BigInt.ZERO
+    val sign = if (last > 0x7fu) Sign.Minus else Sign.Plus
+
+    return if (sign == Sign.Minus) {
+        // two's-complement the content to retrieve the magnitude
+        val mutDigits = digits.toMutableList()
+        twosComplementLe(mutDigits)
+        BigInt.fromBiguint(sign, BigUint.fromBytesLe(mutDigits))
+    } else {
+        BigInt.fromBiguint(sign, BigUint.fromBytesLe(digits))
+    }
+}
+
+fun toSignedBytesBe(x: BigInt): List<UByte> {
+    val bytes = x.data.toBytesBe().toMutableList()
+    val firstByte = bytes.firstOrNull() ?: 0u
+    if (
+        firstByte > 0x7fu &&
+        !(firstByte == 0x80.toUByte() && bytes.drop(1).all { it == 0.toUByte() } && x.sign() == Sign.Minus)
+    ) {
+        // msb used by magnitude, extend by 1 byte
+        bytes.add(0, 0u)
+    }
+    if (x.sign() == Sign.Minus) {
+        twosComplementBe(bytes)
+    }
+    return bytes
+}
+
+fun toSignedBytesLe(x: BigInt): List<UByte> {
+    val bytes = x.data.toBytesLe().toMutableList()
+    val lastByte = bytes.lastOrNull() ?: 0u
+    if (
+        lastByte > 0x7fu &&
+        !(lastByte == 0x80.toUByte() && bytes.asReversed().drop(1).all { it == 0.toUByte() } && x.sign() == Sign.Minus)
+    ) {
+        // msb used by magnitude, extend by 1 byte
+        bytes.add(0u)
+    }
+    if (x.sign() == Sign.Minus) {
+        twosComplementLe(bytes)
+    }
+    return bytes
+}
 
 /**
  * Perform in-place two's complement of the given binary representation,
