@@ -32,14 +32,19 @@ enum class Sign : Serialize {
             io.github.kotlinmania.numbigint.bigint
                 .deserialize(deserializer)
     }
+
+    /**
+     * Negate `Sign` value.
+     */
+    fun neg(): Sign =
+        when (this) {
+            Minus -> Plus
+            NoSign -> NoSign
+            Plus -> Minus
+        }
 }
 
-operator fun Sign.unaryMinus(): Sign =
-    when (this) {
-        Sign.Minus -> Sign.Plus
-        Sign.NoSign -> Sign.NoSign
-        Sign.Plus -> Sign.Minus
-    }
+operator fun Sign.unaryMinus(): Sign = neg()
 
 operator fun Sign.times(other: Sign): Sign =
     when {
@@ -67,7 +72,7 @@ class BigInt internal constructor(
         data.cloneFrom(other.data)
     }
 
-    override fun hashCode(): Int {
+    fun hash(): Int {
         check((signValue != Sign.NoSign) xor data.isZero())
         var result = signValue.hashCode()
         if (signValue != Sign.NoSign) {
@@ -76,20 +81,25 @@ class BigInt internal constructor(
         return result
     }
 
-    override fun equals(other: Any?): Boolean {
+    override fun hashCode(): Int = hash()
+
+    fun eq(other: BigInt): Boolean {
         check((signValue != Sign.NoSign) xor data.isZero())
-        return other is BigInt &&
-            ((other.signValue != Sign.NoSign) xor other.data.isZero()) &&
-            signValue == other.signValue &&
+        check((other.signValue != Sign.NoSign) xor other.data.isZero())
+        return signValue == other.signValue &&
             (signValue == Sign.NoSign || data == other.data)
     }
 
-    override fun compareTo(other: BigInt): Int {
+    override fun equals(other: Any?): Boolean = other is BigInt && eq(other)
+
+    fun partialCmp(other: BigInt): Int = cmp(other)
+
+    fun cmp(other: BigInt): Int {
         check((signValue != Sign.NoSign) xor data.isZero())
         check((other.signValue != Sign.NoSign) xor other.data.isZero())
-        val signCompare = signValue.compareTo(other.signValue)
-        if (signCompare != 0) {
-            return signCompare
+        val scmp = signValue.compareTo(other.signValue)
+        if (scmp != 0) {
+            return scmp
         }
 
         return when (signValue) {
@@ -99,19 +109,38 @@ class BigInt internal constructor(
         }
     }
 
-    override fun toString(): String = if (isNegative()) "-${data.toStrRadix(10u)}" else data.toStrRadix(10u)
+    override fun compareTo(other: BigInt): Int = cmp(other)
 
-    fun toDebugString(): String = toString()
+    fun fmt(): String = if (isNegative()) "-${data.toStrRadix(10u)}" else data.toStrRadix(10u)
 
-    fun toBinaryString(): String = if (isNegative()) "-${data.toStrRadix(2u)}" else data.toStrRadix(2u)
+    override fun toString(): String = fmt()
 
-    fun toOctalString(): String = if (isNegative()) "-${data.toStrRadix(8u)}" else data.toStrRadix(8u)
+    fun toDebugString(): String {
+        fun fmt(): String = toString()
+        return fmt()
+    }
 
-    fun toLowerHexString(): String = if (isNegative()) "-${data.toStrRadix(16u)}" else data.toStrRadix(16u)
+    fun toBinaryString(): String {
+        fun fmt(): String = if (isNegative()) "-${data.toStrRadix(2u)}" else data.toStrRadix(2u)
+        return fmt()
+    }
+
+    fun toOctalString(): String {
+        fun fmt(): String = if (isNegative()) "-${data.toStrRadix(8u)}" else data.toStrRadix(8u)
+        return fmt()
+    }
+
+    fun toLowerHexString(): String {
+        fun fmt(): String = if (isNegative()) "-${data.toStrRadix(16u)}" else data.toStrRadix(16u)
+        return fmt()
+    }
 
     fun toUpperHexString(): String {
-        val s = data.toStrRadix(16u).uppercase()
-        return if (isNegative()) "-$s" else s
+        fun fmt(): String {
+            val s = data.toStrRadix(16u).uppercase()
+            return if (isNegative()) "-$s" else s
+        }
+        return fmt()
     }
 
     // !-2 = !...f fe = ...0 01 = +1
@@ -167,11 +196,13 @@ class BigInt internal constructor(
 
     fun isNegative(): Boolean = signValue == Sign.Minus
 
-    operator fun unaryMinus(): BigInt {
+    fun neg(): BigInt {
         val result = clone()
         result.signValue = -result.signValue
         return result
     }
+
+    operator fun unaryMinus(): BigInt = neg()
 
     fun divRem(other: BigInt): Pair<BigInt, BigInt> {
         // r.sign == self.sign
@@ -572,23 +603,17 @@ class BigInt internal constructor(
     /**
      * Returns the truncated principal square root of `self`.
      */
-    fun sqrt(): BigInt {
-        require(!isNegative()) { "square root is imaginary" }
-        return fromBiguint(signValue, data.sqrt())
-    }
+    fun sqrt(): BigInt = sqrt(this)
 
     /**
      * Returns the truncated principal cube root of `self`.
      */
-    fun cbrt(): BigInt = fromBiguint(signValue, data.cbrt())
+    fun cbrt(): BigInt = cbrt(this)
 
     /**
      * Returns the truncated principal `n`th root of `self`.
      */
-    fun nthRoot(n: UInt): BigInt {
-        require(!(isNegative() && n % 2u == 0u)) { "root of degree $n is imaginary" }
-        return fromBiguint(signValue, data.nthRoot(n))
-    }
+    fun nthRoot(n: UInt): BigInt = nthRoot(this, n)
 
     /**
      * Returns the number of least-significant bits that are zero,
@@ -607,7 +632,7 @@ class BigInt internal constructor(
             // Then the two's complement is
             //   ... 1 !x 1 0 ... 0
             // where !x is obtained from x by flipping each bit
-            if (bit >= BIG_DIGIT_BITS.toULong() * data.data.size.toULong()) {
+            if (bit >= BIG_DIGIT_BITS.toULong() * len().toULong()) {
                 true
             } else {
                 val trailingZeros = data.trailingZeros()!!
@@ -654,6 +679,18 @@ class BigInt internal constructor(
         normalize()
     }
 
+    fun toBeBytes(): List<UByte> = toSignedBytesBe()
+
+    fun toLeBytes(): List<UByte> = toSignedBytesLe()
+
+    internal fun digits(): List<BigDigit> = data.digits()
+
+    internal fun digitsMut(): MutableList<BigDigit> = data.digitsMut()
+
+    internal fun capacity(): Int = data.capacity()
+
+    internal fun len(): Int = data.len()
+
     companion object : Deserialize<BigInt> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigInt> =
             io.github.kotlinmania.numbigint.bigint
@@ -664,6 +701,8 @@ class BigInt internal constructor(
          */
         val ZERO: BigInt
             get() = BigInt(Sign.NoSign, BigUint.ZERO)
+
+        fun default(): BigInt = ZERO
 
         /**
          * Creates and initializes a `BigInt`.
@@ -739,6 +778,10 @@ class BigInt internal constructor(
             val magnitude = BigUint.fromBytesLe(inverted) + 1u
             return fromBiguint(Sign.Minus, magnitude)
         }
+
+        fun fromBeBytes(bytes: List<UByte>): BigInt = fromSignedBytesBe(bytes)
+
+        fun fromLeBytes(bytes: List<UByte>): BigInt = fromSignedBytesLe(bytes)
 
         /**
          * Creates and initializes a `BigInt`.
@@ -830,6 +873,95 @@ class BigInt internal constructor(
             io.github.kotlinmania.numbigint.bigint
                 .fromF64(n)
     }
+
+    internal interface Output
+
+    internal interface Bytes
+}
+
+internal interface UnsignedAbs<Unsigned> {
+    fun checkedUabs(): CheckedUnsignedAbs<Unsigned>
+}
+
+internal class CheckedUnsignedAbs<T>(
+    val isPositive: Boolean,
+    val value: T,
+)
+
+internal fun Byte.checkedUabs(): CheckedUnsignedAbs<UByte> =
+    if (this >= 0) {
+        CheckedUnsignedAbs(true, toUByte())
+    } else {
+        CheckedUnsignedAbs(false, (0 - toInt()).toUByte())
+    }
+
+internal fun Short.checkedUabs(): CheckedUnsignedAbs<UShort> =
+    if (this >= 0) {
+        CheckedUnsignedAbs(true, toUShort())
+    } else {
+        CheckedUnsignedAbs(false, (0 - toInt()).toUShort())
+    }
+
+internal fun Int.checkedUabs(): CheckedUnsignedAbs<UInt> =
+    if (this >= 0) {
+        CheckedUnsignedAbs(true, toUInt())
+    } else {
+        CheckedUnsignedAbs(false, 0u - toUInt())
+    }
+
+internal fun Long.checkedUabs(): CheckedUnsignedAbs<ULong> =
+    if (this >= 0L) {
+        CheckedUnsignedAbs(true, toULong())
+    } else {
+        CheckedUnsignedAbs(false, 0uL - toULong())
+    }
+
+internal fun not(self: BigInt): BigInt =
+    when (self.sign()) {
+        Sign.NoSign -> -BigInt.one()
+        Sign.Plus -> -BigInt.from(self.data + 1u)
+        Sign.Minus -> BigInt.from(self.data - 1u)
+    }
+
+internal fun neg(self: BigInt): BigInt = -self.clone()
+
+internal fun nthRoot(self: BigInt, n: UInt): BigInt {
+    require(!(self.isNegative() && n % 2u == 0u)) { "root of degree $n is imaginary" }
+    return BigInt.fromBiguint(self.sign(), self.data.nthRoot(n))
+}
+
+internal fun sqrt(self: BigInt): BigInt {
+    require(!self.isNegative()) { "square root is imaginary" }
+    return BigInt.fromBiguint(self.sign(), self.data.sqrt())
+}
+
+internal fun cbrt(self: BigInt): BigInt = BigInt.fromBiguint(self.sign(), self.data.cbrt())
+
+internal fun BigInt.asIntDigits(): IntDigits =
+    object : IntDigits {
+        override fun digits(): List<BigDigit> = this@asIntDigits.digits()
+
+        override fun digitsMut(): MutableList<BigDigit> = this@asIntDigits.digitsMut()
+
+        override fun normalize() {
+            this@asIntDigits.normalize()
+        }
+
+        override fun capacity(): Int = this@asIntDigits.capacity()
+
+        override fun len(): Int = this@asIntDigits.len()
+    }
+
+/**
+ * A generic trait for converting a value to a [BigInt]. This may return
+ * `null` when converting from `Float` or `Double`, and will always succeed
+ * when converting from any integer or unsigned primitive, or [BigUint].
+ */
+interface ToBigInt {
+    /**
+     * Converts the value of `self` to a [BigInt].
+     */
+    fun toBigInt(): BigInt?
 }
 
 class ExtendedGcd(

@@ -30,31 +30,55 @@ class BigUint internal constructor(
         data.addAll(other.data)
     }
 
-    override fun hashCode(): Int {
+    fun hash(): Int {
         check(data.lastOrNull() != 0u)
         return data.hashCode()
     }
 
-    override fun equals(other: Any?): Boolean {
+    override fun hashCode(): Int = hash()
+
+    fun eq(other: BigUint): Boolean {
         check(data.lastOrNull() != 0u)
-        return other is BigUint &&
-            other.data.lastOrNull() != 0u &&
-            data == other.data
+        check(other.data.lastOrNull() != 0u)
+        return data == other.data
     }
 
-    override fun compareTo(other: BigUint): Int = cmpSlice(data, other.data)
+    override fun equals(other: Any?): Boolean = other is BigUint && eq(other)
 
-    override fun toString(): String = toStrRadix(10u)
+    fun partialCmp(other: BigUint): Int = cmp(other)
 
-    fun toDebugString(): String = toString()
+    fun cmp(other: BigUint): Int = cmpSlice(data, other.data)
 
-    fun toLowerHexString(): String = toStrRadix(16u)
+    override fun compareTo(other: BigUint): Int = cmp(other)
 
-    fun toUpperHexString(): String = toStrRadix(16u).uppercase()
+    fun fmt(): String = toStrRadix(10u)
 
-    fun toBinaryString(): String = toStrRadix(2u)
+    override fun toString(): String = fmt()
 
-    fun toOctalString(): String = toStrRadix(8u)
+    fun toDebugString(): String {
+        fun fmt(): String = toString()
+        return fmt()
+    }
+
+    fun toLowerHexString(): String {
+        fun fmt(): String = toStrRadix(16u)
+        return fmt()
+    }
+
+    fun toUpperHexString(): String {
+        fun fmt(): String = toStrRadix(16u).uppercase()
+        return fmt()
+    }
+
+    fun toBinaryString(): String {
+        fun fmt(): String = toStrRadix(2u)
+        return fmt()
+    }
+
+    fun toOctalString(): String {
+        fun fmt(): String = toStrRadix(8u)
+        return fmt()
+    }
 
     fun setZero() {
         data.clear()
@@ -387,100 +411,17 @@ class BigUint internal constructor(
     /**
      * Returns the truncated principal square root of `self`.
      */
-    fun sqrt(): BigUint {
-        if (isZero() || isOne()) {
-            return clone()
-        }
-        toULongOrNull()?.let { return it.sqrt().toBigUint() }
-        val bits = bits()
-        val maxBits = bits / 2uL + 1uL
-        val guess =
-            toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
-                fromDouble(sqrt(it)) ?: one().shiftLeft(maxBits)
-            } ?: run {
-                val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
-                val rootScale = (extraBits + 1uL) / 2uL
-                val scale = rootScale * 2uL
-                shiftRight(scale).sqrt().shiftLeft(rootScale)
-            }
-        return fixpoint(guess, maxBits) { s ->
-            val q = this / s
-            val t = s + q
-            t.shiftRight(1uL)
-        }
-    }
+    fun sqrt(): BigUint = sqrt(this)
 
     /**
      * Returns the truncated principal cube root of `self`.
      */
-    fun cbrt(): BigUint {
-        if (isZero() || isOne()) {
-            return clone()
-        }
-        toULongOrNull()?.let { return it.cbrt().toBigUint() }
-        val bits = bits()
-        val maxBits = bits / 3uL + 1uL
-        val guess =
-            toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
-                fromDouble(it.pow(1.0 / 3.0)) ?: one().shiftLeft(maxBits)
-            } ?: run {
-                val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
-                val rootScale = (extraBits + 2uL) / 3uL
-                val scale = rootScale * 3uL
-                shiftRight(scale).cbrt().shiftLeft(rootScale)
-            }
-        return fixpoint(guess, maxBits) { s ->
-            val q = this / (s * s)
-            val t = s.shiftLeft(1uL) + q
-            t / 3u
-        }
-    }
+    fun cbrt(): BigUint = cbrt(this)
 
     /**
      * Returns the truncated principal `n`th root of `self`.
      */
-    fun nthRoot(n: UInt): BigUint {
-        require(n > 0u) { "root degree n must be at least 1" }
-        if (isZero() || isOne()) {
-            return clone()
-        }
-        when (n) {
-            1u -> return clone()
-            2u -> return sqrt()
-            3u -> return cbrt()
-        }
-
-        // The root of non-zero values less than 2^n can only be 1.
-        val bits = bits()
-        val n64 = n.toULong()
-        if (bits <= n64) {
-            return one()
-        }
-
-        toULongOrNull()?.let { return it.nthRoot(n).toBigUint() }
-
-        val maxBits = bits / n64 + 1uL
-        val guess =
-            toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
-                fromDouble(exp(ln(it) / n.toDouble())) ?: one().shiftLeft(maxBits)
-            } ?: run {
-                val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
-                val rootScale = divCeil(extraBits, n64)
-                val scale = rootScale * n64
-                if (scale < bits && bits - scale > n64) {
-                    shiftRight(scale).nthRoot(n).shiftLeft(rootScale)
-                } else {
-                    one().shiftLeft(maxBits)
-                }
-            }
-
-        val nMin1 = n - 1u
-        return fixpoint(guess, maxBits) { s ->
-            val q = this / s.pow(nMin1)
-            val t = nMin1 * s + q
-            t / n
-        }
-    }
+    fun nthRoot(n: UInt): BigUint = nthRoot(this, n)
 
     /**
      * Returns the number of least-significant bits that are zero,
@@ -554,6 +495,20 @@ class BigUint internal constructor(
         }
     }
 
+    fun toBeBytes(): List<UByte> = toBytesBe()
+
+    fun toLeBytes(): List<UByte> = toBytesLe()
+
+    internal fun digits(): List<BigDigit> = data
+
+    internal fun digitsMut(): MutableList<BigDigit> = data
+
+    internal fun capacity(): Int = data.size
+
+    internal fun len(): Int = data.size
+
+    internal interface Bytes
+
     companion object : Deserialize<BigUint> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
             io.github.kotlinmania.numbigint.biguint
@@ -564,6 +519,8 @@ class BigUint internal constructor(
          */
         val ZERO: BigUint
             get() = BigUint(mutableListOf())
+
+        fun default(): BigUint = ZERO
 
         /**
          * Creates and initializes a `BigUint`.
@@ -613,6 +570,10 @@ class BigUint internal constructor(
             } else {
                 fromBitwiseDigitsLe(bytes, 8u)
             }
+
+        fun fromBeBytes(bytes: List<UByte>): BigUint = fromBytesBe(bytes)
+
+        fun fromLeBytes(bytes: List<UByte>): BigUint = fromBytesLe(bytes)
 
         /**
          * Creates and initializes a `BigUint`. The input slice must contain
@@ -723,6 +684,95 @@ internal fun fixpoint(x0: BigUint, maxBits: ULong, f: (BigUint) -> BigUint): Big
     return x
 }
 
+internal fun nthRoot(self: BigUint, n: UInt): BigUint {
+    require(n > 0u) { "root degree n must be at least 1" }
+    if (self.isZero() || self.isOne()) {
+        return self.clone()
+    }
+    when (n) {
+        1u -> return self.clone()
+        2u -> return self.sqrt()
+        3u -> return self.cbrt()
+    }
+
+    // The root of non-zero values less than 2^n can only be 1.
+    val bits = self.bits()
+    val n64 = n.toULong()
+    if (bits <= n64) {
+        return BigUint.one()
+    }
+
+    self.toULongOrNull()?.let { return it.nthRoot(n).toBigUint() }
+
+    val maxBits = bits / n64 + 1uL
+    val guess =
+        self.toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
+            BigUint.fromDouble(exp(ln(it) / n.toDouble())) ?: BigUint.one().shiftLeft(maxBits)
+        } ?: run {
+            val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
+            val rootScale = divCeil(extraBits, n64)
+            val scale = rootScale * n64
+            if (scale < bits && bits - scale > n64) {
+                self.shiftRight(scale).nthRoot(n).shiftLeft(rootScale)
+            } else {
+                BigUint.one().shiftLeft(maxBits)
+            }
+        }
+
+    val nMin1 = n - 1u
+    return fixpoint(guess, maxBits) { s ->
+        val q = self / s.pow(nMin1)
+        val t = nMin1 * s + q
+        t / n
+    }
+}
+
+internal fun sqrt(self: BigUint): BigUint {
+    if (self.isZero() || self.isOne()) {
+        return self.clone()
+    }
+    self.toULongOrNull()?.let { return it.sqrt().toBigUint() }
+    val bits = self.bits()
+    val maxBits = bits / 2uL + 1uL
+    val guess =
+        self.toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
+            BigUint.fromDouble(sqrt(it)) ?: BigUint.one().shiftLeft(maxBits)
+        } ?: run {
+            val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
+            val rootScale = (extraBits + 1uL) / 2uL
+            val scale = rootScale * 2uL
+            self.shiftRight(scale).sqrt().shiftLeft(rootScale)
+        }
+    return fixpoint(guess, maxBits) { s ->
+        val q = self / s
+        val t = s + q
+        t.shiftRight(1uL)
+    }
+}
+
+internal fun cbrt(self: BigUint): BigUint {
+    if (self.isZero() || self.isOne()) {
+        return self.clone()
+    }
+    self.toULongOrNull()?.let { return it.cbrt().toBigUint() }
+    val bits = self.bits()
+    val maxBits = bits / 3uL + 1uL
+    val guess =
+        self.toDoubleOrNull()?.takeIf { it.isFinite() }?.let {
+            BigUint.fromDouble(it.pow(1.0 / 3.0)) ?: BigUint.one().shiftLeft(maxBits)
+        } ?: run {
+            val extraBits = bits - (DOUBLE_MAX_EXPONENT.toULong() - 1uL)
+            val rootScale = (extraBits + 2uL) / 3uL
+            val scale = rootScale * 3uL
+            self.shiftRight(scale).cbrt().shiftLeft(rootScale)
+        }
+    return fixpoint(guess, maxBits) { s ->
+        val q = self / (s * s)
+        val t = s.shiftLeft(1uL) + q
+        t / 3u
+    }
+}
+
 /**
  * A generic trait for converting a value to a `BigUint`.
  */
@@ -745,23 +795,20 @@ internal interface IntDigits {
     fun len(): Int
 }
 
-internal fun BigUint.asIntDigits(): IntDigits = BigUintDigits(this)
+internal fun BigUint.asIntDigits(): IntDigits =
+    object : IntDigits {
+        override fun digits(): List<BigDigit> = this@asIntDigits.digits()
 
-private class BigUintDigits(
-    private val value: BigUint,
-) : IntDigits {
-    override fun digits(): List<BigDigit> = value.data
+        override fun digitsMut(): MutableList<BigDigit> = this@asIntDigits.digitsMut()
 
-    override fun digitsMut(): MutableList<BigDigit> = value.data
+        override fun normalize() {
+            this@asIntDigits.normalize()
+        }
 
-    override fun normalize() {
-        value.normalize()
+        override fun capacity(): Int = this@asIntDigits.capacity()
+
+        override fun len(): Int = this@asIntDigits.len()
     }
-
-    override fun capacity(): Int = value.data.size
-
-    override fun len(): Int = value.data.size
-}
 
 /**
  * Convert a `UInt` chunk with length either 1 or 2 to a single `ULong` digit.
