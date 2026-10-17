@@ -281,13 +281,15 @@ operator fun ULong.div(other: BigUint): BigUint =
         else -> BigUint.ZERO
     }
 
-operator fun BigUint.rem(other: BigUint): BigUint =
-    if (other.data.size == 1) {
-        remDigit(this, other.data[0]).toBigUint()
+operator fun BigUint.rem(other: BigUint): BigUint {
+    val otherU32 = other.toUIntOrNull()
+    return if (otherU32 != null) {
+        this % otherU32
     } else {
         val (_, r) = divRem(this, other)
         r
     }
+}
 
 operator fun BigUint.remAssign(other: BigUint) {
     val next = this % other

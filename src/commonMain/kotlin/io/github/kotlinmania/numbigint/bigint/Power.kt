@@ -13,6 +13,24 @@ import io.github.kotlinmania.numbigint.unaryMinus
  *
  * Computes the effect of the exponent on the sign.
  */
+fun powsign(sign: Sign, other: UByte): Sign =
+    if (other == 0u.toUByte()) {
+        Sign.Plus
+    } else if (sign != Sign.Minus || other % 2u == 1u) {
+        sign
+    } else {
+        -sign
+    }
+
+fun powsign(sign: Sign, other: UShort): Sign =
+    if (other == 0u.toUShort()) {
+        Sign.Plus
+    } else if (sign != Sign.Minus || other % 2u == 1u) {
+        sign
+    } else {
+        -sign
+    }
+
 fun powsign(sign: Sign, other: UInt): Sign =
     if (other == 0u) {
         Sign.Plus
@@ -40,9 +58,13 @@ fun powsign(sign: Sign, other: BigUint): Sign =
         -sign
     }
 
+fun pow(self: BigInt, rhs: UByte): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
+
+fun pow(self: BigInt, rhs: UShort): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
+
 fun pow(self: BigInt, rhs: UInt): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
 
-fun pow(self: BigInt, rhs: ULong): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(BigUint.fromULong(rhs)))
+fun pow(self: BigInt, rhs: ULong): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
 
 fun pow(self: BigInt, rhs: BigUint): BigInt = BigInt.fromBiguint(powsign(self.sign(), rhs), self.data.pow(rhs))
 

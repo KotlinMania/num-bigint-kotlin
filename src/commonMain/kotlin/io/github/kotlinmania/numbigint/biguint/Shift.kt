@@ -97,9 +97,23 @@ fun BigUint.shiftRightAssign(rhs: ULong) {
     data.addAll(n.shiftRight(rhs).data)
 }
 
-infix fun BigUint.shl(rhs: ULong): BigUint = biguintShl(this, rhs)
+infix fun BigUint.shl(rhs: UByte): BigUint = biguintShl(this, rhs.toULong())
+
+infix fun BigUint.shl(rhs: UShort): BigUint = biguintShl(this, rhs.toULong())
 
 infix fun BigUint.shl(rhs: UInt): BigUint = biguintShl(this, rhs.toULong())
+
+infix fun BigUint.shl(rhs: ULong): BigUint = biguintShl(this, rhs)
+
+infix fun BigUint.shl(rhs: Byte): BigUint {
+    require(rhs >= 0) { "attempt to shift left with negative" }
+    return biguintShl(this, rhs.toULong())
+}
+
+infix fun BigUint.shl(rhs: Short): BigUint {
+    require(rhs >= 0) { "attempt to shift left with negative" }
+    return biguintShl(this, rhs.toULong())
+}
 
 infix fun BigUint.shl(rhs: Int): BigUint {
     require(rhs >= 0) { "attempt to shift left with negative" }
@@ -111,9 +125,23 @@ infix fun BigUint.shl(rhs: Long): BigUint {
     return biguintShl(this, rhs.toULong())
 }
 
-infix fun BigUint.shr(rhs: ULong): BigUint = biguintShr(this, rhs)
+infix fun BigUint.shr(rhs: UByte): BigUint = biguintShr(this, rhs.toULong())
+
+infix fun BigUint.shr(rhs: UShort): BigUint = biguintShr(this, rhs.toULong())
 
 infix fun BigUint.shr(rhs: UInt): BigUint = biguintShr(this, rhs.toULong())
+
+infix fun BigUint.shr(rhs: ULong): BigUint = biguintShr(this, rhs)
+
+infix fun BigUint.shr(rhs: Byte): BigUint {
+    require(rhs >= 0) { "attempt to shift right with negative" }
+    return biguintShr(this, rhs.toULong())
+}
+
+infix fun BigUint.shr(rhs: Short): BigUint {
+    require(rhs >= 0) { "attempt to shift right with negative" }
+    return biguintShr(this, rhs.toULong())
+}
 
 infix fun BigUint.shr(rhs: Int): BigUint {
     require(rhs >= 0) { "attempt to shift right with negative" }

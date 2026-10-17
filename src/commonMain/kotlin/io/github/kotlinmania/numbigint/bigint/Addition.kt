@@ -4,6 +4,7 @@ package io.github.kotlinmania.numbigint.bigint
 import io.github.kotlinmania.numbigint.BigInt
 import io.github.kotlinmania.numbigint.BigUint
 import io.github.kotlinmania.numbigint.Sign
+import io.github.kotlinmania.numbigint.checkedUabs
 import io.github.kotlinmania.numbigint.minus
 import io.github.kotlinmania.numbigint.plus
 
@@ -78,21 +79,55 @@ fun addAssign(self: BigInt, other: ULong) {
 
 fun add(self: ULong, other: BigInt): BigInt = add(other, self)
 
-fun add(self: BigInt, other: Int): BigInt = add(self, BigInt.from(other))
+fun add(self: BigInt, other: Int): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        add(self, uabs.value)
+    } else {
+        sub(self, uabs.value)
+    }
+}
 
 fun addAssign(self: BigInt, other: Int) {
-    self.cloneFrom(add(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        addAssign(self, uabs.value)
+    } else {
+        subAssign(self, uabs.value)
+    }
 }
 
-fun add(self: Int, other: BigInt): BigInt = add(BigInt.from(self), other)
+fun add(self: Int, other: BigInt): BigInt = add(other, self)
 
-fun add(self: BigInt, other: Long): BigInt = add(self, BigInt.from(other))
+fun add(self: BigInt, other: Long): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        add(self, uabs.value)
+    } else {
+        sub(self, uabs.value)
+    }
+}
 
 fun addAssign(self: BigInt, other: Long) {
-    self.cloneFrom(add(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        addAssign(self, uabs.value)
+    } else {
+        subAssign(self, uabs.value)
+    }
 }
 
-fun add(self: Long, other: BigInt): BigInt = add(BigInt.from(self), other)
+fun add(self: Long, other: BigInt): BigInt = add(other, self)
+
+fun add(self: BigInt, other: UByte): BigInt = add(self, other.toUInt())
+
+fun addAssign(self: BigInt, other: UByte) {
+    addAssign(self, other.toUInt())
+}
+
+fun addAssign(self: BigInt, other: Byte) {
+    addAssign(self, other.toInt())
+}
 
 operator fun BigInt.plus(other: BigInt): BigInt = add(this, other)
 

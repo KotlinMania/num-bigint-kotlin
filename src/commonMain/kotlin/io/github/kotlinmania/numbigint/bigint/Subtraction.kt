@@ -4,6 +4,7 @@ package io.github.kotlinmania.numbigint.bigint
 import io.github.kotlinmania.numbigint.BigInt
 import io.github.kotlinmania.numbigint.BigUint
 import io.github.kotlinmania.numbigint.Sign
+import io.github.kotlinmania.numbigint.checkedUabs
 import io.github.kotlinmania.numbigint.minus
 import io.github.kotlinmania.numbigint.plus
 import io.github.kotlinmania.numbigint.unaryMinus
@@ -79,21 +80,81 @@ fun subAssign(self: BigInt, other: ULong) {
 
 fun sub(self: ULong, other: BigInt): BigInt = -sub(other, self)
 
-fun sub(self: BigInt, other: Int): BigInt = sub(self, BigInt.from(other))
+fun sub(self: BigInt, other: Int): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        sub(self, uabs.value)
+    } else {
+        add(self, uabs.value)
+    }
+}
 
 fun subAssign(self: BigInt, other: Int) {
-    self.cloneFrom(sub(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        subAssign(self, uabs.value)
+    } else {
+        addAssign(self, uabs.value)
+    }
 }
 
-fun sub(self: Int, other: BigInt): BigInt = sub(BigInt.from(self), other)
+fun sub(self: Int, other: BigInt): BigInt {
+    val uabs = self.checkedUabs()
+    return if (uabs.isPositive) {
+        sub(uabs.value, other)
+    } else {
+        sub(-other, uabs.value)
+    }
+}
 
-fun sub(self: BigInt, other: Long): BigInt = sub(self, BigInt.from(other))
+fun sub(self: BigInt, other: Long): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        sub(self, uabs.value)
+    } else {
+        add(self, uabs.value)
+    }
+}
 
 fun subAssign(self: BigInt, other: Long) {
-    self.cloneFrom(sub(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        subAssign(self, uabs.value)
+    } else {
+        addAssign(self, uabs.value)
+    }
 }
 
-fun sub(self: Long, other: BigInt): BigInt = sub(BigInt.from(self), other)
+fun sub(self: Long, other: BigInt): BigInt {
+    val uabs = self.checkedUabs()
+    return if (uabs.isPositive) {
+        sub(uabs.value, other)
+    } else {
+        sub(-other, uabs.value)
+    }
+}
+
+fun sub(self: BigInt, other: UByte): BigInt = sub(self, other.toUInt())
+
+fun sub(self: UByte, other: BigInt): BigInt = sub(self.toUInt(), other)
+
+fun subAssign(self: BigInt, other: UByte) {
+    subAssign(self, other.toUInt())
+}
+
+fun sub(self: BigInt, other: UShort): BigInt = sub(self, other.toUInt())
+
+fun sub(self: UShort, other: BigInt): BigInt = sub(self.toUInt(), other)
+
+fun sub(self: BigInt, other: Byte): BigInt = sub(self, other.toInt())
+
+fun sub(self: Byte, other: BigInt): BigInt = sub(self.toInt(), other)
+
+fun subAssign(self: BigInt, other: Byte) {
+    subAssign(self, other.toInt())
+}
+
+fun sub(self: BigInt, other: Short): BigInt = sub(self, other.toInt())
 
 operator fun BigInt.minus(other: BigInt): BigInt = sub(this, other)
 

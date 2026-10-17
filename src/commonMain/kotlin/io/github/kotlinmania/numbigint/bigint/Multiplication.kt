@@ -3,7 +3,10 @@ package io.github.kotlinmania.numbigint.bigint
 
 import io.github.kotlinmania.numbigint.BigInt
 import io.github.kotlinmania.numbigint.Sign
+import io.github.kotlinmania.numbigint.checkedUabs
 import io.github.kotlinmania.numbigint.times
+import io.github.kotlinmania.numbigint.timesAssign
+import io.github.kotlinmania.numbigint.unaryMinus
 
 fun mul(self: Sign, other: Sign): Sign =
     when {
@@ -15,13 +18,21 @@ fun mul(self: Sign, other: Sign): Sign =
 fun mul(self: BigInt, other: BigInt): BigInt = BigInt.fromBiguint(mul(self.sign(), other.sign()), self.data * other.data)
 
 fun mulAssign(self: BigInt, other: BigInt) {
-    self.cloneFrom(mul(self, other))
+    self.data *= other.data
+    if (self.data.isZero()) {
+        self.signValue = Sign.NoSign
+    } else {
+        self.signValue = mul(self.sign(), other.sign())
+    }
 }
 
 fun mul(self: BigInt, other: UInt): BigInt = BigInt.fromBiguint(self.sign(), self.data * other)
 
 fun mulAssign(self: BigInt, other: UInt) {
-    self.cloneFrom(mul(self, other))
+    self.data *= other
+    if (self.data.isZero()) {
+        self.signValue = Sign.NoSign
+    }
 }
 
 fun mul(self: UInt, other: BigInt): BigInt = mul(other, self)
@@ -29,26 +40,59 @@ fun mul(self: UInt, other: BigInt): BigInt = mul(other, self)
 fun mul(self: BigInt, other: ULong): BigInt = BigInt.fromBiguint(self.sign(), self.data * other)
 
 fun mulAssign(self: BigInt, other: ULong) {
-    self.cloneFrom(mul(self, other))
+    self.data *= other
+    if (self.data.isZero()) {
+        self.signValue = Sign.NoSign
+    }
 }
 
 fun mul(self: ULong, other: BigInt): BigInt = mul(other, self)
 
-fun mul(self: BigInt, other: Int): BigInt = mul(self, BigInt.from(other))
+fun mul(self: BigInt, other: Int): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        mul(self, uabs.value)
+    } else {
+        mul(-self, uabs.value)
+    }
+}
 
 fun mulAssign(self: BigInt, other: Int) {
-    self.cloneFrom(mul(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        mulAssign(self, uabs.value)
+    } else {
+        self.signValue = -self.signValue
+        self.data *= uabs.value
+    }
 }
 
-fun mul(self: Int, other: BigInt): BigInt = mul(BigInt.from(self), other)
+fun mul(self: Int, other: BigInt): BigInt = mul(other, self)
 
-fun mul(self: BigInt, other: Long): BigInt = mul(self, BigInt.from(other))
+fun mul(self: BigInt, other: Long): BigInt {
+    val uabs = other.checkedUabs()
+    return if (uabs.isPositive) {
+        mul(self, uabs.value)
+    } else {
+        mul(-self, uabs.value)
+    }
+}
 
 fun mulAssign(self: BigInt, other: Long) {
-    self.cloneFrom(mul(self, other))
+    val uabs = other.checkedUabs()
+    if (uabs.isPositive) {
+        mulAssign(self, uabs.value)
+    } else {
+        self.signValue = -self.signValue
+        self.data *= uabs.value
+    }
 }
 
-fun mul(self: Long, other: BigInt): BigInt = mul(BigInt.from(self), other)
+fun mul(self: Long, other: BigInt): BigInt = mul(other, self)
+
+fun mulAssign(self: BigInt, other: UByte) {
+    mulAssign(self, other.toUInt())
+}
 
 operator fun BigInt.times(other: BigInt): BigInt = mul(this, other)
 
