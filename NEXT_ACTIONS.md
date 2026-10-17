@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 23/27 (85.2%)
-- **Function parity:** 488/520 matched (target 923) — 93.8%
+- **Files Present:** 25/27 (92.6%)
+- **Function parity:** 498/520 matched (target 933) — 95.8%
 - **Class/type parity:** 15/36 matched (target 25) — 41.7%
-- **Combined symbol parity:** 503/556 matched (target 948) — 90.5%
-- **Average inline-code cosine:** 0.28 (function body across 23 matched files)
-- **Average documentation cosine:** 0.40 (doc text across 23 matched files)
+- **Combined symbol parity:** 513/556 matched (target 958) — 92.3%
+- **Average inline-code cosine:** 0.27 (function body across 25 matched files)
+- **Average documentation cosine:** 0.37 (doc text across 25 matched files)
 - **Cheat-zeroed Files:** 0
-- **Critical Issues:** 23 files with <0.60 function similarity
+- **Critical Issues:** 25 files with <0.60 function similarity
 - **Needs Review:** 0 files with 0.60-0.84 function similarity
 - **Excellent:** 0 files with >=0.85 function similarity
 
@@ -221,7 +221,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 18. biguint.iter
+### 18. biguint.arbitrary
+
+- **Target:** `biguint.Arbitrary`
+- **Similarity:** 0.11
+- **Dependents:** 0
+- **Priority Score:** 508.9
+- **Functions:** 5/5 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 19. biguint.iter
 
 - **Target:** `biguint.Iter`
 - **Similarity:** 0.18
@@ -233,7 +244,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 4/4 matched
 
-### 19. biguint.serde
+### 20. bigint.arbitrary
+
+- **Target:** `bigint.Arbitrary`
+- **Similarity:** 0.27
+- **Dependents:** 0
+- **Priority Score:** 507.3
+- **Functions:** 5/5 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 21. biguint.serde
 
 - **Target:** `biguint.Serde`
 - **Similarity:** 0.34
@@ -244,7 +266,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
-### 20. biguint.shift
+### 22. biguint.shift
 
 - **Target:** `biguint.Shift`
 - **Similarity:** 0.28
@@ -255,7 +277,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 21. bigint.serde
+### 23. bigint.serde
 
 - **Target:** `bigint.Serde`
 - **Similarity:** 0.33
@@ -266,7 +288,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 22. bigint.power
+### 24. bigint.power
 
 - **Target:** `bigint.Power`
 - **Similarity:** 0.57
@@ -277,7 +299,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 23. bigint.shift
+### 25. bigint.shift
 
 - **Target:** `bigint.Shift`
 - **Similarity:** 0.34
