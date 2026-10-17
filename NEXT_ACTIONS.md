@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 23/27 (85.2%)
-- **Function parity:** 385/520 matched (target 782) — 74.0%
-- **Class/type parity:** 12/36 matched (target 24) — 33.3%
-- **Combined symbol parity:** 397/556 matched (target 806) — 71.4%
+- **Function parity:** 429/520 matched (target 840) — 82.5%
+- **Class/type parity:** 18/36 matched (target 29) — 50.0%
+- **Combined symbol parity:** 447/556 matched (target 869) — 80.4%
 - **Average inline-code cosine:** 0.24 (function body across 23 matched files)
 - **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 0
@@ -32,25 +32,25 @@ Every matched file is listed below with function and type symbol parity.
 ### 1. biguint
 
 - **Target:** `biguint.BigUint`
-- **Similarity:** 0.24
+- **Similarity:** 0.28
 - **Dependents:** 7
-- **Priority Score:** 7198907.5
-- **Functions:** 67/85 matched (target 97)
-- **Missing functions:** `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
-- **Types:** 3/4 matched (target 5)
-- **Missing types:** `Bytes`
+- **Priority Score:** 7008907.0
+- **Functions:** 85/85 matched (target 119)
+- **Missing functions:** _none_
+- **Types:** 4/4 matched (target 5)
+- **Missing types:** _none_
 - **Tests:** 2/2 matched
 
 ### 2. bigint
 
 - **Target:** `bigint.BigInt`
-- **Similarity:** 0.23
+- **Similarity:** 0.30
 - **Dependents:** 6
-- **Priority Score:** 6321107.5
-- **Functions:** 78/104 matched (target 192)
-- **Missing functions:** `neg`, `hash`, `eq`, `partial_cmp`, `cmp`, `default`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `not`, `neg`, `neg`, `digits`, `digits_mut`, `capacity`, `len`, `sqrt`, `cbrt`, `nth_root`, `from_be_bytes`, `from_le_bytes`, `to_be_bytes`, `to_le_bytes`
-- **Types:** 2/7 matched (target 4)
-- **Missing types:** `Output`, `UnsignedAbs`, `CheckedUnsignedAbs`, `ToBigInt`, `Bytes`
+- **Priority Score:** 6011107.0
+- **Functions:** 104/104 matched (target 228)
+- **Missing functions:** _none_
+- **Types:** 7/7 matched (target 9)
+- **Missing types:** _none_
 - **Tests:** 3/3 matched
 
 ### 3. biguint.convert
