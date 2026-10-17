@@ -16,8 +16,35 @@ package io.github.kotlinmania.numbigint
  * * A [BigUint] is unsigned and represented as a vector of digits.
  * * A [BigInt] is signed and is a combination of [BigUint] and [Sign].
  *
- * Common numerical operations are overloaded, so callers can treat them
- * the same way they treat other numbers.
+ * Common numerical operations are overloaded, so we can treat them
+ * the same way we treat other numbers.
+ *
+ * ## Example
+ *
+ * ```kotlin
+ * // Calculate large fibonacci numbers.
+ * fun fib(n: Int): BigUint {
+ *     var f0 = BigUint.ZERO
+ *     var f1 = BigUint.one()
+ *     repeat(n) {
+ *         val f2 = f0 + f1
+ *         f0 = f1
+ *         f1 = f2
+ *     }
+ *     return f0
+ * }
+ * ```
+ *
+ * ## Random Generation
+ *
+ * `num-bigint` supports the generation of random big integers via [RandBigInt],
+ * [RandomBits], [UniformBigInt], and [UniformBigUint].
+ *
+ * ## Serialization
+ *
+ * Implementations of `Serialize` and `Deserialize` are provided for both
+ * [BigInt] and [BigUint]. Their serialized data is generated portably,
+ * regardless of platform differences like the internal digit size.
  */
 
 internal typealias UsizePromotion = ULong
@@ -27,10 +54,14 @@ internal typealias IsizePromotion = Long
  * The error type returned when a big integer cannot be parsed from text.
  */
 class ParseBigIntError private constructor(
-    private val kind: BigIntErrorKind,
+    internal val kind: BigIntErrorKind,
 ) {
     val message: String
-        get() = kind.description
+        get() = description()
+
+    fun description(): String = description(this)
+
+    fun fmt(): String = description(this)
 
     internal companion object {
         fun empty(): ParseBigIntError = ParseBigIntError(BigIntErrorKind.Empty)
@@ -42,29 +73,36 @@ class ParseBigIntError private constructor(
 
     override fun hashCode(): Int = kind.hashCode()
 
-    override fun toString(): String = message
+    override fun toString(): String = fmt()
 }
 
-private enum class BigIntErrorKind(
-    val description: String,
-) {
-    Empty("cannot parse integer from empty string"),
-    InvalidDigit("invalid digit found in string"),
+internal enum class BigIntErrorKind {
+    Empty,
+    InvalidDigit,
 }
+
+internal fun description(error: ParseBigIntError): String =
+    when (error.kind) {
+        BigIntErrorKind.Empty -> "cannot parse integer from empty string"
+        BigIntErrorKind.InvalidDigit -> "invalid digit found in string"
+    }
 
 /**
- * The error type returned when a checked conversion involving a big integer
- * fails.
+ * The error type returned when a checked conversion regarding big integer fails.
  */
 class TryFromBigIntError internal constructor(
     private val original: BigInt?,
 ) {
     val message: String
-        get() = DESCRIPTION
+        get() = description()
+
+    fun description(): String = description(this)
+
+    fun fmt(): String = description(this)
 
     /**
-     * Extract the original value, if available. The value is available if the
-     * type before conversion was either [BigInt] or [BigUint].
+     * Extract the original value, if available. The value will be available
+     * if the type before conversion was either [BigInt] or [BigUint].
      */
     fun intoOriginal(): BigInt? = original
 
@@ -74,11 +112,16 @@ class TryFromBigIntError internal constructor(
 
     override fun hashCode(): Int = original.hashCode()
 
-    override fun toString(): String = message
+    override fun toString(): String = fmt()
 
-    private companion object {
-        const val DESCRIPTION = "out of range conversion regarding big integer attempted"
+    internal companion object {
+        fun new(original: BigInt?): TryFromBigIntError = TryFromBigIntError(original)
     }
+}
+
+internal fun description(error: TryFromBigIntError): String {
+    error.intoOriginal()
+    return "out of range conversion regarding big integer attempted"
 }
 
 internal class TryFromBigIntException internal constructor(
