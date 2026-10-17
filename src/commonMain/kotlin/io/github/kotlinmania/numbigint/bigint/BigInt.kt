@@ -8,6 +8,17 @@ import io.github.kotlinmania.numbigint.bigint.plus
 import io.github.kotlinmania.numbigint.bigint.plusAssign
 import io.github.kotlinmania.numbigint.bigint.times
 import io.github.kotlinmania.numbigint.bigint.timesAssign
+import io.github.kotlinmania.numtraits.FromPrimitive
+import io.github.kotlinmania.numtraits.NumCast
+import io.github.kotlinmania.numtraits.NumOps
+import io.github.kotlinmania.numtraits.One
+import io.github.kotlinmania.numtraits.Pow
+import io.github.kotlinmania.numtraits.ToPrimitive
+import io.github.kotlinmania.numtraits.Zero
+import io.github.kotlinmania.numtraits.ops.CheckedAdd
+import io.github.kotlinmania.numtraits.ops.CheckedDiv
+import io.github.kotlinmania.numtraits.ops.CheckedMul
+import io.github.kotlinmania.numtraits.ops.CheckedSub
 import io.github.kotlinmania.serde.SerdeResult
 import io.github.kotlinmania.serdecore.de.Deserialize
 import io.github.kotlinmania.serdecore.de.Deserializer
@@ -663,7 +674,19 @@ class BigInt internal constructor(
 
     internal fun len(): Int = data.len()
 
-    companion object : Deserialize<BigInt> {
+    companion object :
+        Deserialize<BigInt>,
+        Zero<BigInt>,
+        One<BigInt>,
+        NumOps<BigInt>,
+        FromPrimitive<BigInt>,
+        ToPrimitive<BigInt>,
+        NumCast<BigInt>,
+        CheckedAdd<BigInt>,
+        CheckedSub<BigInt>,
+        CheckedMul<BigInt>,
+        CheckedDiv<BigInt>,
+        Pow<BigInt, UInt, BigInt> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigInt> =
             io.github.kotlinmania.numbigint.bigint
                 .deserialize(deserializer, this)
@@ -778,9 +801,84 @@ class BigInt internal constructor(
             return fromBiguint(sign, u)
         }
 
-        fun zero(): BigInt = ZERO
+        override fun zero(): BigInt = ZERO
 
-        fun one(): BigInt = BigInt(Sign.Plus, BigUint.one())
+        override fun isZero(value: BigInt): Boolean = value.isZero()
+
+        override fun one(): BigInt = BigInt(Sign.Plus, BigUint.one())
+
+        override fun isOne(value: BigInt): Boolean = value.isOne()
+
+        override fun add(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt = a + b
+
+        override fun sub(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt = a - b
+
+        override fun mul(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt = a * b
+
+        override fun div(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt = a / b
+
+        override fun rem(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt = a % b
+
+        override fun checkedAdd(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt? = a.checkedAdd(b)
+
+        override fun checkedSub(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt? = a.checkedSub(b)
+
+        override fun checkedMul(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt? = a.checkedMul(b)
+
+        override fun checkedDiv(
+            a: BigInt,
+            b: BigInt,
+        ): BigInt? = a.checkedDiv(b)
+
+        override fun pow(
+            base: BigInt,
+            exp: UInt,
+        ): BigInt = base.pow(exp)
+
+        override fun toI64(value: BigInt): Long? = value.toLongOrNull()
+
+        override fun toU64(value: BigInt): ULong? = value.toULongOrNull()
+
+        override fun toF32(value: BigInt): Float? = value.toFloatOrNull()
+
+        override fun toF64(value: BigInt): Double? = value.toDoubleOrNull()
+
+        override fun fromI64(n: Long): BigInt? = fromLong(n)
+
+        override fun fromU64(n: ULong): BigInt? = fromULong(n)
+
+        override fun fromF32(n: Float): BigInt? = fromFloat(n)
+
+        override fun fromF64(n: Double): BigInt? = fromDouble(n)
+
+        override fun <U> from(
+            sourceType: ToPrimitive<U>,
+            n: U,
+        ): BigInt? = sourceType.toI64(n)?.let { fromI64(it) } ?: sourceType.toU64(n)?.let { fromU64(it) }
 
         fun fromStrRadix(s0: String, radix: UInt): BigIntParseResult =
             io.github.kotlinmania.numbigint.bigint

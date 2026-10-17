@@ -2,6 +2,17 @@
 
 package io.github.kotlinmania.numbigint
 
+import io.github.kotlinmania.numtraits.FromPrimitive
+import io.github.kotlinmania.numtraits.NumCast
+import io.github.kotlinmania.numtraits.NumOps
+import io.github.kotlinmania.numtraits.One
+import io.github.kotlinmania.numtraits.Pow
+import io.github.kotlinmania.numtraits.ToPrimitive
+import io.github.kotlinmania.numtraits.Zero
+import io.github.kotlinmania.numtraits.ops.CheckedAdd
+import io.github.kotlinmania.numtraits.ops.CheckedDiv
+import io.github.kotlinmania.numtraits.ops.CheckedMul
+import io.github.kotlinmania.numtraits.ops.CheckedSub
 import io.github.kotlinmania.serde.SerdeResult
 import io.github.kotlinmania.serdecore.de.Deserialize
 import io.github.kotlinmania.serdecore.de.Deserializer
@@ -513,7 +524,19 @@ class BigUint internal constructor(
 
     internal fun len(): Int = data.size
 
-    companion object : Deserialize<BigUint> {
+    companion object :
+        Deserialize<BigUint>,
+        Zero<BigUint>,
+        One<BigUint>,
+        NumOps<BigUint>,
+        FromPrimitive<BigUint>,
+        ToPrimitive<BigUint>,
+        NumCast<BigUint>,
+        CheckedAdd<BigUint>,
+        CheckedSub<BigUint>,
+        CheckedMul<BigUint>,
+        CheckedDiv<BigUint>,
+        Pow<BigUint, UInt, BigUint> {
         override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
             io.github.kotlinmania.numbigint.biguint
                 .deserialize(deserializer)
@@ -615,9 +638,84 @@ class BigUint internal constructor(
             io.github.kotlinmania.numbigint
                 .fromRadixLe(buf, radix)
 
-        fun zero(): BigUint = ZERO
+        override fun zero(): BigUint = ZERO
 
-        fun one(): BigUint = BigUint(mutableListOf(1u))
+        override fun isZero(value: BigUint): Boolean = value.isZero()
+
+        override fun one(): BigUint = BigUint(mutableListOf(1u))
+
+        override fun isOne(value: BigUint): Boolean = value.isOne()
+
+        override fun add(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint = a + b
+
+        override fun sub(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint = a - b
+
+        override fun mul(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint = a * b
+
+        override fun div(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint = a / b
+
+        override fun rem(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint = a % b
+
+        override fun checkedAdd(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint? = a.checkedAdd(b)
+
+        override fun checkedSub(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint? = a.checkedSub(b)
+
+        override fun checkedMul(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint? = a.checkedMul(b)
+
+        override fun checkedDiv(
+            a: BigUint,
+            b: BigUint,
+        ): BigUint? = a.checkedDiv(b)
+
+        override fun pow(
+            base: BigUint,
+            exp: UInt,
+        ): BigUint = base.pow(exp)
+
+        override fun toI64(value: BigUint): Long? = value.toLongOrNull()
+
+        override fun toU64(value: BigUint): ULong? = value.toULongOrNull()
+
+        override fun toF32(value: BigUint): Float? = value.toFloatOrNull()
+
+        override fun toF64(value: BigUint): Double? = value.toDoubleOrNull()
+
+        override fun fromI64(n: Long): BigUint? = fromLong(n)
+
+        override fun fromU64(n: ULong): BigUint? = fromULong(n)
+
+        override fun fromF32(n: Float): BigUint? = fromFloat(n)
+
+        override fun fromF64(n: Double): BigUint? = fromDouble(n)
+
+        override fun <U> from(
+            sourceType: ToPrimitive<U>,
+            n: U,
+        ): BigUint? = sourceType.toU64(n)?.let { fromU64(it) } ?: sourceType.toI64(n)?.let { fromI64(it) }
 
         fun fromStrRadix(s: String, radix: UInt): BigUintParseResult =
             io.github.kotlinmania.numbigint
