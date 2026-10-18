@@ -9,6 +9,7 @@ import io.github.kotlinmania.rand.distr.SampleUniform
 import io.github.kotlinmania.rand.distr.StandardUniform
 import io.github.kotlinmania.rand.distr.Uniform
 import io.github.kotlinmania.rand.distr.UniformSampler
+import io.github.kotlinmania.rand.fill
 
 /**
  * A trait for sampling random big integers.
