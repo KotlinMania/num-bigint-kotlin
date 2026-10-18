@@ -1,9 +1,7 @@
-// port-lint: tests ci/big_rand/src/lib.rs
-
 /**
  * Test randomization of [BigUint] and [BigInt].
  *
- * This test is in a completely separate module so thread_rng()
+ * This test is in a completely separate module so [rng]
  * can be available without infecting the rest of the build with
  * rand's default features, especially not rand/std.
  */
@@ -14,11 +12,11 @@ import io.github.kotlinmania.rand.SeedableRng
 import io.github.kotlinmania.rand.distr.StandardUniform
 import io.github.kotlinmania.rand.distr.Uniform
 import io.github.kotlinmania.rand.distr.sampleIter
+import io.github.kotlinmania.rand.rngs.rng
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
-import io.github.kotlinmania.rand.rng as threadRng
 
 internal interface SeedBytesRng :
     Rng,
@@ -386,7 +384,7 @@ private fun fillBytesViaNext(rng: Rng, dest: ByteArray) {
 class BigUintRandTest {
     @Test
     fun testRand() {
-        val rng = threadRng()
+        val rng = rng()
         val n: BigUint = rng.genBiguint(137uL)
         assertTrue(n.bits() <= 137uL)
         assertTrue(rng.genBiguint(0uL).isZero())
@@ -394,7 +392,7 @@ class BigUintRandTest {
 
     @Test
     fun testRandBits() {
-        val rng = threadRng()
+        val rng = rng()
         val n: BigUint = rng.sample(RandomBits.new(137uL))
         assertTrue(n.bits() <= 137uL)
         val z: BigUint = rng.sample(RandomBits.new(0uL))
@@ -403,7 +401,7 @@ class BigUintRandTest {
 
     @Test
     fun testRandRange() {
-        val rng = threadRng()
+        val rng = rng()
 
         repeat(10) {
             assertEquals(
@@ -427,13 +425,13 @@ class BigUintRandTest {
     @Test
     fun testZeroRandRange() {
         assertFailsWith<IllegalArgumentException> {
-            threadRng().genBiguintRange(BigUint.from(54u), BigUint.from(54u))
+            rng().genBiguintRange(BigUint.from(54u), BigUint.from(54u))
         }
     }
 
     @Test
     fun testNegativeRandRange() {
-        val rng = threadRng()
+        val rng = rng()
         val l = BigUint.from(2352u)
         val u = BigUint.from(3513u)
         // Switching u and l should fail:
@@ -444,7 +442,7 @@ class BigUintRandTest {
 
     @Test
     fun testRandUniform() {
-        val rng = threadRng()
+        val rng = rng()
 
         val tiny = Uniform.new(BigUint.from(236u), BigUint.from(237u))
         repeat(10) {
@@ -563,7 +561,7 @@ class BigUintRandTest {
             assertEquals((hi - 1u).nthRoot(n), root)
         }
 
-        val rng = threadRng()
+        val rng = rng()
         val bitRange = Uniform.uLong(0uL, 2048uL)
         val sampleBits =
             bitRange
@@ -584,7 +582,7 @@ class BigUintRandTest {
 class BigIntRandTest {
     @Test
     fun testRand() {
-        val rng = threadRng()
+        val rng = rng()
         val n: BigInt = rng.genBigint(137uL)
         assertTrue(n.bits() <= 137uL)
         assertTrue(rng.genBigint(0uL).isZero())
@@ -592,7 +590,7 @@ class BigIntRandTest {
 
     @Test
     fun testRandBits() {
-        val rng = threadRng()
+        val rng = rng()
         val n: BigInt = rng.sample(RandomBits.new(137uL).toBigIntDistribution())
         assertTrue(n.bits() <= 137uL)
         val z: BigInt = rng.sample(RandomBits.new(0uL).toBigIntDistribution())
@@ -601,7 +599,7 @@ class BigIntRandTest {
 
     @Test
     fun testRandRange() {
-        val rng = threadRng()
+        val rng = rng()
 
         repeat(10) {
             assertEquals(
@@ -611,7 +609,7 @@ class BigIntRandTest {
         }
 
         fun check(l: BigInt, u: BigInt) {
-            val localRng = threadRng()
+            val localRng = rng()
             repeat(1000) {
                 val n: BigInt = localRng.genBigintRange(l, u)
                 assertTrue(n >= l)
@@ -628,13 +626,13 @@ class BigIntRandTest {
     @Test
     fun testZeroRandRange() {
         assertFailsWith<IllegalArgumentException> {
-            threadRng().genBigintRange(BigInt.from(54), BigInt.from(54))
+            rng().genBigintRange(BigInt.from(54), BigInt.from(54))
         }
     }
 
     @Test
     fun testNegativeRandRange() {
-        val rng = threadRng()
+        val rng = rng()
         val l = BigInt.from(2352)
         val u = BigInt.from(3513)
         // Switching u and l should fail:
@@ -645,7 +643,7 @@ class BigIntRandTest {
 
     @Test
     fun testRandUniform() {
-        val rng = threadRng()
+        val rng = rng()
 
         val tiny = Uniform.new(BigInt.from(236u), BigInt.from(237u))
         repeat(10) {
@@ -653,7 +651,7 @@ class BigIntRandTest {
         }
 
         fun check(l: BigInt, u: BigInt) {
-            val localRng = threadRng()
+            val localRng = rng()
             val range = Uniform.new(l.clone(), u.clone())
             repeat(1000) {
                 val n: BigInt = localRng.sample(range)
@@ -744,7 +742,7 @@ class BigIntRandTest {
 
     @Test
     fun testRandomShr() {
-        val rng = threadRng()
+        val rng = rng()
 
         repeat(1000) {
             val p = StandardUniform.sampleLong(rng)
