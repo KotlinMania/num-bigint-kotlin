@@ -12,16 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
     }
 }
 
 rootProject.name = "num-bigint-kotlin"
-
-listOf(
-    "../num-traits-kotlin",
-).forEach { path ->
-    if (file(path).exists()) {
-        includeBuild(path)
-    }
-}
