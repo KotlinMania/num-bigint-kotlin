@@ -2,14 +2,23 @@
 package io.github.kotlinmania.numbigint
 
 import io.github.kotlinmania.numbigint.bigint.productBigInt
+import io.github.kotlinmania.numbigint.biguint.U32Visitor
+import io.github.kotlinmania.serde.SerdeError
+import io.github.kotlinmania.serde.SerdeResult
 import io.github.kotlinmania.serdecore.de.Deserialize
+import io.github.kotlinmania.serdecore.de.DeserializeSeed
+import io.github.kotlinmania.serdecore.de.SeqAccess
+import io.github.kotlinmania.serdecore.de.SeqElement
+import io.github.kotlinmania.serdecore.de.value.intoDeserializer
 import io.github.kotlinmania.serdecore.ser.Serialize
 import io.github.kotlinmania.serdetest.Token
 import io.github.kotlinmania.serdetest.assertDeTokens
 import io.github.kotlinmania.serdetest.assertSerTokens
 import io.github.kotlinmania.serdetest.assertTokens
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertSame
 
 /**
  * Test serialization and deserialization of [BigUint] and [BigInt].
@@ -19,6 +28,56 @@ import kotlin.test.assertFails
  * backward compatibility of serialized data!
  */
 class BigSerdeTest {
+    @Test
+    fun signPreservesInvalidValueDiagnostics() {
+        for ((value, expected) in listOf(-1 to Sign.Minus, 0 to Sign.NoSign, 1 to Sign.Plus)) {
+            assertEquals(expected, Sign.deserialize(value.toByte().intoDeserializer()).getOrThrow())
+        }
+        for (value in listOf(-128, -2, 2, 127)) {
+            val result = Sign.deserialize(value.toByte().intoDeserializer())
+            assertEquals(
+                "invalid value: integer `$value`, expected a sign of -1, 0, or 1",
+                result.exceptionOrNull()?.message,
+            )
+        }
+    }
+
+    @Test
+    fun explicitSequenceEndPreservesZeroDigitsAndUnsignedWidth() {
+        val digits = listOf(0u, UInt.MAX_VALUE)
+        var calls = 0
+        val access =
+            object : SeqAccess {
+                override fun <T> nextElementSeed(seed: DeserializeSeed<T>): SerdeResult<SeqElement<T>> {
+                    val index = calls++
+                    return if (index == digits.size) {
+                        SerdeResult.success(SeqElement.None)
+                    } else {
+                        seed.deserialize(digits[index].intoDeserializer()).map { SeqElement.Some(it) }
+                    }
+                }
+            }
+        assertEquals(BigUint.fromULong(0xffffffff00000000uL), U32Visitor.visitSeq(access).getOrThrow())
+        assertEquals(3, calls)
+    }
+
+    @Test
+    fun sequenceFailurePreservesDiagnosticAfterReadingADigit() {
+        val failure = SerdeError.custom("broken digit")
+        var calls = 0
+        val access =
+            object : SeqAccess {
+                override fun <T> nextElementSeed(seed: DeserializeSeed<T>): SerdeResult<SeqElement<T>> =
+                    if (calls++ == 0) {
+                        seed.deserialize(7u.intoDeserializer()).map { SeqElement.Some(it) }
+                    } else {
+                        SerdeResult.failure(failure)
+                    }
+            }
+        assertSame(failure, U32Visitor.visitSeq(access).exceptionOrNull())
+        assertEquals(2, calls)
+    }
+
     @Test
     fun biguintZero() {
         val tokens = listOf(Token.Seq(len = 0), Token.SeqEnd)

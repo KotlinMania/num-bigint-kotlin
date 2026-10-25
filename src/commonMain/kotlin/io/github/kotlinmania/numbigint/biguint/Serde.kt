@@ -9,6 +9,7 @@ import io.github.kotlinmania.serde.SerdeResult
 import io.github.kotlinmania.serde.serdeCatching
 import io.github.kotlinmania.serdecore.de.Deserializer
 import io.github.kotlinmania.serdecore.de.SeqAccess
+import io.github.kotlinmania.serdecore.de.SeqElement
 import io.github.kotlinmania.serdecore.de.U32Deserialize
 import io.github.kotlinmania.serdecore.de.Visitor
 import io.github.kotlinmania.serdecore.ser.Serialize
@@ -51,8 +52,10 @@ object U32Visitor : Visitor<BigUint> {
         val data = ArrayList<BigDigit>(len)
         return serdeCatching {
             while (true) {
-                val value = access.nextElement(U32Deserialize).getOrThrow() ?: break
-                data.add(value)
+                when (val element = access.nextElement(U32Deserialize).getOrThrow()) {
+                    is SeqElement.Some -> data.add(element.value)
+                    SeqElement.None -> break
+                }
             }
             biguintFromVec(data)
         }

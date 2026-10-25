@@ -6,7 +6,6 @@ import io.github.kotlinmania.numbigint.BigInt
 import io.github.kotlinmania.numbigint.BigUint
 import io.github.kotlinmania.numbigint.Sign
 import io.github.kotlinmania.serde.SerdeError
-import io.github.kotlinmania.serde.SerdeException
 import io.github.kotlinmania.serde.SerdeResult
 import io.github.kotlinmania.serde.serdeCatching
 import io.github.kotlinmania.serdecore.de.Deserializer
@@ -46,12 +45,10 @@ fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
             }
 
             else -> {
-                throw SerdeException(
-                    SerdeError.invalidValue(
-                        Unexpected.Signed(sign.toLong()),
-                        Expected { "a sign of -1, 0, or 1" },
-                    ),
-                )
+                SerdeError.invalidValue(
+                    Unexpected.Signed(sign.toLong()),
+                    Expected { "a sign of -1, 0, or 1" },
+                ).raise()
             }
         }
     }
