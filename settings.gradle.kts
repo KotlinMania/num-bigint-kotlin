@@ -19,7 +19,10 @@ dependencyResolutionManagement {
         require(localMavenPath != null && File(localMavenPath).isAbsolute) {
             "Local Maven validation requires -Dmaven.repo.local=/absolute/path/to/isolated-repository"
         }
-        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        // Kotlin's Node/Yarn setup temporarily adds project repositories.
+        // Keep dependency resolution in settings, with their distribution
+        // repositories declared below, instead of rejecting those additions.
+        repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     }
     repositories {
         if (localMavenValidation) {
@@ -32,6 +35,20 @@ dependencyResolutionManagement {
         }
         google()
         mavenCentral()
+        if (localMavenValidation) {
+            ivy("https://nodejs.org/dist") {
+                name = "Node Distributions"
+                patternLayout { artifact("v[revision]/[artifact](-v[revision]-[classifier]).[ext]") }
+                metadataSources { artifact() }
+                content { includeModule("org.nodejs", "node") }
+            }
+            ivy("https://github.com/yarnpkg/yarn/releases/download") {
+                name = "Yarn Distributions"
+                patternLayout { artifact("v[revision]/[artifact]-v[revision].[ext]") }
+                metadataSources { artifact() }
+                content { includeModule("com.yarnpkg", "yarn") }
+            }
+        }
     }
 }
 
