@@ -7,20 +7,21 @@ let package = Package(
         .macOS(.v15),
     ],
     dependencies: [
-        .package(name: "NumBigint", path: "../build/SPMPackage/macosArm64/Debug"),
+        .package(name: "Template", path: "../build/SPMPackage/macosArm64/Debug")
     ],
     targets: [
         .testTarget(
             name: "SwiftTestHarnessTests",
             dependencies: [
-                .product(name: "NumBigintLibrary", package: "NumBigint"),
+                .product(name: "TemplateLibrary", package: "Template")
             ],
             linkerSettings: [
                 .unsafeFlags([
                     "-L", "../build/swift-test",
-                    "-lNumBigint",
+                    "-lTemplate",
                 ]),
             ]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
