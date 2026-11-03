@@ -2,13 +2,13 @@
 === Complete Source Symbol Inventory ===
 Types, API declarations, functions, properties/constants, enum variants and aliases.
 Name/owner presence is distinct from parameter/body/overload parity reported above. Parser warnings remain review requirements.
-PRESENT type Sign at tmp/num-bigint/src/bigint.rs:36 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:33
-PRESENT enum_variant Sign::Minus at tmp/num-bigint/src/bigint.rs:37 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:34
-PRESENT enum_variant Sign::NoSign at tmp/num-bigint/src/bigint.rs:38 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:35
-PRESENT enum_variant Sign::Plus at tmp/num-bigint/src/bigint.rs:39 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:36
+PRESENT type Sign at tmp/num-bigint/src/bigint.rs:36 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:31
+PRESENT enum_variant Sign::Minus at tmp/num-bigint/src/bigint.rs:37 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:32
+PRESENT enum_variant Sign::NoSign at tmp/num-bigint/src/bigint.rs:38 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:33
+PRESENT enum_variant Sign::Plus at tmp/num-bigint/src/bigint.rs:39 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:34
 MISSING_SYMBOL type_alias Output at tmp/num-bigint/src/bigint.rs:43
-PRESENT function neg at tmp/num-bigint/src/bigint.rs:47 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:992
-PRESENT type BigInt at tmp/num-bigint/src/bigint.rs:57 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:72
+PRESENT function neg at tmp/num-bigint/src/bigint.rs:47 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:981
+PRESENT type BigInt at tmp/num-bigint/src/bigint.rs:57 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:70
 MISSING_SYMBOL function clone at tmp/num-bigint/src/bigint.rs:66
 MISSING_SYMBOL function clone_from at tmp/num-bigint/src/bigint.rs:74
 MISSING_SYMBOL function hash at tmp/num-bigint/src/bigint.rs:82
@@ -23,9 +23,9 @@ MISSING_SYMBOL function fmt at tmp/num-bigint/src/bigint.rs:153
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/bigint.rs:159
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/bigint.rs:165
 MISSING_SYMBOL type_alias Output at tmp/num-bigint/src/bigint.rs:177
-PRESENT function not at tmp/num-bigint/src/bigint.rs:179 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:985
+PRESENT function not at tmp/num-bigint/src/bigint.rs:179 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:974
 MISSING_SYMBOL type_alias Output at tmp/num-bigint/src/bigint.rs:195
-PRESENT function not at tmp/num-bigint/src/bigint.rs:197 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:985
+PRESENT function not at tmp/num-bigint/src/bigint.rs:197 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:974
 MISSING_SYMBOL function zero at tmp/num-bigint/src/bigint.rs:208
 MISSING_SYMBOL function set_zero at tmp/num-bigint/src/bigint.rs:213
 MISSING_SYMBOL function is_zero at tmp/num-bigint/src/bigint.rs:219
@@ -38,14 +38,14 @@ MISSING_SYMBOL function abs_sub at tmp/num-bigint/src/bigint.rs:260
 MISSING_SYMBOL function signum at tmp/num-bigint/src/bigint.rs:269
 MISSING_SYMBOL function is_positive at tmp/num-bigint/src/bigint.rs:278
 MISSING_SYMBOL function is_negative at tmp/num-bigint/src/bigint.rs:283
-PRESENT type UnsignedAbs at tmp/num-bigint/src/bigint.rs:288 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:948
-PRESENT type CheckedUnsignedAbs at tmp/num-bigint/src/bigint.rs:294 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:952
+PRESENT type UnsignedAbs at tmp/num-bigint/src/bigint.rs:288 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:937
+PRESENT type CheckedUnsignedAbs at tmp/num-bigint/src/bigint.rs:294 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:941
 MISSING_SYMBOL enum_variant CheckedUnsignedAbs::Positive at tmp/num-bigint/src/bigint.rs:295
 MISSING_SYMBOL enum_variant CheckedUnsignedAbs::Negative at tmp/num-bigint/src/bigint.rs:296
 MISSING_SYMBOL type_alias Output at tmp/num-bigint/src/bigint.rs:324
-PRESENT function neg at tmp/num-bigint/src/bigint.rs:327 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:992
+PRESENT function neg at tmp/num-bigint/src/bigint.rs:327 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:981
 MISSING_SYMBOL type_alias Output at tmp/num-bigint/src/bigint.rs:334
-PRESENT function neg at tmp/num-bigint/src/bigint.rs:337 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:992
+PRESENT function neg at tmp/num-bigint/src/bigint.rs:337 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:981
 MISSING_SYMBOL function div_rem at tmp/num-bigint/src/bigint.rs:344
 MISSING_SYMBOL function div_floor at tmp/num-bigint/src/bigint.rs:357
 MISSING_SYMBOL function mod_floor at tmp/num-bigint/src/bigint.rs:374
@@ -63,15 +63,15 @@ MISSING_SYMBOL function next_multiple_of at tmp/num-bigint/src/bigint.rs:486
 MISSING_SYMBOL function prev_multiple_of at tmp/num-bigint/src/bigint.rs:496
 MISSING_SYMBOL function dec at tmp/num-bigint/src/bigint.rs:500
 MISSING_SYMBOL function inc at tmp/num-bigint/src/bigint.rs:504
-PRESENT function nth_root at tmp/num-bigint/src/bigint.rs:510 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:994
-PRESENT function sqrt at tmp/num-bigint/src/bigint.rs:520 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:999
-PRESENT function cbrt at tmp/num-bigint/src/bigint.rs:526 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1004
+PRESENT function nth_root at tmp/num-bigint/src/bigint.rs:510 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:983
+PRESENT function sqrt at tmp/num-bigint/src/bigint.rs:520 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:988
+PRESENT function cbrt at tmp/num-bigint/src/bigint.rs:526 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:993
 MISSING_SYMBOL function digits at tmp/num-bigint/src/bigint.rs:533
 MISSING_SYMBOL function digits_mut at tmp/num-bigint/src/bigint.rs:537
 MISSING_SYMBOL function normalize at tmp/num-bigint/src/bigint.rs:541
 MISSING_SYMBOL function capacity at tmp/num-bigint/src/bigint.rs:548
 MISSING_SYMBOL function len at tmp/num-bigint/src/bigint.rs:552
-PRESENT type ToBigInt at tmp/num-bigint/src/bigint.rs:560 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1026
+PRESENT type ToBigInt at tmp/num-bigint/src/bigint.rs:560 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1015
 MISSING_SYMBOL property ZERO at tmp/num-bigint/src/bigint.rs:567
 MISSING_SYMBOL function new at tmp/num-bigint/src/bigint.rs:576
 MISSING_SYMBOL function from_biguint at tmp/num-bigint/src/bigint.rs:584
@@ -104,12 +104,12 @@ MISSING_SYMBOL function checked_add at tmp/num-bigint/src/bigint.rs:989
 MISSING_SYMBOL function checked_sub at tmp/num-bigint/src/bigint.rs:994
 MISSING_SYMBOL function checked_mul at tmp/num-bigint/src/bigint.rs:999
 MISSING_SYMBOL function checked_div at tmp/num-bigint/src/bigint.rs:1004
-PRESENT function pow at tmp/num-bigint/src/bigint.rs:1012 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1305
+PRESENT function pow at tmp/num-bigint/src/bigint.rs:1012 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1294
 MISSING_SYMBOL function modpow at tmp/num-bigint/src/bigint.rs:1024
 MISSING_SYMBOL function modinv at tmp/num-bigint/src/bigint.rs:1074
-PRESENT function sqrt at tmp/num-bigint/src/bigint.rs:1088 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:999
-PRESENT function cbrt at tmp/num-bigint/src/bigint.rs:1094 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1004
-PRESENT function nth_root at tmp/num-bigint/src/bigint.rs:1100 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:994
+PRESENT function sqrt at tmp/num-bigint/src/bigint.rs:1088 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:988
+PRESENT function cbrt at tmp/num-bigint/src/bigint.rs:1094 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:993
+PRESENT function nth_root at tmp/num-bigint/src/bigint.rs:1100 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:983
 MISSING_SYMBOL function trailing_zeros at tmp/num-bigint/src/bigint.rs:1106
 MISSING_SYMBOL function bit at tmp/num-bigint/src/bigint.rs:1112
 MISSING_SYMBOL function set_bit at tmp/num-bigint/src/bigint.rs:1140
@@ -122,255 +122,253 @@ MISSING_SYMBOL function to_le_bytes at tmp/num-bigint/src/bigint.rs:1177
 MISSING_SYMBOL function test_from_biguint at tmp/num-bigint/src/bigint.rs:1183
 MISSING_SYMBOL function test_from_slice at tmp/num-bigint/src/bigint.rs:1199
 MISSING_SYMBOL function test_assign_from_slice at tmp/num-bigint/src/bigint.rs:1215
-EXTRA_TARGET_SYMBOL function Sign::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:39
-EXTRA_TARGET_SYMBOL function Sign::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:44
-EXTRA_TARGET_SYMBOL function Sign::neg at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:52
-EXTRA_TARGET_SYMBOL function unaryMinus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:60
-EXTRA_TARGET_SYMBOL function times at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:62
-EXTRA_TARGET_SYMBOL property BigInt::signValue at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:73
-EXTRA_TARGET_SYMBOL property BigInt::data at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:74
-EXTRA_TARGET_SYMBOL function BigInt::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:77
-EXTRA_TARGET_SYMBOL function BigInt::clone at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:81
-EXTRA_TARGET_SYMBOL function BigInt::cloneFrom at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:83
-EXTRA_TARGET_SYMBOL function BigInt::hash at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:88
-EXTRA_TARGET_SYMBOL function BigInt::hashCode at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:97
-EXTRA_TARGET_SYMBOL function BigInt::eq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:99
-EXTRA_TARGET_SYMBOL function BigInt::equals at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:106
-EXTRA_TARGET_SYMBOL function BigInt::partialCmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:108
-EXTRA_TARGET_SYMBOL function BigInt::cmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:110
-EXTRA_TARGET_SYMBOL function BigInt::compareTo at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:125
-EXTRA_TARGET_SYMBOL function BigInt::fmt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:127
-EXTRA_TARGET_SYMBOL function BigInt::toString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:129
-EXTRA_TARGET_SYMBOL function BigInt::toDebugString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:131
-EXTRA_TARGET_SYMBOL function BigInt::toBinaryString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:136
-EXTRA_TARGET_SYMBOL function BigInt::toOctalString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:141
-EXTRA_TARGET_SYMBOL function BigInt::toLowerHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:146
-EXTRA_TARGET_SYMBOL function BigInt::toUpperHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:151
-EXTRA_TARGET_SYMBOL function BigInt::not at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:163
-EXTRA_TARGET_SYMBOL function BigInt::setZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:179
-EXTRA_TARGET_SYMBOL function BigInt::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:184
-EXTRA_TARGET_SYMBOL function BigInt::setOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:186
-EXTRA_TARGET_SYMBOL function BigInt::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:191
-EXTRA_TARGET_SYMBOL function BigInt::abs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:193
-EXTRA_TARGET_SYMBOL function BigInt::absSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:199
-EXTRA_TARGET_SYMBOL function BigInt::signum at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:201
-EXTRA_TARGET_SYMBOL function BigInt::isPositive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:208
-EXTRA_TARGET_SYMBOL function BigInt::isNegative at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:210
-EXTRA_TARGET_SYMBOL function BigInt::neg at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:212
-EXTRA_TARGET_SYMBOL function BigInt::unaryMinus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:218
-EXTRA_TARGET_SYMBOL function BigInt::divRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:220
-EXTRA_TARGET_SYMBOL function BigInt::divFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:228
-EXTRA_TARGET_SYMBOL function BigInt::modFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:246
-EXTRA_TARGET_SYMBOL function BigInt::divModFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:265
-EXTRA_TARGET_SYMBOL function BigInt::divCeil at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:285
-EXTRA_TARGET_SYMBOL function BigInt::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:308
-EXTRA_TARGET_SYMBOL function BigInt::lcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:313
-EXTRA_TARGET_SYMBOL function BigInt::gcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:318
-EXTRA_TARGET_SYMBOL function BigInt::extendedGcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:326
-EXTRA_TARGET_SYMBOL function BigInt::extendedGcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:348
-EXTRA_TARGET_SYMBOL function BigInt::divides at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:362
-EXTRA_TARGET_SYMBOL function BigInt::isMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:367
-EXTRA_TARGET_SYMBOL function BigInt::isEven at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:372
-EXTRA_TARGET_SYMBOL function BigInt::isOdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:377
-EXTRA_TARGET_SYMBOL function BigInt::nextMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:382
-EXTRA_TARGET_SYMBOL function BigInt::prevMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:390
-EXTRA_TARGET_SYMBOL function BigInt::dec at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:392
-EXTRA_TARGET_SYMBOL function BigInt::inc at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:396
-EXTRA_TARGET_SYMBOL function BigInt::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:400
-EXTRA_TARGET_SYMBOL function BigInt::assignFromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:412
-EXTRA_TARGET_SYMBOL function BigInt::toBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:424
-EXTRA_TARGET_SYMBOL function BigInt::toBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:429
-EXTRA_TARGET_SYMBOL function BigInt::toU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:435
-EXTRA_TARGET_SYMBOL function BigInt::toU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:441
-EXTRA_TARGET_SYMBOL function BigInt::iterU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:447
-EXTRA_TARGET_SYMBOL function BigInt::iterU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:453
-EXTRA_TARGET_SYMBOL function BigInt::toSignedBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:458
-EXTRA_TARGET_SYMBOL function BigInt::toSignedBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:465
-EXTRA_TARGET_SYMBOL function BigInt::toStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:473
-EXTRA_TARGET_SYMBOL function BigInt::toRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:490
-EXTRA_TARGET_SYMBOL function BigInt::toRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:498
-EXTRA_TARGET_SYMBOL function BigInt::sign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:503
-EXTRA_TARGET_SYMBOL function BigInt::magnitude at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:508
-EXTRA_TARGET_SYMBOL function BigInt::intoParts at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:514
-EXTRA_TARGET_SYMBOL function BigInt::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:520
-EXTRA_TARGET_SYMBOL function BigInt::toBigUint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:525
-EXTRA_TARGET_SYMBOL function BigInt::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:532
-EXTRA_TARGET_SYMBOL function BigInt::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:534
-EXTRA_TARGET_SYMBOL function BigInt::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:536
-EXTRA_TARGET_SYMBOL function BigInt::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:538
-EXTRA_TARGET_SYMBOL function BigInt::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:548
-EXTRA_TARGET_SYMBOL function BigInt::modpow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:562
-EXTRA_TARGET_SYMBOL function BigInt::modinv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:576
-EXTRA_TARGET_SYMBOL function BigInt::sqrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:592
-EXTRA_TARGET_SYMBOL function BigInt::cbrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:597
-EXTRA_TARGET_SYMBOL function BigInt::nthRoot at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:602
-EXTRA_TARGET_SYMBOL function BigInt::trailingZeros at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:608
-EXTRA_TARGET_SYMBOL function BigInt::bit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:614
-EXTRA_TARGET_SYMBOL function BigInt::setBit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:643
-EXTRA_TARGET_SYMBOL function BigInt::toBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:667
-EXTRA_TARGET_SYMBOL function BigInt::toLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:669
-EXTRA_TARGET_SYMBOL function BigInt::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:671
-EXTRA_TARGET_SYMBOL function BigInt::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:673
-EXTRA_TARGET_SYMBOL function BigInt::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:675
-EXTRA_TARGET_SYMBOL function BigInt::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:677
-EXTRA_TARGET_SYMBOL function BigInt::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:694
-EXTRA_TARGET_SYMBOL property BigInt::Companion::ZERO at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:701
-EXTRA_TARGET_SYMBOL function BigInt::Companion::default at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:704
-EXTRA_TARGET_SYMBOL function BigInt::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:711
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:718
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:735
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:742
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:749
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSignedBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:757
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSignedBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:766
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:770
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:772
-EXTRA_TARGET_SYMBOL function BigInt::Companion::parseBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:777
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:791
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:803
-EXTRA_TARGET_SYMBOL function BigInt::Companion::zero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:808
-EXTRA_TARGET_SYMBOL function BigInt::Companion::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:810
-EXTRA_TARGET_SYMBOL function BigInt::Companion::one at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:812
-EXTRA_TARGET_SYMBOL function BigInt::Companion::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:814
-EXTRA_TARGET_SYMBOL function BigInt::Companion::add at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:816
-EXTRA_TARGET_SYMBOL function BigInt::Companion::sub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:821
-EXTRA_TARGET_SYMBOL function BigInt::Companion::mul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:826
-EXTRA_TARGET_SYMBOL function BigInt::Companion::div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:831
-EXTRA_TARGET_SYMBOL function BigInt::Companion::rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:836
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:841
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:846
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:851
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:856
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:861
-EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedNeg at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:866
-EXTRA_TARGET_SYMBOL function BigInt::Companion::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:868
-EXTRA_TARGET_SYMBOL function BigInt::Companion::toI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:873
-EXTRA_TARGET_SYMBOL function BigInt::Companion::toU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:875
-EXTRA_TARGET_SYMBOL function BigInt::Companion::toF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:877
-EXTRA_TARGET_SYMBOL function BigInt::Companion::toF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:879
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:881
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:883
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:885
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:887
+EXTRA_TARGET_SYMBOL function Sign::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:37
+EXTRA_TARGET_SYMBOL function Sign::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:42
+EXTRA_TARGET_SYMBOL function Sign::neg at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:50
+EXTRA_TARGET_SYMBOL function unaryMinus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:58
+EXTRA_TARGET_SYMBOL function times at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:60
+EXTRA_TARGET_SYMBOL property BigInt::signValue at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:71
+EXTRA_TARGET_SYMBOL property BigInt::data at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:72
+EXTRA_TARGET_SYMBOL function BigInt::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:75
+EXTRA_TARGET_SYMBOL function BigInt::clone at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:79
+EXTRA_TARGET_SYMBOL function BigInt::cloneFrom at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:81
+EXTRA_TARGET_SYMBOL function BigInt::hash at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:86
+EXTRA_TARGET_SYMBOL function BigInt::hashCode at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:95
+EXTRA_TARGET_SYMBOL function BigInt::eq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:97
+EXTRA_TARGET_SYMBOL function BigInt::equals at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:104
+EXTRA_TARGET_SYMBOL function BigInt::partialCmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:106
+EXTRA_TARGET_SYMBOL function BigInt::cmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:108
+EXTRA_TARGET_SYMBOL function BigInt::compareTo at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:123
+EXTRA_TARGET_SYMBOL function BigInt::fmt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:125
+EXTRA_TARGET_SYMBOL function BigInt::toString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:127
+EXTRA_TARGET_SYMBOL function BigInt::toDebugString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:129
+EXTRA_TARGET_SYMBOL function BigInt::toBinaryString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:134
+EXTRA_TARGET_SYMBOL function BigInt::toOctalString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:139
+EXTRA_TARGET_SYMBOL function BigInt::toLowerHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:144
+EXTRA_TARGET_SYMBOL function BigInt::toUpperHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:149
+EXTRA_TARGET_SYMBOL function BigInt::not at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:161
+EXTRA_TARGET_SYMBOL function BigInt::setZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:177
+EXTRA_TARGET_SYMBOL function BigInt::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:182
+EXTRA_TARGET_SYMBOL function BigInt::setOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:184
+EXTRA_TARGET_SYMBOL function BigInt::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:189
+EXTRA_TARGET_SYMBOL function BigInt::abs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:191
+EXTRA_TARGET_SYMBOL function BigInt::absSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:197
+EXTRA_TARGET_SYMBOL function BigInt::signum at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:199
+EXTRA_TARGET_SYMBOL function BigInt::isPositive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:206
+EXTRA_TARGET_SYMBOL function BigInt::isNegative at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:208
+EXTRA_TARGET_SYMBOL function BigInt::neg at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:210
+EXTRA_TARGET_SYMBOL function BigInt::unaryMinus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:216
+EXTRA_TARGET_SYMBOL function BigInt::divRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:218
+EXTRA_TARGET_SYMBOL function BigInt::divFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:226
+EXTRA_TARGET_SYMBOL function BigInt::modFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:244
+EXTRA_TARGET_SYMBOL function BigInt::divModFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:263
+EXTRA_TARGET_SYMBOL function BigInt::divCeil at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:283
+EXTRA_TARGET_SYMBOL function BigInt::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:306
+EXTRA_TARGET_SYMBOL function BigInt::lcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:311
+EXTRA_TARGET_SYMBOL function BigInt::gcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:316
+EXTRA_TARGET_SYMBOL function BigInt::extendedGcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:324
+EXTRA_TARGET_SYMBOL function BigInt::extendedGcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:346
+EXTRA_TARGET_SYMBOL function BigInt::divides at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:360
+EXTRA_TARGET_SYMBOL function BigInt::isMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:365
+EXTRA_TARGET_SYMBOL function BigInt::isEven at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:370
+EXTRA_TARGET_SYMBOL function BigInt::isOdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:375
+EXTRA_TARGET_SYMBOL function BigInt::nextMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:380
+EXTRA_TARGET_SYMBOL function BigInt::prevMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:388
+EXTRA_TARGET_SYMBOL function BigInt::dec at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:390
+EXTRA_TARGET_SYMBOL function BigInt::inc at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:394
+EXTRA_TARGET_SYMBOL function BigInt::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:398
+EXTRA_TARGET_SYMBOL function BigInt::assignFromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:410
+EXTRA_TARGET_SYMBOL function BigInt::toBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:422
+EXTRA_TARGET_SYMBOL function BigInt::toBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:427
+EXTRA_TARGET_SYMBOL function BigInt::toU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:433
+EXTRA_TARGET_SYMBOL function BigInt::toU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:439
+EXTRA_TARGET_SYMBOL function BigInt::iterU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:445
+EXTRA_TARGET_SYMBOL function BigInt::iterU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:451
+EXTRA_TARGET_SYMBOL function BigInt::toSignedBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:456
+EXTRA_TARGET_SYMBOL function BigInt::toSignedBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:463
+EXTRA_TARGET_SYMBOL function BigInt::toStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:471
+EXTRA_TARGET_SYMBOL function BigInt::toRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:488
+EXTRA_TARGET_SYMBOL function BigInt::toRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:496
+EXTRA_TARGET_SYMBOL function BigInt::sign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:501
+EXTRA_TARGET_SYMBOL function BigInt::magnitude at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:506
+EXTRA_TARGET_SYMBOL function BigInt::intoParts at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:512
+EXTRA_TARGET_SYMBOL function BigInt::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:518
+EXTRA_TARGET_SYMBOL function BigInt::toBigUint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:523
+EXTRA_TARGET_SYMBOL function BigInt::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:530
+EXTRA_TARGET_SYMBOL function BigInt::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:532
+EXTRA_TARGET_SYMBOL function BigInt::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:534
+EXTRA_TARGET_SYMBOL function BigInt::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:536
+EXTRA_TARGET_SYMBOL function BigInt::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:546
+EXTRA_TARGET_SYMBOL function BigInt::modpow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:560
+EXTRA_TARGET_SYMBOL function BigInt::modinv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:574
+EXTRA_TARGET_SYMBOL function BigInt::sqrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:590
+EXTRA_TARGET_SYMBOL function BigInt::cbrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:595
+EXTRA_TARGET_SYMBOL function BigInt::nthRoot at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:600
+EXTRA_TARGET_SYMBOL function BigInt::trailingZeros at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:606
+EXTRA_TARGET_SYMBOL function BigInt::bit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:612
+EXTRA_TARGET_SYMBOL function BigInt::setBit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:641
+EXTRA_TARGET_SYMBOL function BigInt::toBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:665
+EXTRA_TARGET_SYMBOL function BigInt::toLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:667
+EXTRA_TARGET_SYMBOL function BigInt::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:669
+EXTRA_TARGET_SYMBOL function BigInt::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:671
+EXTRA_TARGET_SYMBOL function BigInt::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:673
+EXTRA_TARGET_SYMBOL function BigInt::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:675
+EXTRA_TARGET_SYMBOL function BigInt::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:690
+EXTRA_TARGET_SYMBOL property BigInt::Companion::ZERO at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:697
+EXTRA_TARGET_SYMBOL function BigInt::Companion::default at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:700
+EXTRA_TARGET_SYMBOL function BigInt::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:707
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:714
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:731
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:738
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:745
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSignedBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:753
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromSignedBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:762
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:766
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:768
+EXTRA_TARGET_SYMBOL function BigInt::Companion::parseBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:773
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:787
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:799
+EXTRA_TARGET_SYMBOL function BigInt::Companion::zero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:804
+EXTRA_TARGET_SYMBOL function BigInt::Companion::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:806
+EXTRA_TARGET_SYMBOL function BigInt::Companion::one at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:808
+EXTRA_TARGET_SYMBOL function BigInt::Companion::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:810
+EXTRA_TARGET_SYMBOL function BigInt::Companion::add at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:812
+EXTRA_TARGET_SYMBOL function BigInt::Companion::sub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:817
+EXTRA_TARGET_SYMBOL function BigInt::Companion::mul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:822
+EXTRA_TARGET_SYMBOL function BigInt::Companion::div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:827
+EXTRA_TARGET_SYMBOL function BigInt::Companion::rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:832
+EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:837
+EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:842
+EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:847
+EXTRA_TARGET_SYMBOL function BigInt::Companion::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:852
+EXTRA_TARGET_SYMBOL function BigInt::Companion::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:857
+EXTRA_TARGET_SYMBOL function BigInt::Companion::toI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:862
+EXTRA_TARGET_SYMBOL function BigInt::Companion::toU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:864
+EXTRA_TARGET_SYMBOL function BigInt::Companion::toF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:866
+EXTRA_TARGET_SYMBOL function BigInt::Companion::toF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:868
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:870
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:872
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:874
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:876
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:878
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:883
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:887
 EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:889
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:894
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:898
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:900
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:902
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:904
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:906
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:891
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:893
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:895
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:897
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:899
+EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:901
 EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:908
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:910
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:912
-EXTRA_TARGET_SYMBOL function BigInt::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:919
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:926
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromUInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:928
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromLong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:930
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromULong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:934
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromFloat at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:938
-EXTRA_TARGET_SYMBOL function BigInt::Companion::fromDouble at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:942
-EXTRA_TARGET_SYMBOL function UnsignedAbs::checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:949
-EXTRA_TARGET_SYMBOL property CheckedUnsignedAbs::isPositive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:953
-EXTRA_TARGET_SYMBOL property CheckedUnsignedAbs::value at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:954
-EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:957
-EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:964
-EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:971
-EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:978
-EXTRA_TARGET_SYMBOL function asIntDigits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1006
-EXTRA_TARGET_SYMBOL function ToBigInt::toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1030
-EXTRA_TARGET_SYMBOL type ExtendedGcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1033
-EXTRA_TARGET_SYMBOL property ExtendedGcd::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1034
-EXTRA_TARGET_SYMBOL property ExtendedGcd::x at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1035
-EXTRA_TARGET_SYMBOL property ExtendedGcd::y at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1036
-EXTRA_TARGET_SYMBOL function zeroBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1039
-EXTRA_TARGET_SYMBOL function oneBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1041
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1043
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1047
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1052
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1054
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1058
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1060
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1062
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:915
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromUInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:917
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromLong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:919
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromULong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:923
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromFloat at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:927
+EXTRA_TARGET_SYMBOL function BigInt::Companion::fromDouble at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:931
+EXTRA_TARGET_SYMBOL function UnsignedAbs::checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:938
+EXTRA_TARGET_SYMBOL property CheckedUnsignedAbs::isPositive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:942
+EXTRA_TARGET_SYMBOL property CheckedUnsignedAbs::value at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:943
+EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:946
+EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:953
+EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:960
+EXTRA_TARGET_SYMBOL function checkedUabs at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:967
+EXTRA_TARGET_SYMBOL function asIntDigits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:995
+EXTRA_TARGET_SYMBOL function ToBigInt::toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1019
+EXTRA_TARGET_SYMBOL type ExtendedGcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1022
+EXTRA_TARGET_SYMBOL property ExtendedGcd::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1023
+EXTRA_TARGET_SYMBOL property ExtendedGcd::x at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1024
+EXTRA_TARGET_SYMBOL property ExtendedGcd::y at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1025
+EXTRA_TARGET_SYMBOL function zeroBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1028
+EXTRA_TARGET_SYMBOL function oneBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1030
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1032
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1036
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1041
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1043
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1047
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1049
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1051
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1055
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1057
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1061
 EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1066
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1068
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1072
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1077
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1081
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1070
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1074
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1079
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1083
 EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1085
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1090
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1094
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1096
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1100
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1102
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1104
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1089
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1091
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1093
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1097
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1099
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1103
 EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1108
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1110
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1114
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1119
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1123
-EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1127
-EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1132
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1136
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1140
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1145
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1147
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1151
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1153
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1155
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1112
+EXTRA_TARGET_SYMBOL function divAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1116
+EXTRA_TARGET_SYMBOL function div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1121
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1125
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1129
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1134
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1136
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1140
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1142
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1144
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1148
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1150
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1154
 EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1159
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1161
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1165
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1170
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1174
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1163
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1167
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1172
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1176
 EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1178
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1183
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1187
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1189
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1193
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1195
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1197
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1182
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1184
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1186
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1190
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1192
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1196
 EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1201
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1203
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1207
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1212
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1216
-EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1220
-EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1225
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1229
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1233
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1237
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1241
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1245
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1249
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1253
-EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1257
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1261
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1265
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1269
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1273
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1277
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1281
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1285
-EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1289
-EXTRA_TARGET_SYMBOL function divEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1309
-EXTRA_TARGET_SYMBOL function remEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1313
-EXTRA_TARGET_SYMBOL function divRemEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1317
-EXTRA_TARGET_SYMBOL function toByteOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1321
-EXTRA_TARGET_SYMBOL function toShortOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1324
-EXTRA_TARGET_SYMBOL function toIntOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1327
-EXTRA_TARGET_SYMBOL function toLongOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1330
-EXTRA_TARGET_SYMBOL function toUByteOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1334
-EXTRA_TARGET_SYMBOL function toUShortOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1337
-EXTRA_TARGET_SYMBOL function toUIntOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1340
-EXTRA_TARGET_SYMBOL function toULongOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1343
-EXTRA_TARGET_SYMBOL function toFloatOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1347
-EXTRA_TARGET_SYMBOL function toDoubleOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1351
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1355
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1357
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1359
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1361
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1363
-EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1365
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1205
+EXTRA_TARGET_SYMBOL function remAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1209
+EXTRA_TARGET_SYMBOL function rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1214
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1218
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1222
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1226
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1230
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1234
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1238
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1242
+EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1246
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1250
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1254
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1258
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1262
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1266
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1270
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1274
+EXTRA_TARGET_SYMBOL function shr at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1278
+EXTRA_TARGET_SYMBOL function divEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1298
+EXTRA_TARGET_SYMBOL function remEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1302
+EXTRA_TARGET_SYMBOL function divRemEuclid at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1306
+EXTRA_TARGET_SYMBOL function toByteOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1310
+EXTRA_TARGET_SYMBOL function toShortOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1313
+EXTRA_TARGET_SYMBOL function toIntOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1316
+EXTRA_TARGET_SYMBOL function toLongOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1319
+EXTRA_TARGET_SYMBOL function toUByteOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1323
+EXTRA_TARGET_SYMBOL function toUShortOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1326
+EXTRA_TARGET_SYMBOL function toUIntOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1329
+EXTRA_TARGET_SYMBOL function toULongOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1332
+EXTRA_TARGET_SYMBOL function toFloatOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1336
+EXTRA_TARGET_SYMBOL function toDoubleOrNull at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1340
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1344
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1346
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1348
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1350
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1352
+EXTRA_TARGET_SYMBOL function toBigInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/BigInt.kt:1354
 EXTRA_TARGET_SYMBOL type BigIntUnitTest at src/commonTest/kotlin/io/github/kotlinmania/numbigint/bigint/BigIntUnitTest.kt:7
 EXTRA_TARGET_SYMBOL function BigIntUnitTest::testFromBiguint at src/commonTest/kotlin/io/github/kotlinmania/numbigint/bigint/BigIntUnitTest.kt:8
 EXTRA_TARGET_SYMBOL function BigIntUnitTest::testFromSlice at src/commonTest/kotlin/io/github/kotlinmania/numbigint/bigint/BigIntUnitTest.kt:21
@@ -631,10 +629,10 @@ EXTRA_TARGET_SYMBOL function pow at src/commonMain/kotlin/io/github/kotlinmania/
 EXTRA_TARGET_SYMBOL function pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Power.kt:65
 EXTRA_TARGET_SYMBOL function pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Power.kt:67
 EXTRA_TARGET_SYMBOL function pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Power.kt:69
-PRESENT function serialize at tmp/num-bigint/src/bigint/serde.rs:10 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:59
-PRESENT function deserialize at tmp/num-bigint/src/bigint/serde.rs:25 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:67
-PRESENT function serialize at tmp/num-bigint/src/bigint/serde.rs:43 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:59
-PRESENT function deserialize at tmp/num-bigint/src/bigint/serde.rs:54 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:67
+PRESENT function serialize at tmp/num-bigint/src/bigint/serde.rs:10 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:56
+PRESENT function deserialize at tmp/num-bigint/src/bigint/serde.rs:25 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:64
+PRESENT function serialize at tmp/num-bigint/src/bigint/serde.rs:43 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:56
+PRESENT function deserialize at tmp/num-bigint/src/bigint/serde.rs:54 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Serde.kt:64
 PRESENT function shr_round_down at tmp/num-bigint/src/bigint/shift.rs:100 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Shift.kt:154
 EXTRA_TARGET_SYMBOL function shl at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Shift.kt:13
 EXTRA_TARGET_SYMBOL function shlAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Shift.kt:15
@@ -735,65 +733,65 @@ EXTRA_TARGET_SYMBOL function minus at src/commonMain/kotlin/io/github/kotlinmani
 EXTRA_TARGET_SYMBOL function minus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Subtraction.kt:221
 EXTRA_TARGET_SYMBOL function minusAssign at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Subtraction.kt:223
 EXTRA_TARGET_SYMBOL function minus at src/commonMain/kotlin/io/github/kotlinmania/numbigint/bigint/Subtraction.kt:227
-PRESENT type RandBigInt at tmp/num-bigint/src/bigrand.rs:20 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:18
-PRESENT function gen_bits at tmp/num-bigint/src/bigrand.rs:42 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:50
-PRESENT function gen_bigint at tmp/num-bigint/src/bigrand.rs:89 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:76
-PRESENT function gen_biguint_below at tmp/num-bigint/src/bigrand.rs:113 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:105
-PRESENT function gen_biguint_range at tmp/num-bigint/src/bigrand.rs:124 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:121
-PRESENT function gen_bigint_range at tmp/num-bigint/src/bigrand.rs:133 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:135
-PRESENT type UniformBigUint at tmp/num-bigint/src/bigrand.rs:148 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:150
+PRESENT type RandBigInt at tmp/num-bigint/src/bigrand.rs:20 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:19
+PRESENT function gen_bits at tmp/num-bigint/src/bigrand.rs:42 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:51
+PRESENT function gen_bigint at tmp/num-bigint/src/bigrand.rs:89 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:77
+PRESENT function gen_biguint_below at tmp/num-bigint/src/bigrand.rs:113 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:106
+PRESENT function gen_biguint_range at tmp/num-bigint/src/bigrand.rs:124 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:122
+PRESENT function gen_bigint_range at tmp/num-bigint/src/bigrand.rs:133 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:136
+PRESENT type UniformBigUint at tmp/num-bigint/src/bigrand.rs:148 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:151
 MISSING_SYMBOL type_alias X at tmp/num-bigint/src/bigrand.rs:154
-PRESENT function new at tmp/num-bigint/src/bigrand.rs:157 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:230
-PRESENT function new_inclusive at tmp/num-bigint/src/bigrand.rs:172 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:236
+PRESENT function new at tmp/num-bigint/src/bigrand.rs:157 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:231
+PRESENT function new_inclusive at tmp/num-bigint/src/bigrand.rs:172 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:237
 MISSING_SYMBOL function sample at tmp/num-bigint/src/bigrand.rs:184
 MISSING_SYMBOL function sample_single at tmp/num-bigint/src/bigrand.rs:189
 MISSING_SYMBOL type_alias Sampler at tmp/num-bigint/src/bigrand.rs:199
-PRESENT type UniformBigInt at tmp/num-bigint/src/bigrand.rs:204 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:196
+PRESENT type UniformBigInt at tmp/num-bigint/src/bigrand.rs:204 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:197
 MISSING_SYMBOL type_alias X at tmp/num-bigint/src/bigrand.rs:210
-PRESENT function new at tmp/num-bigint/src/bigrand.rs:213 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:230
-PRESENT function new_inclusive at tmp/num-bigint/src/bigrand.rs:228 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:236
+PRESENT function new at tmp/num-bigint/src/bigrand.rs:213 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:231
+PRESENT function new_inclusive at tmp/num-bigint/src/bigrand.rs:228 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:237
 MISSING_SYMBOL function sample at tmp/num-bigint/src/bigrand.rs:240
 MISSING_SYMBOL function sample_single at tmp/num-bigint/src/bigrand.rs:245
 MISSING_SYMBOL type_alias Sampler at tmp/num-bigint/src/bigrand.rs:255
-PRESENT type RandomBits at tmp/num-bigint/src/bigrand.rs:262 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:244
-PRESENT function new at tmp/num-bigint/src/bigrand.rs:268 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:230
+PRESENT type RandomBits at tmp/num-bigint/src/bigrand.rs:262 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:245
+PRESENT function new at tmp/num-bigint/src/bigrand.rs:268 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:231
 MISSING_SYMBOL function sample at tmp/num-bigint/src/bigrand.rs:275
 MISSING_SYMBOL function sample at tmp/num-bigint/src/bigrand.rs:282
-EXTRA_TARGET_SYMBOL function RandBigInt::genBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:22
-EXTRA_TARGET_SYMBOL function RandBigInt::genBigint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:27
-EXTRA_TARGET_SYMBOL function RandBigInt::genBiguintBelow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:33
-EXTRA_TARGET_SYMBOL function RandBigInt::genBiguintRange at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:40
-EXTRA_TARGET_SYMBOL function RandBigInt::genBigintRange at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:47
-EXTRA_TARGET_SYMBOL function genBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:62
-EXTRA_TARGET_SYMBOL property UniformBigUint::base at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:151
-EXTRA_TARGET_SYMBOL property UniformBigUint::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:152
-EXTRA_TARGET_SYMBOL function UniformBigUint::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:154
-EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::sampler at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:157
-EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:159
-EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::newInclusive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:169
-EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::sampleSingle at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:176
-EXTRA_TARGET_SYMBOL property UniformBigInt::base at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:197
-EXTRA_TARGET_SYMBOL property UniformBigInt::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:198
-EXTRA_TARGET_SYMBOL function UniformBigInt::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:200
-EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::sampler at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:203
-EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:205
-EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::newInclusive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:215
-EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::sampleSingle at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:222
-EXTRA_TARGET_SYMBOL property RandomBits::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:245
-EXTRA_TARGET_SYMBOL function RandomBits::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:247
-EXTRA_TARGET_SYMBOL function RandomBits::toBigIntDistribution at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:249
-EXTRA_TARGET_SYMBOL type RandomBits::BigIntRandomBits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:251
-EXTRA_TARGET_SYMBOL property RandomBits::BigIntRandomBits::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:252
-EXTRA_TARGET_SYMBOL function RandomBits::BigIntRandomBits::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:254
-EXTRA_TARGET_SYMBOL function RandomBits::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:258
-PRESENT type BigUint at tmp/num-bigint/src/biguint.rs:34 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:30
+EXTRA_TARGET_SYMBOL function RandBigInt::genBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:23
+EXTRA_TARGET_SYMBOL function RandBigInt::genBigint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:28
+EXTRA_TARGET_SYMBOL function RandBigInt::genBiguintBelow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:34
+EXTRA_TARGET_SYMBOL function RandBigInt::genBiguintRange at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:41
+EXTRA_TARGET_SYMBOL function RandBigInt::genBigintRange at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:48
+EXTRA_TARGET_SYMBOL function genBiguint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:63
+EXTRA_TARGET_SYMBOL property UniformBigUint::base at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:152
+EXTRA_TARGET_SYMBOL property UniformBigUint::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:153
+EXTRA_TARGET_SYMBOL function UniformBigUint::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:155
+EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::sampler at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:158
+EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:160
+EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::newInclusive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:170
+EXTRA_TARGET_SYMBOL function UniformBigUint::Companion::sampleSingle at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:177
+EXTRA_TARGET_SYMBOL property UniformBigInt::base at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:198
+EXTRA_TARGET_SYMBOL property UniformBigInt::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:199
+EXTRA_TARGET_SYMBOL function UniformBigInt::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:201
+EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::sampler at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:204
+EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:206
+EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::newInclusive at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:216
+EXTRA_TARGET_SYMBOL function UniformBigInt::Companion::sampleSingle at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:223
+EXTRA_TARGET_SYMBOL property RandomBits::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:246
+EXTRA_TARGET_SYMBOL function RandomBits::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:248
+EXTRA_TARGET_SYMBOL function RandomBits::toBigIntDistribution at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:250
+EXTRA_TARGET_SYMBOL type RandomBits::BigIntRandomBits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:252
+EXTRA_TARGET_SYMBOL property RandomBits::BigIntRandomBits::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:253
+EXTRA_TARGET_SYMBOL function RandomBits::BigIntRandomBits::sample at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:255
+EXTRA_TARGET_SYMBOL function RandomBits::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/BigRand.kt:259
+PRESENT type BigUint at tmp/num-bigint/src/biguint.rs:34 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:29
 MISSING_SYMBOL function clone at tmp/num-bigint/src/biguint.rs:42
 MISSING_SYMBOL function clone_from at tmp/num-bigint/src/biguint.rs:49
 MISSING_SYMBOL function hash at tmp/num-bigint/src/biguint.rs:56
 MISSING_SYMBOL function eq at tmp/num-bigint/src/biguint.rs:64
 MISSING_SYMBOL function partial_cmp at tmp/num-bigint/src/biguint.rs:74
 MISSING_SYMBOL function cmp at tmp/num-bigint/src/biguint.rs:81
-PRESENT function cmp_slice at tmp/num-bigint/src/biguint.rs:87 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:765
+PRESENT function cmp_slice at tmp/num-bigint/src/biguint.rs:87 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:758
 MISSING_SYMBOL function default at tmp/num-bigint/src/biguint.rs:99
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:105
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:111
@@ -801,18 +799,18 @@ MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:117
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:123
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:131
 MISSING_SYMBOL function fmt at tmp/num-bigint/src/biguint.rs:137
-PRESENT function zero at tmp/num-bigint/src/biguint.rs:144 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:759
+PRESENT function zero at tmp/num-bigint/src/biguint.rs:144 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:752
 MISSING_SYMBOL function set_zero at tmp/num-bigint/src/biguint.rs:149
 MISSING_SYMBOL function is_zero at tmp/num-bigint/src/biguint.rs:154
-PRESENT property ZERO at tmp/num-bigint/src/biguint.rs:161 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:759
-PRESENT function one at tmp/num-bigint/src/biguint.rs:166 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:761
+PRESENT property ZERO at tmp/num-bigint/src/biguint.rs:161 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:752
+PRESENT function one at tmp/num-bigint/src/biguint.rs:166 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:754
 MISSING_SYMBOL function set_one at tmp/num-bigint/src/biguint.rs:171
 MISSING_SYMBOL function is_one at tmp/num-bigint/src/biguint.rs:177
 MISSING_SYMBOL function div_rem at tmp/num-bigint/src/biguint.rs:186
 MISSING_SYMBOL function div_floor at tmp/num-bigint/src/biguint.rs:191
 MISSING_SYMBOL function mod_floor at tmp/num-bigint/src/biguint.rs:197
 MISSING_SYMBOL function div_mod_floor at tmp/num-bigint/src/biguint.rs:203
-PRESENT function div_ceil at tmp/num-bigint/src/biguint.rs:208 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:966
+PRESENT function div_ceil at tmp/num-bigint/src/biguint.rs:208 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:959
 MISSING_SYMBOL function gcd at tmp/num-bigint/src/biguint.rs:221
 MISSING_SYMBOL function lcm at tmp/num-bigint/src/biguint.rs:257
 MISSING_SYMBOL function gcd_lcm at tmp/num-bigint/src/biguint.rs:268
@@ -824,13 +822,13 @@ MISSING_SYMBOL function next_multiple_of at tmp/num-bigint/src/biguint.rs:311
 MISSING_SYMBOL function prev_multiple_of at tmp/num-bigint/src/biguint.rs:321
 MISSING_SYMBOL function dec at tmp/num-bigint/src/biguint.rs:325
 MISSING_SYMBOL function inc at tmp/num-bigint/src/biguint.rs:329
-PRESENT function fixpoint at tmp/num-bigint/src/biguint.rs:335 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:781
-PRESENT function nth_root at tmp/num-bigint/src/biguint.rs:369 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:808
-PRESENT function sqrt at tmp/num-bigint/src/biguint.rs:433 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:851
-PRESENT function cbrt at tmp/num-bigint/src/biguint.rs:474 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:874
-PRESENT type ToBigUint at tmp/num-bigint/src/biguint.rs:517 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:900
-PRESENT function biguint_from_vec at tmp/num-bigint/src/biguint.rs:526 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:763
-PRESENT property ZERO at tmp/num-bigint/src/biguint.rs:532 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:759
+PRESENT function fixpoint at tmp/num-bigint/src/biguint.rs:335 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:774
+PRESENT function nth_root at tmp/num-bigint/src/biguint.rs:369 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:801
+PRESENT function sqrt at tmp/num-bigint/src/biguint.rs:433 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:844
+PRESENT function cbrt at tmp/num-bigint/src/biguint.rs:474 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:867
+PRESENT type ToBigUint at tmp/num-bigint/src/biguint.rs:517 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:893
+PRESENT function biguint_from_vec at tmp/num-bigint/src/biguint.rs:526 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:756
+PRESENT property ZERO at tmp/num-bigint/src/biguint.rs:532 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:752
 MISSING_SYMBOL function new at tmp/num-bigint/src/biguint.rs:538
 MISSING_SYMBOL function from_slice at tmp/num-bigint/src/biguint.rs:556
 MISSING_SYMBOL function assign_from_slice at tmp/num-bigint/src/biguint.rs:566
@@ -854,9 +852,9 @@ MISSING_SYMBOL function normalized at tmp/num-bigint/src/biguint.rs:873
 MISSING_SYMBOL function pow at tmp/num-bigint/src/biguint.rs:879
 MISSING_SYMBOL function modpow at tmp/num-bigint/src/biguint.rs:886
 MISSING_SYMBOL function modinv at tmp/num-bigint/src/biguint.rs:913
-PRESENT function sqrt at tmp/num-bigint/src/biguint.rs:972 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:851
-PRESENT function cbrt at tmp/num-bigint/src/biguint.rs:978 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:874
-PRESENT function nth_root at tmp/num-bigint/src/biguint.rs:984 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:808
+PRESENT function sqrt at tmp/num-bigint/src/biguint.rs:972 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:844
+PRESENT function cbrt at tmp/num-bigint/src/biguint.rs:978 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:867
+PRESENT function nth_root at tmp/num-bigint/src/biguint.rs:984 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:801
 MISSING_SYMBOL function trailing_zeros at tmp/num-bigint/src/biguint.rs:990
 MISSING_SYMBOL function trailing_ones at tmp/num-bigint/src/biguint.rs:997
 MISSING_SYMBOL function count_ones at tmp/num-bigint/src/biguint.rs:1007
@@ -868,140 +866,139 @@ MISSING_SYMBOL function from_le_bytes at tmp/num-bigint/src/biguint.rs:1054
 MISSING_SYMBOL type_alias Bytes at tmp/num-bigint/src/biguint.rs:1060
 MISSING_SYMBOL function to_be_bytes at tmp/num-bigint/src/biguint.rs:1062
 MISSING_SYMBOL function to_le_bytes at tmp/num-bigint/src/biguint.rs:1066
-PRESENT type IntDigits at tmp/num-bigint/src/biguint.rs:1071 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:907
+PRESENT type IntDigits at tmp/num-bigint/src/biguint.rs:1071 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:900
 MISSING_SYMBOL function digits at tmp/num-bigint/src/biguint.rs:1081
 MISSING_SYMBOL function digits_mut at tmp/num-bigint/src/biguint.rs:1085
 MISSING_SYMBOL function normalize at tmp/num-bigint/src/biguint.rs:1089
 MISSING_SYMBOL function capacity at tmp/num-bigint/src/biguint.rs:1093
 MISSING_SYMBOL function len at tmp/num-bigint/src/biguint.rs:1097
-PRESENT function u32_chunk_to_u64 at tmp/num-bigint/src/biguint.rs:1104 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:937
+PRESENT function u32_chunk_to_u64 at tmp/num-bigint/src/biguint.rs:1104 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:930
 MISSING_SYMBOL function test_u32_u128 at tmp/num-bigint/src/biguint.rs:1170
 MISSING_SYMBOL function test_u128_u32_roundtrip at tmp/num-bigint/src/biguint.rs:1190
-EXTRA_TARGET_SYMBOL property BigUint::data at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:31
-EXTRA_TARGET_SYMBOL function BigUint::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:34
-EXTRA_TARGET_SYMBOL function BigUint::clone at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:38
-EXTRA_TARGET_SYMBOL function BigUint::cloneFrom at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:40
-EXTRA_TARGET_SYMBOL function BigUint::hash at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:45
-EXTRA_TARGET_SYMBOL function BigUint::hashCode at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:50
-EXTRA_TARGET_SYMBOL function BigUint::eq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:52
-EXTRA_TARGET_SYMBOL function BigUint::equals at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:58
-EXTRA_TARGET_SYMBOL function BigUint::partialCmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:60
-EXTRA_TARGET_SYMBOL function BigUint::cmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:62
-EXTRA_TARGET_SYMBOL function BigUint::compareTo at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:64
-EXTRA_TARGET_SYMBOL function BigUint::fmt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:66
-EXTRA_TARGET_SYMBOL function BigUint::toString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:68
-EXTRA_TARGET_SYMBOL function BigUint::toDebugString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:70
-EXTRA_TARGET_SYMBOL function BigUint::toLowerHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:75
-EXTRA_TARGET_SYMBOL function BigUint::toUpperHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:80
-EXTRA_TARGET_SYMBOL function BigUint::toBinaryString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:85
-EXTRA_TARGET_SYMBOL function BigUint::toOctalString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:90
-EXTRA_TARGET_SYMBOL function BigUint::setZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:95
-EXTRA_TARGET_SYMBOL function BigUint::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:99
-EXTRA_TARGET_SYMBOL function BigUint::setOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:101
-EXTRA_TARGET_SYMBOL function BigUint::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:106
-EXTRA_TARGET_SYMBOL function BigUint::divRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:108
-EXTRA_TARGET_SYMBOL function BigUint::divFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:110
-EXTRA_TARGET_SYMBOL function BigUint::modFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:115
-EXTRA_TARGET_SYMBOL function BigUint::divModFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:120
-EXTRA_TARGET_SYMBOL function BigUint::divCeil at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:122
-EXTRA_TARGET_SYMBOL function BigUint::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:132
-EXTRA_TARGET_SYMBOL function BigUint::lcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:168
-EXTRA_TARGET_SYMBOL function BigUint::gcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:178
-EXTRA_TARGET_SYMBOL function BigUint::divides at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:192
-EXTRA_TARGET_SYMBOL function BigUint::isMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:197
-EXTRA_TARGET_SYMBOL function BigUint::isEven at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:207
-EXTRA_TARGET_SYMBOL function BigUint::isOdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:215
-EXTRA_TARGET_SYMBOL function BigUint::nextMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:220
-EXTRA_TARGET_SYMBOL function BigUint::prevMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:228
-EXTRA_TARGET_SYMBOL function BigUint::dec at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:230
-EXTRA_TARGET_SYMBOL function BigUint::inc at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:235
-EXTRA_TARGET_SYMBOL function BigUint::assignFromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:245
-EXTRA_TARGET_SYMBOL function BigUint::toBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:254
-EXTRA_TARGET_SYMBOL function BigUint::toBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:263
-EXTRA_TARGET_SYMBOL function BigUint::toU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:274
-EXTRA_TARGET_SYMBOL function BigUint::toU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:280
-EXTRA_TARGET_SYMBOL function BigUint::iterU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:286
-EXTRA_TARGET_SYMBOL function BigUint::iterU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:292
-EXTRA_TARGET_SYMBOL function BigUint::toStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:298
-EXTRA_TARGET_SYMBOL function BigUint::toRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:310
-EXTRA_TARGET_SYMBOL function BigUint::toRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:322
-EXTRA_TARGET_SYMBOL function BigUint::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:329
-EXTRA_TARGET_SYMBOL function BigUint::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:341
-EXTRA_TARGET_SYMBOL function BigUint::normalized at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:353
-EXTRA_TARGET_SYMBOL function BigUint::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:361
-EXTRA_TARGET_SYMBOL function BigUint::modpow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:370
-EXTRA_TARGET_SYMBOL function BigUint::modinv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:380
-EXTRA_TARGET_SYMBOL function BigUint::sqrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:432
-EXTRA_TARGET_SYMBOL function BigUint::cbrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:437
-EXTRA_TARGET_SYMBOL function BigUint::nthRoot at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:442
-EXTRA_TARGET_SYMBOL function BigUint::trailingZeros at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:448
-EXTRA_TARGET_SYMBOL function BigUint::trailingOnes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:460
-EXTRA_TARGET_SYMBOL function BigUint::countOnes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:473
-EXTRA_TARGET_SYMBOL function BigUint::bit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:478
-EXTRA_TARGET_SYMBOL function BigUint::setBit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:496
-EXTRA_TARGET_SYMBOL function BigUint::toBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:516
-EXTRA_TARGET_SYMBOL function BigUint::toLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:518
-EXTRA_TARGET_SYMBOL function BigUint::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:520
-EXTRA_TARGET_SYMBOL function BigUint::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:522
-EXTRA_TARGET_SYMBOL function BigUint::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:524
-EXTRA_TARGET_SYMBOL function BigUint::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:526
-EXTRA_TARGET_SYMBOL function BigUint::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:542
-EXTRA_TARGET_SYMBOL property BigUint::Companion::ZERO at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:549
-EXTRA_TARGET_SYMBOL function BigUint::Companion::default at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:552
-EXTRA_TARGET_SYMBOL function BigUint::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:559
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:571
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:582
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:596
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:603
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:605
-EXTRA_TARGET_SYMBOL function BigUint::Companion::parseBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:614
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:628
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:639
-EXTRA_TARGET_SYMBOL function BigUint::Companion::zero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:643
-EXTRA_TARGET_SYMBOL function BigUint::Companion::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:645
-EXTRA_TARGET_SYMBOL function BigUint::Companion::one at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:647
-EXTRA_TARGET_SYMBOL function BigUint::Companion::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:649
-EXTRA_TARGET_SYMBOL function BigUint::Companion::add at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:651
-EXTRA_TARGET_SYMBOL function BigUint::Companion::sub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:656
-EXTRA_TARGET_SYMBOL function BigUint::Companion::mul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:661
-EXTRA_TARGET_SYMBOL function BigUint::Companion::div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:666
-EXTRA_TARGET_SYMBOL function BigUint::Companion::rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:671
-EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:676
-EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:681
-EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:686
-EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:691
-EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:696
-EXTRA_TARGET_SYMBOL function BigUint::Companion::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:701
-EXTRA_TARGET_SYMBOL function BigUint::Companion::toI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:706
-EXTRA_TARGET_SYMBOL function BigUint::Companion::toU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:708
-EXTRA_TARGET_SYMBOL function BigUint::Companion::toF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:710
-EXTRA_TARGET_SYMBOL function BigUint::Companion::toF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:712
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:714
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:716
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:718
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:720
-EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:722
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:727
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromULong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:731
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromUInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:735
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromLong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:737
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:739
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromFloat at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:741
-EXTRA_TARGET_SYMBOL function BigUint::Companion::fromDouble at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:745
-EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:749
-EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:751
-EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:753
-EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:755
-EXTRA_TARGET_SYMBOL function ToBigUint::toBigUint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:904
-EXTRA_TARGET_SYMBOL function IntDigits::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:908
-EXTRA_TARGET_SYMBOL function IntDigits::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:910
-EXTRA_TARGET_SYMBOL function IntDigits::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:912
-EXTRA_TARGET_SYMBOL function IntDigits::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:914
-EXTRA_TARGET_SYMBOL function IntDigits::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:916
-EXTRA_TARGET_SYMBOL function asIntDigits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:919
-EXTRA_TARGET_SYMBOL function u32ToU128 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:949
-EXTRA_TARGET_SYMBOL function u32FromU128 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:958
-EXTRA_TARGET_SYMBOL property DOUBLE_MAX_EXPONENT at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:971
+EXTRA_TARGET_SYMBOL property BigUint::data at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:30
+EXTRA_TARGET_SYMBOL function BigUint::serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:33
+EXTRA_TARGET_SYMBOL function BigUint::clone at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:37
+EXTRA_TARGET_SYMBOL function BigUint::cloneFrom at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:39
+EXTRA_TARGET_SYMBOL function BigUint::hash at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:44
+EXTRA_TARGET_SYMBOL function BigUint::hashCode at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:49
+EXTRA_TARGET_SYMBOL function BigUint::eq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:51
+EXTRA_TARGET_SYMBOL function BigUint::equals at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:57
+EXTRA_TARGET_SYMBOL function BigUint::partialCmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:59
+EXTRA_TARGET_SYMBOL function BigUint::cmp at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:61
+EXTRA_TARGET_SYMBOL function BigUint::compareTo at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:63
+EXTRA_TARGET_SYMBOL function BigUint::fmt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:65
+EXTRA_TARGET_SYMBOL function BigUint::toString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:67
+EXTRA_TARGET_SYMBOL function BigUint::toDebugString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:69
+EXTRA_TARGET_SYMBOL function BigUint::toLowerHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:74
+EXTRA_TARGET_SYMBOL function BigUint::toUpperHexString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:79
+EXTRA_TARGET_SYMBOL function BigUint::toBinaryString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:84
+EXTRA_TARGET_SYMBOL function BigUint::toOctalString at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:89
+EXTRA_TARGET_SYMBOL function BigUint::setZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:94
+EXTRA_TARGET_SYMBOL function BigUint::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:98
+EXTRA_TARGET_SYMBOL function BigUint::setOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:100
+EXTRA_TARGET_SYMBOL function BigUint::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:105
+EXTRA_TARGET_SYMBOL function BigUint::divRem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:107
+EXTRA_TARGET_SYMBOL function BigUint::divFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:109
+EXTRA_TARGET_SYMBOL function BigUint::modFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:114
+EXTRA_TARGET_SYMBOL function BigUint::divModFloor at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:119
+EXTRA_TARGET_SYMBOL function BigUint::divCeil at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:121
+EXTRA_TARGET_SYMBOL function BigUint::gcd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:131
+EXTRA_TARGET_SYMBOL function BigUint::lcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:167
+EXTRA_TARGET_SYMBOL function BigUint::gcdLcm at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:177
+EXTRA_TARGET_SYMBOL function BigUint::divides at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:191
+EXTRA_TARGET_SYMBOL function BigUint::isMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:196
+EXTRA_TARGET_SYMBOL function BigUint::isEven at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:206
+EXTRA_TARGET_SYMBOL function BigUint::isOdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:214
+EXTRA_TARGET_SYMBOL function BigUint::nextMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:219
+EXTRA_TARGET_SYMBOL function BigUint::prevMultipleOf at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:227
+EXTRA_TARGET_SYMBOL function BigUint::dec at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:229
+EXTRA_TARGET_SYMBOL function BigUint::inc at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:234
+EXTRA_TARGET_SYMBOL function BigUint::assignFromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:244
+EXTRA_TARGET_SYMBOL function BigUint::toBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:253
+EXTRA_TARGET_SYMBOL function BigUint::toBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:262
+EXTRA_TARGET_SYMBOL function BigUint::toU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:273
+EXTRA_TARGET_SYMBOL function BigUint::toU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:279
+EXTRA_TARGET_SYMBOL function BigUint::iterU32Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:285
+EXTRA_TARGET_SYMBOL function BigUint::iterU64Digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:291
+EXTRA_TARGET_SYMBOL function BigUint::toStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:297
+EXTRA_TARGET_SYMBOL function BigUint::toRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:309
+EXTRA_TARGET_SYMBOL function BigUint::toRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:321
+EXTRA_TARGET_SYMBOL function BigUint::bits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:328
+EXTRA_TARGET_SYMBOL function BigUint::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:340
+EXTRA_TARGET_SYMBOL function BigUint::normalized at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:352
+EXTRA_TARGET_SYMBOL function BigUint::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:360
+EXTRA_TARGET_SYMBOL function BigUint::modpow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:369
+EXTRA_TARGET_SYMBOL function BigUint::modinv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:379
+EXTRA_TARGET_SYMBOL function BigUint::sqrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:431
+EXTRA_TARGET_SYMBOL function BigUint::cbrt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:436
+EXTRA_TARGET_SYMBOL function BigUint::nthRoot at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:441
+EXTRA_TARGET_SYMBOL function BigUint::trailingZeros at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:447
+EXTRA_TARGET_SYMBOL function BigUint::trailingOnes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:459
+EXTRA_TARGET_SYMBOL function BigUint::countOnes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:472
+EXTRA_TARGET_SYMBOL function BigUint::bit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:477
+EXTRA_TARGET_SYMBOL function BigUint::setBit at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:495
+EXTRA_TARGET_SYMBOL function BigUint::toBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:515
+EXTRA_TARGET_SYMBOL function BigUint::toLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:517
+EXTRA_TARGET_SYMBOL function BigUint::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:519
+EXTRA_TARGET_SYMBOL function BigUint::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:521
+EXTRA_TARGET_SYMBOL function BigUint::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:523
+EXTRA_TARGET_SYMBOL function BigUint::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:525
+EXTRA_TARGET_SYMBOL function BigUint::Companion::deserialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:540
+EXTRA_TARGET_SYMBOL property BigUint::Companion::ZERO at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:547
+EXTRA_TARGET_SYMBOL function BigUint::Companion::default at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:550
+EXTRA_TARGET_SYMBOL function BigUint::Companion::new at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:557
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromSlice at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:569
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBytesBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:580
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBytesLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:594
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromBeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:601
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromLeBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:603
+EXTRA_TARGET_SYMBOL function BigUint::Companion::parseBytes at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:612
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromRadixBe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:626
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromRadixLe at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:637
+EXTRA_TARGET_SYMBOL function BigUint::Companion::zero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:641
+EXTRA_TARGET_SYMBOL function BigUint::Companion::isZero at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:643
+EXTRA_TARGET_SYMBOL function BigUint::Companion::one at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:645
+EXTRA_TARGET_SYMBOL function BigUint::Companion::isOne at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:647
+EXTRA_TARGET_SYMBOL function BigUint::Companion::add at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:649
+EXTRA_TARGET_SYMBOL function BigUint::Companion::sub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:654
+EXTRA_TARGET_SYMBOL function BigUint::Companion::mul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:659
+EXTRA_TARGET_SYMBOL function BigUint::Companion::div at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:664
+EXTRA_TARGET_SYMBOL function BigUint::Companion::rem at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:669
+EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedAdd at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:674
+EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedSub at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:679
+EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedMul at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:684
+EXTRA_TARGET_SYMBOL function BigUint::Companion::checkedDiv at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:689
+EXTRA_TARGET_SYMBOL function BigUint::Companion::pow at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:694
+EXTRA_TARGET_SYMBOL function BigUint::Companion::toI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:699
+EXTRA_TARGET_SYMBOL function BigUint::Companion::toU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:701
+EXTRA_TARGET_SYMBOL function BigUint::Companion::toF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:703
+EXTRA_TARGET_SYMBOL function BigUint::Companion::toF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:705
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromI64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:707
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromU64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:709
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromF32 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:711
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromF64 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:713
+EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:715
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromStrRadix at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:720
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromULong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:724
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromUInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:728
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromLong at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:730
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromInt at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:732
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromFloat at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:734
+EXTRA_TARGET_SYMBOL function BigUint::Companion::fromDouble at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:738
+EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:742
+EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:744
+EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:746
+EXTRA_TARGET_SYMBOL function BigUint::Companion::from at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:748
+EXTRA_TARGET_SYMBOL function ToBigUint::toBigUint at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:897
+EXTRA_TARGET_SYMBOL function IntDigits::digits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:901
+EXTRA_TARGET_SYMBOL function IntDigits::digitsMut at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:903
+EXTRA_TARGET_SYMBOL function IntDigits::normalize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:905
+EXTRA_TARGET_SYMBOL function IntDigits::capacity at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:907
+EXTRA_TARGET_SYMBOL function IntDigits::len at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:909
+EXTRA_TARGET_SYMBOL function asIntDigits at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:912
+EXTRA_TARGET_SYMBOL function u32ToU128 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:942
+EXTRA_TARGET_SYMBOL function u32FromU128 at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:951
+EXTRA_TARGET_SYMBOL property DOUBLE_MAX_EXPONENT at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/BigUint.kt:964
 EXTRA_TARGET_SYMBOL type BigUintUnitTest at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/BigUintUnitTest.kt:7
 EXTRA_TARGET_SYMBOL function BigUintUnitTest::testFromSlice at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/BigUintUnitTest.kt:8
 EXTRA_TARGET_SYMBOL function BigUintUnitTest::testU32U128 at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/BigUintUnitTest.kt:21
@@ -1281,15 +1278,15 @@ MISSING_SYMBOL function test_pow_biguint at tmp/num-bigint/src/biguint/power.rs:
 EXTRA_TARGET_SYMBOL type PowerTest at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/PowerTest.kt:7
 EXTRA_TARGET_SYMBOL function PowerTest::testPlainModpow at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/PowerTest.kt:8
 EXTRA_TARGET_SYMBOL function PowerTest::testPowBiguint at src/commonTest/kotlin/io/github/kotlinmania/numbigint/biguint/PowerTest.kt:40
-PRESENT function cautious at tmp/num-bigint/src/biguint/serde.rs:13 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:23
-PRESENT function deserialize at tmp/num-bigint/src/biguint/serde.rs:64 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:43
-PRESENT type U32Visitor at tmp/num-bigint/src/biguint/serde.rs:72 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:46
-PRESENT type_alias Value at tmp/num-bigint/src/biguint/serde.rs:75 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:21
+PRESENT function cautious at tmp/num-bigint/src/biguint/serde.rs:13 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:24
+PRESENT function deserialize at tmp/num-bigint/src/biguint/serde.rs:64 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:44
+PRESENT type U32Visitor at tmp/num-bigint/src/biguint/serde.rs:72 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:47
+PRESENT type_alias Value at tmp/num-bigint/src/biguint/serde.rs:75 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:22
 MISSING_SYMBOL function expecting at tmp/num-bigint/src/biguint/serde.rs:77
-EXTRA_TARGET_SYMBOL property MAX_PREALLOC_BYTES at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:19
-EXTRA_TARGET_SYMBOL function serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:25
-EXTRA_TARGET_SYMBOL function U32Visitor::expecting at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:47
-EXTRA_TARGET_SYMBOL function U32Visitor::visitSeq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:49
+EXTRA_TARGET_SYMBOL property MAX_PREALLOC_BYTES at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:20
+EXTRA_TARGET_SYMBOL function serialize at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:26
+EXTRA_TARGET_SYMBOL function U32Visitor::expecting at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:48
+EXTRA_TARGET_SYMBOL function U32Visitor::visitSeq at src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Serde.kt:50
 PRESENT function biguint_shl at tmp/num-bigint/src/biguint/shift.rs:12 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Shift.kt:4
 PRESENT function biguint_shl2 at tmp/num-bigint/src/biguint/shift.rs:25 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Shift.kt:15
 PRESENT function biguint_shr at tmp/num-bigint/src/biguint/shift.rs:54 -> src/commonMain/kotlin/io/github/kotlinmania/numbigint/biguint/Shift.kt:51
