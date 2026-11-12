@@ -14,6 +14,8 @@ rand = "0.2.0"
 serde = "0.1.12"
 serdeTest = "0.1.2"
 
+androidxTestRunner = "1.7.0"
+
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidKmp" }
@@ -35,6 +37,8 @@ num-traits-kotlin = { module = "io.github.kotlinmania:num-traits-kotlin", versio
 rand-kotlin = { module = "io.github.kotlinmania:rand-kotlin", version.ref = "rand" }
 serde-kotlin = { module = "io.github.kotlinmania:serde-kotlin", version.ref = "serde" }
 serde-test-kotlin = { module = "io.github.kotlinmania:serde-test-kotlin", version.ref = "serdeTest" }
+
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
 
 [bundles]
 numbigint-commonMain = [
