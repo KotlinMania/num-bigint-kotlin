@@ -86,6 +86,7 @@ naming:
   ConstructorParameterNaming: { active: false }
   FunctionParameterNaming: { active: false }
   MatchingDeclarationName: { active: false }
+  InvalidPackageDeclaration: { active: false }
   ObjectPropertyNaming: { active: false }
   MemberNameEqualsClassName: { active: false }
 
