@@ -31,15 +31,14 @@ fun <Ok> serialize(
     // and backward compatibility of serialized data! If we ever change the
     // internal representation, we should still serialize in base-`UInt`.
     val data: List<UInt> = self.data
-    return serializer.collectSeq(
-        data.map { digit ->
-            object : Serialize {
-                override fun <ElementOk> serialize(serializer: Serializer<ElementOk>): SerdeResult<ElementOk> =
-                    digit.serialize(serializer)
-            }
-        },
-    )
+    return serializer.collectSeq(data.map { digit -> u32ElementSerialize(digit) })
 }
+
+private fun u32ElementSerialize(digit: UInt): Serialize =
+    object : Serialize {
+        override fun <ElementOk> serialize(serializer: Serializer<ElementOk>): SerdeResult<ElementOk> =
+            digit.serialize(serializer)
+    }
 
 fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<BigUint> =
     deserializer.deserializeSeq(U32Visitor)
