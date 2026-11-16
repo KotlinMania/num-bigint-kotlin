@@ -5,7 +5,7 @@
     "lang": "rust"
   },
   "target": {
-    "path": "src/commonMain/kotlin/io/github/kotlinmania/numbigint",
+    "path": "src/common/commonMain/kotlin/io/github/kotlinmania/numbigint",
     "lang": "kotlin"
   },
   "checks": {

@@ -1,6 +1,6 @@
 # port-lint Proposed Changes
 
-**Generated:** 2026-10-17
+**Generated:** 2026-10-26
 **Source:** tmp/num-bigint/src
 **Target:** src/commonMain/kotlin/io/github/kotlinmania/numbigint
 

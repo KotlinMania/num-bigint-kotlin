@@ -48,6 +48,7 @@ style:
   UnusedPrivateProperty: { active: false }
   RedundantVisibilityModifier: { active: false }
   AbstractClassCanBeInterface: { active: false }
+  AbstractClassCanBeConcreteClass: { active: false }
 
 complexity:
   active: true
@@ -85,9 +86,9 @@ naming:
   ConstructorParameterNaming: { active: false }
   FunctionParameterNaming: { active: false }
   MatchingDeclarationName: { active: false }
+  InvalidPackageDeclaration: { active: false }
   ObjectPropertyNaming: { active: false }
   MemberNameEqualsClassName: { active: false }
-  InvalidPackageDeclaration: { active: false }
 
 exceptions:
   active: true
