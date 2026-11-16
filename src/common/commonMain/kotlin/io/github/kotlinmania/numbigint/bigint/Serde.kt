@@ -45,10 +45,11 @@ fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<Sign> =
             }
 
             else -> {
-                SerdeError.invalidValue(
-                    Unexpected.Signed(sign.toLong()),
-                    Expected { "a sign of -1, 0, or 1" },
-                ).raise()
+                SerdeError
+                    .invalidValue(
+                        Unexpected.Signed(sign.toLong()),
+                        Expected { "a sign of -1, 0, or 1" },
+                    ).raise()
             }
         }
     }

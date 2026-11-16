@@ -182,13 +182,13 @@ public class UniformBigUint(
 /**
  * Creates a [Uniform] distribution for [BigUint] in `[low, high)`.
  */
-public fun Uniform.Companion.new(low: BigUint, high: BigUint): Uniform<BigUint> =
+internal fun Uniform.Companion.new(low: BigUint, high: BigUint): Uniform<BigUint> =
     Uniform(UniformBigUint.new(low, high))
 
 /**
  * Creates a [Uniform] distribution for [BigUint] in `[low, high]`.
  */
-public fun Uniform.Companion.newInclusive(low: BigUint, high: BigUint): Uniform<BigUint> =
+internal fun Uniform.Companion.newInclusive(low: BigUint, high: BigUint): Uniform<BigUint> =
     Uniform(UniformBigUint.newInclusive(low, high))
 
 /**
@@ -228,13 +228,13 @@ public class UniformBigInt(
 /**
  * Creates a [Uniform] distribution for [BigInt] in `[low, high)`.
  */
-public fun Uniform.Companion.new(low: BigInt, high: BigInt): Uniform<BigInt> =
+internal fun Uniform.Companion.new(low: BigInt, high: BigInt): Uniform<BigInt> =
     Uniform(UniformBigInt.new(low, high))
 
 /**
  * Creates a [Uniform] distribution for [BigInt] in `[low, high]`.
  */
-public fun Uniform.Companion.newInclusive(low: BigInt, high: BigInt): Uniform<BigInt> =
+internal fun Uniform.Companion.newInclusive(low: BigInt, high: BigInt): Uniform<BigInt> =
     Uniform(UniformBigInt.newInclusive(low, high))
 
 /**
