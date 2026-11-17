@@ -4,22 +4,6 @@ package io.github.kotlinmania.numbigint
 internal const val FAST_DIV_WIDE: Boolean = true
 
 /**
- * Divide a two digit numerator by a one digit divisor, returns quotient and remainder.
- *
- * The caller must ensure that both the quotient and remainder will fit into a single digit.
- * This is not true for an arbitrary numerator or denominator.
- *
- * This function also matches what the x86 divide instruction does.
- */
-private fun divWide(hi: BigDigit, lo: BigDigit, divisor: BigDigit): Pair<BigDigit, BigDigit> {
-    check(hi < divisor)
-
-    val lhs = toDoubleBigDigit(hi, lo)
-    val rhs = divisor.toULong()
-    return Pair((lhs / rhs).toUInt(), (lhs % rhs).toUInt())
-}
-
-/**
  * For small divisors, we can divide without promoting to `DoubleBigDigit` by
  * using half-size pieces of digit, like long-division.
  */
@@ -40,14 +24,17 @@ internal fun divRemDigit(a: BigUint, b: BigDigit): Pair<BigUint, BigDigit> {
     var rem = 0u
     var i = a.data.lastIndex
     while (i >= 0) {
-        val (q, r) =
-            if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
-                divHalf(rem, a.data[i], b)
-            } else {
-                divWide(rem, a.data[i], b)
-            }
-        a.data[i] = q
-        rem = r
+        if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
+            val (q, r) = divHalf(rem, a.data[i], b)
+            a.data[i] = q
+            rem = r
+        } else {
+            check(rem < b)
+            val lhs = toDoubleBigDigit(rem, a.data[i])
+            val rhs = b.toULong()
+            a.data[i] = (lhs / rhs).toUInt()
+            rem = (lhs % rhs).toUInt()
+        }
         i -= 1
     }
 
@@ -60,13 +47,14 @@ private fun remDigit(a: BigUint, b: BigDigit): BigDigit {
     var rem = 0u
     var i = a.data.lastIndex
     while (i >= 0) {
-        val (_, r) =
-            if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
-                divHalf(rem, a.data[i], b)
-            } else {
-                divWide(rem, a.data[i], b)
-            }
-        rem = r
+        if (!FAST_DIV_WIDE && b <= BIG_DIGIT_HALF) {
+            val (_, r) = divHalf(rem, a.data[i], b)
+            rem = r
+        } else {
+            check(rem < b)
+            val lhs = toDoubleBigDigit(rem, a.data[i])
+            rem = (lhs % b.toULong()).toUInt()
+        }
         i -= 1
     }
 
@@ -89,6 +77,7 @@ internal fun subMulDigitSameLen(
     // carry is between -BIG_DIGIT_MAX and 0, so to avoid overflow we store
     // offsetCarry = carry + BIG_DIGIT_MAX
     var offsetCarry = BIG_DIGIT_MAX
+    val cLong = c.toULong()
 
     var i = 0
     while (i < b.size) {
@@ -100,11 +89,10 @@ internal fun subMulDigitSameLen(
             toDoubleBigDigit(BIG_DIGIT_MAX, a[aOffset + i]) -
                 BIG_DIGIT_MAX.toULong() +
                 offsetCarry.toULong() -
-                b[i].toULong() * c.toULong()
+                b[i].toULong() * cLong
 
-        val (newOffsetCarry, newX) = fromDoubleBigDigit(offsetSum)
-        offsetCarry = newOffsetCarry
-        a[aOffset + i] = newX
+        offsetCarry = (offsetSum shr BITS.toInt()).toUInt()
+        a[aOffset + i] = offsetSum.toUInt()
         i += 1
     }
 
@@ -181,9 +169,10 @@ private fun divRemCore(a: BigUint, b: List<BigDigit>): Pair<BigUint, BigUint> {
         var q0: BigDigit
         var r: DoubleBigDigit
         if (a0 < b0) {
-            val (qEst, rEst) = divWide(a0, a1, b0)
-            q0 = qEst
-            r = rEst.toULong()
+            val lhs = toDoubleBigDigit(a0, a1)
+            val rhs = b0.toULong()
+            q0 = (lhs / rhs).toUInt()
+            r = lhs % rhs
         } else {
             check(a0 == b0)
             // Avoid overflowing q0, we know the quotient fits in BigDigit.

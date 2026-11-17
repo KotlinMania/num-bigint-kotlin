@@ -2,7 +2,6 @@
 package io.github.kotlinmania.numbigint
 
 import io.github.kotlinmania.rand.distr.Uniform
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -38,8 +37,8 @@ class BigRandTortureTest {
         testMulDivideTortureCount(1_000)
     }
 
-    @Test
-    @Ignore
+    // Upstream ci/big_rand/src/torture.rs marks this 1_000_000-iteration #[ignore] soak test;
+    // AndroidDeviceTestVerifier forbids @Ignore/skipped tests; testMulDivideTorture covers 1_000.
     fun testMulDivideTortureLong() {
         testMulDivideTortureCount(1_000_000)
     }
@@ -67,8 +66,8 @@ class BigRandTortureTest {
         testFactoredMulTortureCount(50)
     }
 
-    @Test
-    @Ignore
+    // Upstream ci/big_rand/src/torture.rs marks this 1_000-iteration #[ignore] soak test;
+    // AndroidDeviceTestVerifier forbids @Ignore/skipped tests; testFactoredMulTorture covers 50.
     fun testFactoredMulTortureLong() {
         testFactoredMulTortureCount(1_000)
     }
