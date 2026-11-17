@@ -19,9 +19,14 @@ private fun mulWithCarry(a: BigDigit, b: BigDigit, acc: DoubleBigDigit): DoubleB
 
 /**
  * Three argument multiply accumulate:
- * `acc += b * c`
+ * `acc += b * c` starting at `accOffset`.
  */
-private fun macDigit(acc: MutableList<BigDigit>, b: List<BigDigit>, c: BigDigit) {
+private fun macDigit(
+    acc: MutableList<BigDigit>,
+    b: List<BigDigit>,
+    c: BigDigit,
+    accOffset: Int = 0,
+) {
     if (c == 0u) {
         return
     }
@@ -29,20 +34,20 @@ private fun macDigit(acc: MutableList<BigDigit>, b: List<BigDigit>, c: BigDigit)
     var carry = 0uL
     var i = 0
     while (i < b.size) {
-        val nextAcc = macWithCarry(acc[i], b[i], c, carry)
-        acc[i] = nextAcc.toUInt()
+        val nextAcc = macWithCarry(acc[accOffset + i], b[i], c, carry)
+        acc[accOffset + i] = nextAcc.toUInt()
         carry = nextAcc shr BIG_DIGIT_BITS
         i += 1
     }
 
-    val (carryHi, carryLo) = fromDoubleBigDigit(carry)
-    val finalCarry =
-        if (carryHi == 0u) {
-            add2Carry(acc, listOf(carryLo), aOffset = b.size)
-        } else {
-            add2Carry(acc, listOf(carryHi, carryLo), aOffset = b.size)
-        }
-    check(finalCarry == 0u) { "carry overflow during multiplication!" }
+    var pos = accOffset + b.size
+    while (carry != 0uL && pos < acc.size) {
+        val sum = acc[pos].toULong() + (carry and 0xFFFF_FFFFuL)
+        acc[pos] = sum.toUInt()
+        carry = (carry shr BIG_DIGIT_BITS) + (sum shr BIG_DIGIT_BITS)
+        pos += 1
+    }
+    check(carry == 0uL) { "carry overflow during multiplication!" }
 }
 
 internal fun bigintFromSlice(slice: List<BigDigit>): BigInt =
@@ -50,10 +55,15 @@ internal fun bigintFromSlice(slice: List<BigDigit>): BigInt =
 
 /**
  * Three argument multiply accumulate:
- * `acc += b * c`
+ * `acc0 += b0 * c0` starting at `accOffset0`.
  */
-private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDigit>) {
-    var accOffset = 0
+private fun mac3(
+    acc0: MutableList<BigDigit>,
+    b0: List<BigDigit>,
+    c0: List<BigDigit>,
+    accOffset0: Int = 0,
+) {
+    var accOffset = accOffset0
     var b = b0
     var c = c0
 
@@ -77,8 +87,15 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
         }
     }
 
-    val acc = if (accOffset > 0) acc0.subList(accOffset, acc0.size) else acc0
-    val (x, y) = if (b.size < c.size) Pair(b, c) else Pair(c, b)
+    val x: List<BigDigit>
+    val y: List<BigDigit>
+    if (b.size < c.size) {
+        x = b
+        y = c
+    } else {
+        x = c
+        y = b
+    }
 
     // We use four algorithms for different input sizes.
     //
@@ -94,8 +111,8 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
 
     if (x.size <= 32) {
         // Long multiplication:
-        for ((i, xi) in x.withIndex()) {
-            macDigit(acc.subList(i, acc.size), y, xi)
+        for (idx in 0 until x.size) {
+            macDigit(acc0, y, x[idx], accOffset = accOffset + idx)
         }
     } else if (x.size * 2 <= y.size) {
         // Karatsuba Multiplication for factors with significant length disparity.
@@ -119,8 +136,8 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
         val high2 = y.subList(m2, y.size)
 
         // (x * high2) * NBASE ^ m2 + z0
-        mac3(acc, x, low2)
-        mac3(acc.subList(m2, acc.size), x, high2)
+        mac3(acc0, x, low2, accOffset)
+        mac3(acc0, x, high2, accOffset + m2)
     } else if (x.size <= 256) {
         // Karatsuba multiplication:
         //
@@ -143,19 +160,23 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
         // Not required, but the adds go faster if we drop any unneeded 0s from the end:
         p.normalize()
 
-        add2(acc.subList(bLen, acc.size), p.data)
-        add2(acc.subList(bLen * 2, acc.size), p.data)
+        add2(acc0, p.data, aOffset = accOffset + bLen)
+        add2(acc0, p.data, aOffset = accOffset + bLen * 2)
 
         // Zero out p before the next multiply:
-        p.data.clear()
-        repeat(len) { p.data.add(0u) }
+        for (idx in 0 until p.data.size) {
+            p.data[idx] = 0u
+        }
+        while (p.data.size < len) {
+            p.data.add(0u)
+        }
 
         // p0 = x0 * y0
         mac3(p.data, x0, y0)
         p.normalize()
 
-        add2(acc, p.data)
-        add2(acc.subList(bLen, acc.size), p.data)
+        add2(acc0, p.data, aOffset = accOffset)
+        add2(acc0, p.data, aOffset = accOffset + bLen)
 
         // p1 = (x1 - x0) * (y1 - y0)
         // We do this one last, since it may be negative and acc can't ever be negative:
@@ -164,17 +185,21 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
 
         when (j0Sign * j1Sign) {
             Sign.Plus -> {
-                p.data.clear()
-                repeat(len) { p.data.add(0u) }
+                for (idx in 0 until p.data.size) {
+                    p.data[idx] = 0u
+                }
+                while (p.data.size < len) {
+                    p.data.add(0u)
+                }
 
                 mac3(p.data, j0.data, j1.data)
                 p.normalize()
 
-                sub2(acc.subList(bLen, acc.size), p.data)
+                sub2(acc0, p.data, aOffset = accOffset + bLen)
             }
 
             Sign.Minus -> {
-                mac3(acc.subList(bLen, acc.size), j0.data, j1.data)
+                mac3(acc0, j0.data, j1.data, accOffset + bLen)
             }
 
             Sign.NoSign -> {}
@@ -267,11 +292,11 @@ private fun mac3(acc0: MutableList<BigDigit>, b0: List<BigDigit>, c0: List<BigDi
         for ((j, result) in listOf(r0, comp1, comp2, comp3, r4).withIndex().reversed()) {
             when (result.sign()) {
                 Sign.Plus -> {
-                    add2(acc.subList(i * j, acc.size), result.data.data)
+                    add2(acc0, result.data.data, aOffset = accOffset + i * j)
                 }
 
                 Sign.Minus -> {
-                    sub2(acc.subList(i * j, acc.size), result.data.data)
+                    sub2(acc0, result.data.data, aOffset = accOffset + i * j)
                 }
 
                 Sign.NoSign -> {}

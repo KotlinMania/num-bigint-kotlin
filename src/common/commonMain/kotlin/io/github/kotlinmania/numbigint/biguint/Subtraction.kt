@@ -1,36 +1,35 @@
 // port-lint: source biguint/subtraction.rs
 package io.github.kotlinmania.numbigint
 
-// Subtract with borrow.
-private fun sbb(borrow: BigDigit, lhs: BigDigit, rhs: BigDigit): Pair<BigDigit, BigDigit> {
-    val subtrahend = rhs.toULong() + borrow.toULong()
-    val minuend = lhs.toULong()
-    val out = (minuend - subtrahend).toUInt()
-    val nextBorrow = if (minuend < subtrahend) 1u else 0u
-    return Pair(out, nextBorrow)
-}
-
-internal fun sub2(a: MutableList<BigDigit>, b: List<BigDigit>) {
+internal fun sub2(a: MutableList<BigDigit>, b: List<BigDigit>, aOffset: Int = 0) {
     var borrow = 0u
 
-    val len = minOf(a.size, b.size)
+    val len = minOf(a.size - aOffset, b.size)
     var i = 0
     while (i < len) {
-        val (out, nextBorrow) = sbb(borrow, a[i], b[i])
-        a[i] = out
-        borrow = nextBorrow
+        val minuend = a[aOffset + i].toULong()
+        val subtrahend = b[i].toULong() + borrow.toULong()
+        a[aOffset + i] = (minuend - subtrahend).toUInt()
+        borrow = if (minuend < subtrahend) 1u else 0u
         i += 1
     }
 
-    while (borrow != 0u && i < a.size) {
-        val (out, nextBorrow) = sbb(borrow, a[i], 0u)
-        a[i] = out
-        borrow = nextBorrow
+    while (borrow != 0u && aOffset + i < a.size) {
+        val minuend = a[aOffset + i].toULong()
+        a[aOffset + i] = (minuend - 1uL).toUInt()
+        borrow = if (minuend == 0uL) 1u else 0u
         i += 1
     }
 
     // note: we're required to fail on underflow
-    require(borrow == 0u && b.drop(len).all { it == 0u }) {
+    var trailingNonZero = false
+    for (k in len until b.size) {
+        if (b[k] != 0u) {
+            trailingNonZero = true
+            break
+        }
+    }
+    require(borrow == 0u && !trailingNonZero) {
         "Cannot subtract b from a because b is larger than a."
     }
 }
@@ -42,9 +41,10 @@ private fun sub2Rev(a: List<BigDigit>, b: MutableList<BigDigit>, len: Int = a.si
     var borrow = 0u
     var i = 0
     while (i < len) {
-        val (out, nextBorrow) = sbb(borrow, a[i], b[i])
-        b[i] = out
-        borrow = nextBorrow
+        val minuend = a[i].toULong()
+        val subtrahend = b[i].toULong() + borrow.toULong()
+        b[i] = (minuend - subtrahend).toUInt()
+        borrow = if (minuend < subtrahend) 1u else 0u
         i += 1
     }
     return borrow
@@ -55,7 +55,14 @@ private fun sub2RevFull(a: List<BigDigit>, b: MutableList<BigDigit>) {
     val borrow = sub2Rev(a, b, minOf(a.size, b.size))
 
     // note: we're required to fail on underflow
-    require(borrow == 0u && b.drop(a.size).all { it == 0u }) {
+    var trailingNonZero = false
+    for (k in a.size until b.size) {
+        if (b[k] != 0u) {
+            trailingNonZero = true
+            break
+        }
+    }
+    require(borrow == 0u && !trailingNonZero) {
         "Cannot subtract b from a because b is larger than a."
     }
 }

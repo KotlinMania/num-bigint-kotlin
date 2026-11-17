@@ -58,8 +58,12 @@ internal fun add2Carry(
  */
 internal fun __add2(a: MutableList<BigDigit>, b: List<BigDigit>): BigDigit = add2Carry(a, b)
 
-internal fun add2(a: MutableList<BigDigit>, b: List<BigDigit>) {
-    val carry = add2Carry(a, b)
+internal fun add2(
+    a: MutableList<BigDigit>,
+    b: List<BigDigit>,
+    aOffset: Int = 0,
+) {
+    val carry = add2Carry(a, b, aOffset = aOffset)
     check(carry == 0u)
 }
 

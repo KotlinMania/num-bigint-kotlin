@@ -49,16 +49,14 @@ internal fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int)
     }
 
     if (c == 0u) {
-        val upper = z.data.drop(n)
-        z.data.clear()
-        z.data.addAll(upper)
+        for (k in 0 until n) {
+            z.data[k] = z.data[n + k]
+        }
     } else {
-        val first = z.data.subList(0, n)
-        val second = z.data.subList(n, z.data.size)
-        subVv(first, second, m.data)
-        val lower = z.data.take(n)
-        z.data.clear()
-        z.data.addAll(lower)
+        subVv(z.data, z.data, m.data, xOffset = n)
+    }
+    repeat(n) {
+        z.data.removeAt(z.data.lastIndex)
     }
 
     return z
@@ -67,11 +65,11 @@ internal fun montgomery(x: BigUint, y: BigUint, m: BigUint, k: BigDigit, n: Int)
 internal fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit, zOffset: Int = 0): BigDigit {
     var c: BigDigit = 0u
     val len = minOf(z.size - zOffset, x.size)
+    val yLong = y.toULong()
     for (i in 0 until len) {
-        val (z1, z0) = mulAddWww(x[i], y, z[zOffset + i])
-        val (c0, zi) = addWw(z0, c, 0u)
-        z[zOffset + i] = zi
-        c = c0 + z1
+        val sum = x[i].toULong() * yLong + z[zOffset + i].toULong() + c.toULong()
+        z[zOffset + i] = sum.toUInt()
+        c = (sum shr BIG_DIGIT_BITS).toUInt()
     }
 
     return c
@@ -80,11 +78,16 @@ internal fun addMulVvw(z: MutableList<BigDigit>, x: List<BigDigit>, y: BigDigit,
 /**
  * The resulting carry c is either 0 or 1.
  */
-internal fun subVv(z: MutableList<BigDigit>, x: List<BigDigit>, y: List<BigDigit>): BigDigit {
+internal fun subVv(
+    z: MutableList<BigDigit>,
+    x: List<BigDigit>,
+    y: List<BigDigit>,
+    xOffset: Int = 0,
+): BigDigit {
     var c: BigDigit = 0u
-    val len = minOf(z.size, x.size, y.size)
+    val len = minOf(z.size, x.size - xOffset, y.size)
     for (i in 0 until len) {
-        val xi = x[i]
+        val xi = x[xOffset + i]
         val yi = y[i]
         val zi = xi - yi - c
         z[i] = zi
